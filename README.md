@@ -25,7 +25,7 @@ A simple and useful AutoHotKey script for Windows.
 
 [ *Recommend* ]
 
-1. Download and Run the `WINDOWS_AHK.exe` from one of the releases.
+1. Download and Run the `WINDOWS_AHK.exe` from one of the [releases](https://github.com/arlbibek/windows-ahk.git "Visit releases page").
 2. Done! _You shall now see the `WINDOWS_AHK.exe` file running on the system tray._
 
 ### Option 2
@@ -33,7 +33,7 @@ A simple and useful AutoHotKey script for Windows.
 [ _If you have trust issues with .exe(s) and/or want to make some changes_ ]
 
 1. First, Download and Install AutoHotKey [ *from one of the links above* ].
-2. Then, Download and Run the `WINDOWS.ahk` file from one of the releases (or you may clone the repo).
+2. Then, Download and Run the `WINDOWS.ahk` file from one of the [releases](https://github.com/arlbibek/windows-ahk.git "Visit releases page") (or you may clone the repo).
 3. Done! _You shall now see the `WINDOWS_AHK.ahk` file running on the system tray._
 
 > **To automatically start the script when you log on to the computer.**
