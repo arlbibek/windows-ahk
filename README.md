@@ -23,7 +23,7 @@ A simple and useful AutoHotKey script for Windows.
 
 ### Option 1
 
-[ *Recommend* ]
+[ *Recommended* ]
 
 1. Download and Run the `WINDOWS_AHK.exe` from one of the [releases](https://github.com/arlbibek/windows-ahk.git "Visit releases page").
 2. Done! _You shall now see the `WINDOWS_AHK.exe` file running on the system tray._
