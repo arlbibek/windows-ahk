@@ -237,7 +237,7 @@ Return
 
 ; NSFW 😈
 ^!s::
-    Run, %arlbibek%\arl-ahk\SP_AHK\SP_master.exe
+    Run, %arlbibek%\SP_AHK\SP_master.exe
 Return
 
 #IfWinActive ahk_exe slack.exe
