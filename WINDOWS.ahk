@@ -139,6 +139,10 @@ return
         WinActivate ahk_class CabinetWClass
 return
 
+#+e::
+    Run, explorer.exe
+Return
+
 ; navigating within the file Explorer
 #IfWinActive ahk_group ExplorerGroup
     ^+u::exp(userdir)
