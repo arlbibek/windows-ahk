@@ -32,16 +32,6 @@ screenshot := userdir . "Documents\ShareX\Screenshots\"
 
 ; FUNCTIONs
 
-; Tips (similar to mouse hover title text in html)
-showToolTip(title, wait:=1000)
-{
-    ToolTip, %title%,,,8
-    SetTimer, rmToolTip, %wait%
-}
-rmToolTip:
-    ToolTip,,,,8 ;removes the tooltip
-return
-
 exp(path){
     ; navigate to path using ctrl + l in file explorer
     Send, ^l^a
@@ -49,7 +39,6 @@ exp(path){
     Send, %path%
     Sleep, 50
     Send, {Enter}
-    showToolTip(path)
 }
 
 ; HOTKEYS
@@ -79,7 +68,6 @@ return
     GroupAdd, NotepadGroup, ahk_exe notepad.exe
     if WinActive("ahk_exe notepad.exe"){
         GroupActivate, NotepadGroup, r 
-        showToolTip("notepad")
     }
     else
         WinActivate ahk_exe notepad.exe
@@ -135,7 +123,6 @@ return
     GroupAdd, ActiveExplorers, ahk_class CabinetWClass
     if WinActive("ahk_exe explorer.exe"){
         GroupActivate, ActiveExplorers, r
-        showToolTip("Explorer")
     }
     else
         WinActivate ahk_class CabinetWClass
