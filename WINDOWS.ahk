@@ -103,8 +103,20 @@ return
     Run, firefox.exe
 return
 
+; F2 is rename
+
+; Spotify
+F3::
+    IfWinNotExist ahk_exe spotify.exe
+        Run spotify.exe
+    if WinActive("ahk_exe spotify.exe")
+        Send, ^+q ; close
+    else
+        WinActivate ahk_exe spotify.exe
+return
+
 ; VS Code
-!F2::
+F4::
     IfWinNotExist ahk_exe code.exe
         Run code.exe
     GroupAdd, CodeGroup, ahk_exe code.exe
@@ -112,16 +124,6 @@ return
         GroupActivate, CodeGroup, r
     else
         WinActivate ahk_exe code.exe
-return
-
-; Spotify
-!F3::
-    IfWinNotExist ahk_exe spotify.exe
-        Run spotify.exe
-    if WinActive("ahk_exe spotify.exe")
-        Send, ^+q ; close
-    else
-        WinActivate ahk_exe spotify.exe
 return
 
 ; File Explorer

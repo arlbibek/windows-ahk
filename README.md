@@ -57,8 +57,8 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 | ------------------------------------------------ | ---------------------------------------- |
 | <kbd>F1</kbd>                                    | Open/Switch/Cycle through Firefox        |
 | <kbd>Alt</kbd> + <kbd>F1</kbd>                   | Open Firefox (new window)                |
-| <kbd>Alt</kbd> + <kbd>F2</kbd>                   | Open/Switch/Cycle through VS Code        |
-| <kbd>Alt</kbd> + <kbd>F3</kbd>                   | Open/Switch/Close Spotify                |
+| <kbd>F3</kbd>                                    | Open/Switch/Close Spotify                |
+| <kbd>F4</kbd>                                    | Open/Switch/Cycle through VS Code        |
 | <kbd>Win</kbd> + <kbd>E</kbd>                    | Open/Switch/Cycle through File Explorer  |
 | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd> | Open File Explorer (new window)          |
 | <kbd>Win</kbd> + <kbd>N</kbd>                    | Open/Switch/Cycle through Notepad        |
@@ -90,7 +90,7 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 
 `WindowsTerminal` `PowerShell` `Command Prompt` `Debian (wsl)` `Kali (wsl)` `Ubuntu (wsl)`
 
-| Keyboard Shortcuts                                 | Action                                                      |
+| Key                                                | Action                                                      |
 | -------------------------------------------------- | ----------------------------------------------------------- |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>\\</kbd> | Open VS Code in Current Working Directory (_uses `code .`_) |
 
