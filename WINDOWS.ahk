@@ -98,7 +98,7 @@ F3::
     IfWinNotExist ahk_exe spotify.exe
         Run spotify.exe
     if WinActive("ahk_exe spotify.exe")
-        Send, ^+q ; close
+        WinMinimize, ahk_exe spotify.exe ; minimize
     else
         WinActivate ahk_exe spotify.exe
 return

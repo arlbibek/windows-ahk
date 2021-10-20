@@ -57,7 +57,7 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 | ------------------------------------------------ | ---------------------------------------- |
 | <kbd>F1</kbd>                                    | Open/Switch/Cycle through Firefox        |
 | <kbd>Alt</kbd> + <kbd>F1</kbd>                   | Open Firefox (new window)                |
-| <kbd>F3</kbd>                                    | Open/Switch/Close Spotify                |
+| <kbd>F3</kbd>                                    | Open/Switch/Minimize Spotify             |
 | <kbd>F4</kbd>                                    | Open/Switch/Cycle through VS Code        |
 | <kbd>Win</kbd> + <kbd>E</kbd>                    | Open/Switch/Cycle through File Explorer  |
 | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd> | Open File Explorer (new window)          |
