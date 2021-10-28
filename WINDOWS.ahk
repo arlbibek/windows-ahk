@@ -76,6 +76,19 @@ return
     Run, notepad.exe
 return
 
+; Joplin - notes
+#j::
+    IfWinNotExist, ahk_exe ahk_exe Joplin.exe
+        Run, Joplin.exe
+    if WinActive("ahk_exe Joplin.exe")
+        WinMinimize, ahk_exe Joplin.exe ; minimize
+    else
+        WinActivate ahk_exe Joplin.exe
+return
+#+j::
+    Run, Joplin.exe
+return
+
 ; Firefox
 F1::
     IfWinNotExist, ahk_exe firefox.exe
@@ -91,7 +104,7 @@ return
     Run, firefox.exe
 return
 
-; F2 is rename
+; F2::is Rename
 
 ; Spotify
 F3::
@@ -113,6 +126,15 @@ F4::
     else
         WinActivate ahk_exe code.exe
 return
+
+; F5::is Refresh
+; F6::
+; F7::
+; F8::
+; F9::
+; F10::
+; F11::is Full Screen
+; F12::Opens chrome from my other script
 
 ; File Explorer
 
@@ -220,18 +242,8 @@ Return
 ::/wc::Welcome
 ::/mp::My pleasure
 ::/lorem::Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-::/svkm:: 
-    SendInput, को हार्दिक मंगलमय शुभकामना{!}^{Left}^{Left}^{Left}^{Left}
-Return
-::/jdksvkm::
-    SendInput, जन्मदिनको धेरै धेरै शुभकामना NAME ।^{Left}^{Left}^+{Right}
-Return
-::/party?::पार्टी कहीले? 🥳
 
 ; NSFW 😈
-^!s::
-    Run, %arlbibek%\SP_AHK\SP_master.exe
-Return
 
 #IfWinActive ahk_exe slack.exe
     ::/wct::Hi, Welcome to the team. 🙏 `:play_piano:` 🎊 `:partyparrot:`
@@ -239,3 +251,4 @@ Return
 
 ; That is all. 
 ; Made with ❤️ by Bibek Aryal. 
+

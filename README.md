@@ -63,6 +63,8 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd> | Open File Explorer (new window)          |
 | <kbd>Win</kbd> + <kbd>N</kbd>                    | Open/Switch/Cycle through Notepad        |
 | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd> | Open Notepad (new window)                |
+| <kbd>Win</kbd> + <kbd>J</kbd>                    | Open/Switch/Minimize Joplin              |
+| <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd> | Open Joplin (new window)                 |
 | <kbd>Win</kbd> + <kbd>S</kbd>                    | Search selected text via default browser |
 
 #### File Explorer
@@ -137,10 +139,6 @@ Assuming today's date and time is `Sunday, October 10, 2021, 02:55 PM`
 | `/wc`        | Welcome                                                                    |
 | `/mp`        | My pleasure                                                                |
 | `/lorem`     | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod... |
-| **Misc**     | 🤵                                                                         |
-| `/svkm`      | \|को हार्दिक मंगलमय शुभकामना!                                              |
-| `/jdksvkm`   | जन्मदिनको धेरै धेरै शुभकामना `NAME\|` ।                                    |
-| `/party?`    | पार्टी कहीले? 🥳                                                           |
 
 ---
 
