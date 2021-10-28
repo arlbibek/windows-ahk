@@ -78,21 +78,48 @@ return
 
 ; Joplin - notes
 #j::
-    IfWinNotExist, ahk_exe ahk_exe Joplin.exe
-        Run, Joplin.exe
+    try 
+    {
+        IfWinNotExist, ahk_exe Joplin.exe
+            Run, Joplin.exe
+    }
+    catch e
+    {
+        err := e.extra
+        FileNotFound := "The system cannot find the file specified."
+        IfInString, err, %FileNotFound%
+        {
+            MsgBox, % "`n"e.extra "`n"e.message "`n`nNote: Please consider adding the respective program (folder) to the PATH of the System Variables. (This may need system restart to take effect)" 
+            return
+        }
+        else
+            MsgBox, 16,, % e.extra "`n"e.message 
+    }
     if WinActive("ahk_exe Joplin.exe")
         WinMinimize, ahk_exe Joplin.exe ; minimize
     else
         WinActivate ahk_exe Joplin.exe
 return
-#+j::
-    Run, Joplin.exe
-return
 
 ; Firefox
 F1::
-    IfWinNotExist, ahk_exe firefox.exe
-        Run, firefox.exe
+    try 
+    {
+        IfWinNotExist, ahk_exe firefox.exe
+            Run, firefox.exe
+    }
+    catch e
+    {
+        err := e.extra
+        FileNotFound := "The system cannot find the file specified."
+        IfInString, err, %FileNotFound%
+        {
+            MsgBox, % "`n"e.extra "`n"e.message "`n`nNote: Please consider adding the respective program (folder) to the PATH of the System Variables. (This may need system restart to take effect)" 
+            return
+        }
+        else
+            MsgBox, 16,, % e.extra "`n"e.message 
+    }
     GroupAdd, FirefoxGroup, ahk_exe firefox.exe
     if WinActive("ahk_exe firefox.exe"){
         GroupActivate, FirefoxGroup, r ; OR REPLACE WITH: Send, ^{Tab}
@@ -100,16 +127,48 @@ F1::
     else
         WinActivate ahk_exe firefox.exe
 return
+
 !F1::
-    Run, firefox.exe
+    try 
+    {
+        IfWinNotExist, ahk_exe Joplin.exe
+            Run, firefox.exe
+    }
+    catch e
+    {
+        err := e.extra
+        FileNotFound := "The system cannot find the file specified."
+        IfInString, err, %FileNotFound%
+        {
+            MsgBox, % "`n"e.extra "`n"e.message "`n`nNote: Please consider adding the respective program (folder) to the PATH of the System Variables. (This may need system restart to take effect)" 
+            return
+        }
+        else
+            MsgBox, 16,, % e.extra "`n"e.message 
+    }
 return
 
 ; F2::is Rename
 
 ; Spotify
 F3::
-    IfWinNotExist ahk_exe spotify.exe
-        Run spotify.exe
+    try 
+    {
+        IfWinNotExist ahk_exe spotify.exe
+            Run spotify.exe
+    }
+    catch e
+    {
+        err := e.extra
+        FileNotFound := "The system cannot find the file specified."
+        IfInString, err, %FileNotFound%
+        {
+            MsgBox, % "`n"e.extra "`n"e.message "`n`nNote: Please consider adding the respective program (folder) to the PATH of the System Variables. (This may need system restart to take effect)" 
+            return
+        }
+        else
+            MsgBox, 16,, % e.extra "`n"e.message 
+    }
     if WinActive("ahk_exe spotify.exe")
         WinMinimize, ahk_exe spotify.exe ; minimize
     else
@@ -118,8 +177,24 @@ return
 
 ; VS Code
 F4::
-    IfWinNotExist ahk_exe code.exe
-        Run code.exe
+
+    try 
+    {
+        IfWinNotExist ahk_exe code.exe
+            Run code.exe
+    }
+    catch e
+    {
+        err := e.extra
+        FileNotFound := "The system cannot find the file specified."
+        IfInString, err, %FileNotFound%
+        {
+            MsgBox, % "`n"e.extra "`n"e.message "`n`nNote: Please consider adding the respective program (folder) to the PATH of the System Variables. (This may need system restart to take effect)" 
+            return
+        }
+        else
+            MsgBox, 16,, % e.extra "`n"e.message 
+    }
     GroupAdd, CodeGroup, ahk_exe code.exe
     if WinActive("ahk_exe code.exe")
         GroupActivate, CodeGroup, r
