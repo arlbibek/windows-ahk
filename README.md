@@ -64,7 +64,6 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 | <kbd>Win</kbd> + <kbd>N</kbd>                    | Open/Switch/Cycle through Notepad        |
 | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd> | Open Notepad (new window)                |
 | <kbd>Win</kbd> + <kbd>J</kbd>                    | Open/Switch/Minimize Joplin              |
-| <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd> | Open Joplin (new window)                 |
 | <kbd>Win</kbd> + <kbd>S</kbd>                    | Search selected text via default browser |
 
 #### File Explorer
