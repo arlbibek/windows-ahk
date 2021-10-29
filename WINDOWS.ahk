@@ -287,7 +287,7 @@ Return
     FormatTime, CurrentDate,, MM/dd/yyyy
     SendInput, %CurrentDate%
 Return
-::/today::
+::/weekday::
     FormatTime, CurrentDate,, dddd
     SendInput, %CurrentDate%
 Return
