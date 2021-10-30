@@ -25,16 +25,18 @@ A simple and useful AutoHotKey script for Windows.
 
 [ *Recommended* ]
 
-1. Download and Run the `WINDOWS_AHK.exe` from one of the [releases](https://github.com/arlbibek/windows-ahk.git "Visit releases page").
-2. Done! _You shall now see the `WINDOWS_AHK.exe` file running on the system tray._
+1. Download the `WINDOWS_AHK.exe` from one of the [releases](https://github.com/arlbibek/windows-ahk.git "Visit releases page").
+2. Run the `WINDOWS_AHK.exe` file.
+3. Done! _You shall now see the `WINDOWS_AHK.exe` file running on the system tray._
 
 ### Option 2
 
 [ _If you have trust issues with .exe(s) and/or want to make some changes_ ]
 
 1. First, Download and Install AutoHotKey [ *from one of the links above* ].
-2. Then, Download and Run the `WINDOWS.ahk` file from one of the [releases](https://github.com/arlbibek/windows-ahk.git "Visit releases page") (or you may clone the repo).
-3. Done! _You shall now see the `WINDOWS_AHK.ahk` file running on the system tray._
+2. Then, Download the `WINDOWS.ahk` file from one of the [releases](https://github.com/arlbibek/windows-ahk.git "Visit releases page") (or you may clone the repo).
+3. Run the `WINDOWS.ahk` file.
+4. Done! _You shall now see the `WINDOWS_AHK.ahk` file running on the system tray._
 
 > **To automatically start the script when you log on to the computer.**
 >
@@ -53,25 +55,25 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 
 #### Global
 
-| Key                                              | Action                                   |
-| ------------------------------------------------ | ---------------------------------------- |
-| <kbd>F1</kbd>                                    | Open/Switch/Cycle through Firefox        |
-| <kbd>Alt</kbd> + <kbd>F1</kbd>                   | Open Firefox (new window)                |
-| <kbd>F3</kbd>                                    | Open/Switch/Minimize Spotify             |
-| <kbd>F4</kbd>                                    | Open/Switch/Cycle through VS Code        |
-| <kbd>Win</kbd> + <kbd>E</kbd>                    | Open/Switch/Cycle through File Explorer  |
-| <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd> | Open File Explorer (new window)          |
-| <kbd>Win</kbd> + <kbd>N</kbd>                    | Open/Switch/Cycle through Notepad        |
-| <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd> | Open Notepad (new window)                |
-| <kbd>Win</kbd> + <kbd>J</kbd>                    | Open/Switch/Minimize Joplin              |
-| <kbd>Win</kbd> + <kbd>S</kbd>                    | Search selected text via default browser |
+| Key                                              | Action                                      |
+| ------------------------------------------------ | ------------------------------------------- |
+| <kbd>F1</kbd>                                    | Open/Switch/Cycle through Firefox           |
+| <kbd>Alt</kbd> + <kbd>F1</kbd>                   | Open Firefox (new window)                   |
+| <kbd>F3</kbd>                                    | Open/Switch/Minimize Spotify                |
+| <kbd>F4</kbd>                                    | Open/Switch/Cycle through VS Code           |
+| <kbd>Win</kbd> + <kbd>E</kbd>                    | Open/Switch/Cycle through File Explorer     |
+| <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd> | Open File Explorer (new window)             |
+| <kbd>Win</kbd> + <kbd>N</kbd>                    | Open/Switch/Cycle through Notepad           |
+| <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd> | Open Notepad (new window)                   |
+| <kbd>Win</kbd> + <kbd>J</kbd>                    | Open/Switch/Minimize Joplin                 |
+| <kbd>Win</kbd> + <kbd>S</kbd>                    | Search selected text via default browser 🔍 |
 
 #### File Explorer
 
 | Key                                                | Action                                                                                                                                    |
 | -------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | <kbd>Win</kbd> + <kbd>E</kbd>                      | Cycle through all the active File Explorers                                                                                               |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>U</kbd>  | Navigate to User directory 👤                                                                                                             |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>U</kbd>  | Navigate to Current user directory 👤                                                                                                     |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd>  | Navigate to This Pc 💻                                                                                                                    |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>H</kbd>  | Navigate to the Desktop (H for Home 😅)                                                                                                   |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd>  | Navigate to the Documents directory 📄                                                                                                    |
@@ -143,6 +145,4 @@ Assuming today's date and time is `Sunday, October 10, 2021, 02:55 PM`
 
 That is all.
 
-Best,
-
-[Bibek Aryal](https://arlbibek.github.io/)
+Made with ❤️ by [Bibek Aryal](https://bibeka.com.np/).

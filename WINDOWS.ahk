@@ -209,7 +209,7 @@ return
 ; F9::
 ; F10::
 ; F11::is Full Screen
-; F12::Opens chrome from my other script
+; F12::
 
 ; File Explorer
 
@@ -317,12 +317,6 @@ Return
 ::/wc::Welcome
 ::/mp::My pleasure
 ::/lorem::Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-; NSFW 😈
-
-#IfWinActive ahk_exe slack.exe
-    ::/wct::Hi, Welcome to the team. 🙏 `:play_piano:` 🎊 `:partyparrot:`
-#IfWinActive
 
 ; That is all. 
 ; Made with ❤️ by Bibek Aryal. 
