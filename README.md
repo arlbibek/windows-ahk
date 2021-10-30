@@ -1,6 +1,6 @@
 # AHK for Windows
 
-A simple and useful AutoHotKey script for Windows.
+A simple and intuitive AutoHotKey script for enhancing windows shortcuts and improving your workflow.
 
 > ## AutoHotKey
 >
