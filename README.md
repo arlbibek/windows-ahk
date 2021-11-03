@@ -1,6 +1,6 @@
 # AHK for Windows
 
-A simple and intuitive AutoHotKey script for enhancing windows shortcuts and improving your workflow.
+A simple and intuitive AutoHotKey script for enhancing windows shortcuts, dedicated to improving users’ workflow.
 
 > ## AutoHotKey
 >
@@ -25,7 +25,7 @@ A simple and intuitive AutoHotKey script for enhancing windows shortcuts and imp
 
 [ *Recommended* ]
 
-1. Download the `WINDOWS_AHK.exe` from one of the [releases](https://github.com/arlbibek/windows-ahk.git "Visit releases page").
+1. Download the `WINDOWS_AHK.exe` from one of the [releases](https://github.com/arlbibek/windows-ahk/releases "Visit releases page").
 2. Run the `WINDOWS_AHK.exe` file.
 3. Done! _You shall now see the `WINDOWS_AHK.exe` file running on the system tray._
 
@@ -34,7 +34,7 @@ A simple and intuitive AutoHotKey script for enhancing windows shortcuts and imp
 [ _If you have trust issues with .exe(s) and/or want to make some changes_ ]
 
 1. First, Download and Install AutoHotKey [ *from one of the links above* ].
-2. Then, Download the `WINDOWS.ahk` file from one of the [releases](https://github.com/arlbibek/windows-ahk.git "Visit releases page") (or you may clone the repo).
+2. Then, Download the `WINDOWS.ahk` file from one of the [releases](https://github.com/arlbibek/windows-ahk/releases "Visit releases page") (or you may clone the repo).
 3. Run the `WINDOWS.ahk` file.
 4. Done! _You shall now see the `WINDOWS.ahk` file running on the system tray._
 
