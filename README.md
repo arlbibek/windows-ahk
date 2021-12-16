@@ -55,18 +55,18 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 
 #### Global
 
-| Key                                              | Action                                      |
-| ------------------------------------------------ | ------------------------------------------- |
-| <kbd>F1</kbd>                                    | Open/Switch/Cycle through Firefox           |
-| <kbd>Alt</kbd> + <kbd>F1</kbd>                   | Open Firefox (new window)                   |
-| <kbd>F3</kbd>                                    | Open/Switch/Minimize Spotify                |
-| <kbd>F4</kbd>                                    | Open/Switch/Cycle through VS Code           |
-| <kbd>Win</kbd> + <kbd>E</kbd>                    | Open/Switch/Cycle through File Explorer     |
-| <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd> | Open File Explorer (new window)             |
-| <kbd>Win</kbd> + <kbd>N</kbd>                    | Open/Switch/Cycle through Notepad           |
-| <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd> | Open Notepad (new window)                   |
-| <kbd>Win</kbd> + <kbd>J</kbd>                    | Open/Switch/Minimize Joplin                 |
-| <kbd>Win</kbd> + <kbd>S</kbd>                    | Search selected text via default browser 🔍 |
+| Key                                              | Action                                                              |
+| ------------------------------------------------ | ------------------------------------------------------------------- |
+| <kbd>F1</kbd>                                    | Open/Switch/Cycle through Firefox                                   |
+| <kbd>Alt</kbd> + <kbd>F1</kbd>                   | Open Firefox (new window)                                           |
+| <kbd>F3</kbd>                                    | Open/Switch/Minimize Spotify                                        |
+| <kbd>F4</kbd>                                    | Open/Switch/Cycle through VS Code                                   |
+| <kbd>Win</kbd> + <kbd>E</kbd>                    | Open/Switch/Cycle through File Explorer                             |
+| <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd> | Open File Explorer (new window)                                     |
+| <kbd>Win</kbd> + <kbd>N</kbd>                    | Open/Switch/Cycle through Notepad                                   |
+| <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd> | Open Notepad (new window)                                           |
+| <kbd>Win</kbd> + <kbd>J</kbd>                    | Open/Switch/Minimize Joplin                                         |
+| <kbd>Win</kbd> + <kbd>S</kbd>                    | Search selected text via active browser (or the default browser) 🔍 |
 
 #### File Explorer
 

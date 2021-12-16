@@ -15,7 +15,12 @@ GroupAdd, TerminalGroup, ahk_exe kali.exe
 GroupAdd, TerminalGroup, ahk_exe ubuntu.exe
 
 GroupAdd, ExplorerGroup, ahk_class #32770 ;This is for all the Explorer-based "save" and "load" boxes, from any program!
-GroupAdd, ExplorerGroup, ahk_class CabinetWClass 
+GroupAdd, ExplorerGroup, ahk_class CabinetWClass
+
+GroupAdd, BrowserGroup, ahk_exe firefox.exe
+GroupAdd, BrowserGroup, ahk_exe chrome.exe
+GroupAdd, BrowserGroup, ahk_exe brave.exe
+GroupAdd, BrowserGroup, ahk_exe msedge.exe
 
 ; dir
 userdir := "C:\Users\" . A_UserName . "\"
@@ -46,18 +51,53 @@ exp(path){
 ; Search selected text/clipboard on the web
 #s::
     if WinActive("ahk_group TerminalGroup")
+    {
         Send, ^+c
+    }
     else
+    {
         Send, ^c
-
-    Sleep, 100
+    }
+    Sleep, 50
 
     IfInString, Clipboard, http
+
+    if WinActive("ahk_group BrowserGroup")
+    {
+        Send, ^t
+        Sleep, 50
+        Send, %Clipboard%
+        Sleep, 50
+        Send, {Return}
+    }
+    else 
         Run, %Clipboard%
-    else
+    else 
         IfInString, Clipboard, www
-        Run, %Clipboard%
+    {
+
+        if WinActive("ahk_group BrowserGroup")
+        {
+            Send, ^t
+            Sleep, 50
+            Send, %Clipboard%
+            Sleep, 50
+            Send, {Return}
+        }
+        else 
+            Run, %Clipboard%
+    }
     else
+
+    if WinActive("ahk_group BrowserGroup")
+    {
+        Send, ^t
+        Sleep, 50
+        Send, %Clipboard%
+        Sleep, 50
+        Send, {Return}
+    }
+    else 
         Run https://duckduckgo.com/?t=ffab&q=%Clipboard%&atb=v292-4&ia=web
 return
 
