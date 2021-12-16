@@ -51,54 +51,26 @@ exp(path){
 ; Search selected text/clipboard on the web
 #s::
     if WinActive("ahk_group TerminalGroup")
-    {
         Send, ^+c
-    }
     else
-    {
         Send, ^c
-    }
-    Sleep, 50
 
-    IfInString, Clipboard, http
-
-    if WinActive("ahk_group BrowserGroup")
+    Sleep, 30
+    if WinActive("ahk_group BrowserGroup") 
     {
-        Send, ^t
-        Sleep, 50
-        Send, %Clipboard%
-        Sleep, 50
-        Send, {Return}
+        Send, ^t%Clipboard%{Enter}
     }
     else 
-        Run, %Clipboard%
-    else 
-        IfInString, Clipboard, www
     {
-
-        if WinActive("ahk_group BrowserGroup")
+        if ((InStr(Clipboard, "http://") = 1) or (InStr(Clipboard, "https://") = 1) or (InStr(Clipboard, "www.") = 1))
         {
-            Send, ^t
-            Sleep, 50
-            Send, %Clipboard%
-            Sleep, 50
-            Send, {Return}
-        }
-        else 
             Run, %Clipboard%
+        }
+        else
+        {
+            Run, https://duckduckgo.com/?t=ffab&q=%Clipboard%&atb=v292-4&ia=web
+        }
     }
-    else
-
-    if WinActive("ahk_group BrowserGroup")
-    {
-        Send, ^t
-        Sleep, 50
-        Send, %Clipboard%
-        Sleep, 50
-        Send, {Return}
-    }
-    else 
-        Run https://duckduckgo.com/?t=ffab&q=%Clipboard%&atb=v292-4&ia=web
 return
 
 ; Notepad
