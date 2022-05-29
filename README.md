@@ -55,18 +55,23 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 
 #### Global
 
-| Key                                              | Action                                                              |
-| ------------------------------------------------ | ------------------------------------------------------------------- |
-| <kbd>F1</kbd>                                    | Open/Switch/Cycle through Firefox                                   |
-| <kbd>Alt</kbd> + <kbd>F1</kbd>                   | Open Firefox (new window)                                           |
-| <kbd>F3</kbd>                                    | Open/Switch/Minimize Spotify                                        |
-| <kbd>F4</kbd>                                    | Open/Switch/Cycle through VS Code                                   |
-| <kbd>Win</kbd> + <kbd>E</kbd>                    | Open/Switch/Cycle through File Explorer                             |
-| <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd> | Open File Explorer (new window)                                     |
-| <kbd>Win</kbd> + <kbd>N</kbd>                    | Open/Switch/Cycle through Notepad                                   |
-| <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd> | Open Notepad (new window)                                           |
-| <kbd>Win</kbd> + <kbd>J</kbd>                    | Open/Switch/Minimize Joplin                                         |
-| <kbd>Win</kbd> + <kbd>S</kbd>                    | Search selected text via active browser (or the default browser) 🔍 |
+| Key                                              | Action                                                                        |
+| ------------------------------------------------ | ----------------------------------------------------------------------------- |
+| <kbd>F1</kbd>                                    | Open/Switch/Cycle through Firefox                                             |
+| <kbd>Alt</kbd> + <kbd>F1</kbd>                   | Open Firefox (new window)                                                     |
+| <kbd>F3</kbd>                                    | Open/Switch/Minimize Spotify                                                  |
+| <kbd>F4</kbd>                                    | Open/Switch/Cycle through VS Code                                             |
+| <kbd>F5</kbd>                                    | \*is Refresh                                                                  |
+| <kbd>F6</kbd>                                    | Open/Switch to/Minimize Microsoft Word                                        |
+| <kbd>F7</kbd>                                    | Open/Switch to/Minimize Microsoft Excel                                       |
+| <kbd>Win</kbd> + <kbd>E</kbd>                    | Open/Switch/Cycle through File Explorer                                       |
+| <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd> | Open File Explorer (new window)                                               |
+| <kbd>Win</kbd> + <kbd>N</kbd>                    | Open/Switch/Cycle through Notepad                                             |
+| <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd> | Open Notepad (new window)                                                     |
+| <kbd>Win</kbd> + <kbd>S</kbd>                    | Search selected text via active browser (or the default browser) 🔍           |
+| <kbd>Alt</kbd> + <kbd>7</kbd>                    | Transform selected text to lower case (eg. `Hello, Word!` to `hello, word!`)  |
+| <kbd>Alt</kbd> + <kbd>8</kbd>                    | Transform selected text to titled case (eg. `hello, word!` to `Hello, Word!`) |
+| <kbd>Alt</kbd> + <kbd>9</kbd>                    | Transform selected text to upper case (eg. `Hello, Word!` to `HELLO, WORD!`)  |
 
 #### File Explorer
 
@@ -82,8 +87,8 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>  | Navigate to the Pictures directory 🖼                                                                                                      |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd>  | Navigate to the Videos directory 📼                                                                                                       |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd>  | Navigate to `C:\` 💾                                                                                                                      |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>A</kbd>  | Navigate to arlbibek directory 🤵                                                                                                         |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>  | Navigate to Screenshot directory 🤵                                                                                                       |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>A</kbd>  | 🤵 Navigate to arlbibek directory                                                                                                         |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>  | 🤵 Navigate to Screenshot directory                                                                                                       |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>T</kbd>  | Open Windows Terminal in Current Working Directory                                                                                        |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>\\</kbd> | Open VS Code in Current Working Directory (_uses context menu_); <br/> _And if a file/folder is selected this will create it's shortcut;_ |
 
@@ -98,6 +103,23 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>\\</kbd> | Open VS Code in Current Working Directory (_uses `code .`_) |
 
 > **Note:** _For those hotkeys that throw an error saying `Error. Failed attempt to launch program or document:` ... `Specifically: The system cannot find the file specified.`, please consider adding the respective program (folder) to the [path of your system variables](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/ "See: Add to the PATH on Windows 10")._
+
+### Google Docs/Sheets
+
+Note that the following command will (only) work within google docs or the sheets window regardless of the browser.
+
+and it is highly recommended that you disable the google sheets autocomplete feature. [ `Menu >> Tools >> Autocomplete` *Uncheck the* `Enable autocomplete` *option* ]
+
+| Key                                              | Action                                          |
+| ------------------------------------------------ | ----------------------------------------------- |
+| <kbd>Ctrl</kbd> + <kbd>Insert</kbd>              | Opens comment box                               |
+| <kbd>Ctrl</kbd> + <kbd>8</kbd>                   | Strike selected text(s)/shell(s)                |
+| <kbd>Alt</kbd> + <kbd>1</kbd>                    | Highlight selected text(s)/shell(s) (yellow)    |
+| <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>1</kbd> | Remove Highlight from selected text(s)/shell(s) |
+| <kbd>Alt</kbd> + <kbd>2</kbd>                    | Wrap selected shell(s) _(\*Google Sheets only)_ |
+| <kbd>Ctrl</kbd> + <kbd>3</kbd>                   | Trim whitespace _(\*Google Sheets only)_        |
+| <kbd>Ctrl</kbd> + <kbd>4</kbd>                   | Spell check                                     |
+| <kbd>Ctrl</kbd> + <kbd>Delete</kbd>              | Move the current sheet/doc to Trash             |
 
 ### Hotstring
 

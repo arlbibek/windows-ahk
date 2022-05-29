@@ -46,9 +46,68 @@ exp(path){
     Send, {Enter}
 }
 
+pathErrMsgBox(eextra, emessage){
+    MsgBox, % "`n"eextra "`n"emessage "`n`nNote: Please consider adding the respective program (folder) to the PATH of the System Variables. (This may need system restart to take effect)"
+}
+
+errMsgBox(eextra, emessage){
+    MsgBox, 16,, % e.extra "`n"e.message 
+}
+
+docSheetWr(text){
+    ; For Google Docs/Sheets only
+    gdoc := " - Google Docs"
+    gsheet := " - Google Sheets"
+    WinGetActiveTitle, ActiveTitle
+    if InStr(ActiveTitle, gdoc, True) || InStr(ActiveTitle, gsheet, True) {
+        Send, %text%
+    }
+}
+
+docWr(text){
+    ; For Google Docs
+    gdoc := " - Google Docs"
+    WinGetActiveTitle, ActiveTitle
+    if InStr(ActiveTitle, gdoc, True) {
+        Send, %text%
+    }
+}
+
+sheetWr(text){
+    ; For Google Sheets
+    gsheet := " - Google Sheets"
+    WinGetActiveTitle, ActiveTitle
+    if InStr(ActiveTitle, gsheet, True) {
+        Send, %text%
+    }
+}
+
+changeCaseTo(case){
+    ; Change selected text to "lower", "capitalize" or "upper" case
+    ClipSave = %ClipboardAll%
+    Clipboard := "" 
+    Send, ^c
+    Sleep, 10
+    if (case == "lower"){
+        StringLower, Clipboard, Clipboard
+    } else if (case == "cap" or case == "capitalize") {
+        StringUpper Clipboard, Clipboard, T
+    } else if (case == "upper") {
+        StringUpper, Clipboard, Clipboard
+    } else {
+        MsgBox,, Invalid input, Invalid input for case: %case%, 
+    }
+    Sleep, 10
+    SendRaw, %Clipboard%
+    Len := Strlen(Clipboard)
+    Send +{left %Len%}
+    Sleep, 10
+    Clipboard := ClipSave
+}
+
 ; HOTKEYS
 
-; Search selected text/clipboard on the web
+; Search Selected Text/Clipboard On The Web
 #s::
     if WinActive("ahk_group TerminalGroup")
         Send, ^+c
@@ -88,30 +147,21 @@ return
     Run, notepad.exe
 return
 
-; Joplin - notes
-#j::
-    try 
-    {
-        IfWinNotExist, ahk_exe Joplin.exe
-            Run, Joplin.exe
-    }
-    catch e
-    {
-        err := e.extra
-        FileNotFound := "The system cannot find the file specified."
-        IfInString, err, %FileNotFound%
-        {
-            MsgBox, % "`n"e.extra "`n"e.message "`n`nNote: Please consider adding the respective program (folder) to the PATH of the System Variables. (This may need system restart to take effect)" 
-            return
-        }
-        else
-            MsgBox, 16,, % e.extra "`n"e.message 
-    }
-    if WinActive("ahk_exe Joplin.exe")
-        WinMinimize, ahk_exe Joplin.exe ; minimize
-    else
-        WinActivate ahk_exe Joplin.exe
-return
+; Transform selected text to: 
+; lower case
+!7:: 
+    changeCaseTo("lower")
+Return
+
+; titled case (capitalize)
+!8:: 
+    changeCaseTo("cap")
+Return
+
+; upper case
+!9:: 
+    changeCaseTo("upper")
+Return
 
 ; Firefox
 F1::
@@ -134,7 +184,8 @@ F1::
     }
     GroupAdd, FirefoxGroup, ahk_exe firefox.exe
     if WinActive("ahk_exe firefox.exe"){
-        GroupActivate, FirefoxGroup, r ; OR REPLACE WITH: Send, ^{Tab}
+        GroupActivate, FirefoxGroup, r 
+        ; Send, ^{Tab}
     }
     else
         WinActivate ahk_exe firefox.exe
@@ -215,8 +266,57 @@ F4::
 return
 
 ; F5::is Refresh
-; F6::
-; F7::
+
+; F6 : MICROSOFT WORD
+
+F6::
+    try 
+    {
+        IfWinNotExist ahk_exe winword.exe
+            Run winword.exe
+    }
+    catch e
+    {
+        err := e.extra
+        FileNotFound := "The system cannot find the file specified."
+        IfInString, err, %FileNotFound%
+        {
+            pathErrMsgBox(e.extra, e.message)
+        }
+        else
+            errMsgBox(e.extra, e.message)
+    }
+    if WinActive("ahk_exe winword.exe")
+        Send, #m
+    else
+        WinActivate ahk_exe winword.exe
+return
+
+; F7 : MICROSOFT EXCEL 
+
+F7::
+    try 
+    {
+        IfWinNotExist ahk_exe excel.exe
+            Run excel.exe
+    }
+    catch e
+    {
+        err := e.extra
+        FileNotFound := "The system cannot find the file specified."
+        IfInString, err, %FileNotFound%
+        {
+            pathErrMsgBox(e.extra, e.message)
+        }
+        else
+            errMsgBox(e.extra, e.message)
+    }
+    if WinActive("ahk_exe excel.exe")
+        Send, #m
+    else
+        WinActivate ahk_exe excel.exe
+return
+
 ; F8::
 ; F9::
 ; F10::
@@ -272,6 +372,55 @@ Return
 Return
 #IfWinActive
 
+; GOOGLE DOCS/SHEETS
+
+^Insert::docSheetWr("^!m")
+
+;  strike selected text
+^8::docSheetWr("!+5")
+
+; Highlight selected text/shell
+!1::
+    docSheetWr("!/Highlight color: " . "yellow")
+    Sleep, 200
+    docSheetWr("{Enter}")
+return
+
+; Remove Highlight for selected text/shell(s)
+!+1::
+    docSheetWr("!/Highlight color: none")
+    Sleep, 200
+    docSheetWr("{Enter}")
+return
+
+; Wrap selected shell (Sheets only)
+!2::
+    sheetWr("!/Wrap text{Down}{Down}{Enter}")
+    ; Sleep, 200
+    ; sheetWr("{Enter}")
+return
+
+; Trim whitespace (Sheets only)
+!3::
+    sheetWr("!/Trim whitespace")
+    Sleep, 200
+    docSheetWr("{Enter}")
+return
+
+; Spell check
+!4::
+    docSheetWr("!/Spell check")
+    Sleep, 200
+    docSheetWr("{Enter}")
+return
+
+; move the current sheet/docs to trash
+^Delete::
+    docSheetWr("!/Move to trash")
+    Sleep, 200
+    docSheetWr("{Enter}")
+return
+
 ; HOTSTRINGS
 
 ; Current Date and Time
@@ -299,7 +448,7 @@ Return
     FormatTime, CurrentDate,, MM/dd/yyyy
     SendInput, %CurrentDate%
 Return
-::/weekday::
+::/week::
     FormatTime, CurrentDate,, dddd
     SendInput, %CurrentDate%
 Return
