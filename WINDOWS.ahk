@@ -469,6 +469,9 @@ Return
     SendInput, %CurrentDate%
 Return
 
+; more
+::/nrd::npm run dev
+
 ; Others
 ::/gm::Good morning
 ::/ge::Good evening
@@ -476,9 +479,9 @@ Return
 ::/ty::Thank you
 ::/tyvm::Thank you very much
 ::/wc::Welcome
-::/mp::My pleasure
+::/mp::My pleasure!
 ::/lorem::Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
+::/plankton::Plankton are the diverse collection of organisms found in water that are unable to propel themselves against a current. The individual organisms constituting plankton are called plankters. In the ocean, they provide a crucial source of food to many small and large aquatic organisms, such as bivalves, fish and whales.
 ; That is all. 
 ; Made with ❤️ by Bibek Aryal. 
 
