@@ -359,7 +359,7 @@ Return
 ; opening programs via file explorer
 #IfWinActive ahk_class CabinetWClass 
     ^+t::exp("wt") ; windows terminal
-    ^+\::Send, {AppsKey}{Up}{Up}{Up}{Up}{Enter} ; vscode in current directory
+    ^+\::Send, {AppsKey}{Up 4}{Enter} ; vscode in current directory
 #IfWinActive
 
 ; TERMINALs
@@ -395,7 +395,7 @@ return
 
 ; Wrap selected shell (Sheets only)
 !2::
-    sheetWr("!/Wrap text{Down}{Down}{Enter}")
+    sheetWr("!/Wrap text{Down 2}{Enter}")
     ; Sleep, 200
     ; sheetWr("{Enter}")
 return
@@ -482,6 +482,5 @@ Return
 ::/mp::My pleasure!
 ::/lorem::Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 ::/plankton::Plankton are the diverse collection of organisms found in water that are unable to propel themselves against a current. The individual organisms constituting plankton are called plankters. In the ocean, they provide a crucial source of food to many small and large aquatic organisms, such as bivalves, fish and whales.
-; That is all. 
-; Made with ❤️ by Bibek Aryal. 
 
+; Made with ❤️ by Bibek Aryal. 
