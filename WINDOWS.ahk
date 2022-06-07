@@ -74,7 +74,7 @@ activate(program, action:="minimize", ahk_type:="ahk_exe"){
             GroupActivate, %group_name%, r ; cycle
         } 
         else {
-            MsgBox % "Wrong paramater value: " action "`nThe paramater 'action' should be either 'minimize' or 'cycle'."
+            MsgBox % "Wrong parameter value: " action "`nThe parameter 'action' should be either 'minimize' or 'cycle'."
         }
     }
     else
@@ -149,26 +149,26 @@ sheetWr(text){
 }
 
 changeCaseTo(case){
-    ; Change selected text to "lower", "capitalize" or "upper" case
-    ClipSave = %ClipboardAll%
-    Clipboard := "" 
-    Send, ^c
-    Sleep, 10
+    ; Change selected_text text to "lower", "capitalize" or "upper" case letters
+    selected_text := get_selected()
     if (case == "lower"){
-        StringLower, Clipboard, Clipboard
-    } else if (case == "cap" or case == "capitalize") {
-        StringUpper Clipboard, Clipboard, T
-    } else if (case == "upper") {
-        StringUpper, Clipboard, Clipboard
-    } else {
-        MsgBox,, Invalid input, Invalid input for case: %case%, 
+        StringLower, selected_text, selected_text
+    } 
+    else if (case == "cap" or case == "capitalize") {
+        StringUpper selected_text, selected_text, T
+    } 
+    else if (case == "upper") {
+        StringUpper, selected_text, selected_text
+    } 
+    else {
+        MsgBox % "Wrong parameter value: " case "`nThe parameter should be either 'lower', 'cap' or 'upper'."
     }
     Sleep, 10
-    SendRaw, %Clipboard%
-    Len := Strlen(Clipboard)
+    SendRaw, %selected_text%
+
+    ; reselecting the text
+    Len := Strlen(selected_text)
     Send +{left %Len%}
-    Sleep, 10
-    Clipboard := ClipSave
 }
 
 ; == HOTKEYS ==
@@ -216,34 +216,19 @@ F7::activate("excel.exe")
 
 ; search selected text/clipboard on the web
 #s::
-    ClipSave = %ClipboardAll% ; saving the contents of clipboard
-    Clipboard := "" 
-
-    if WinActive("ahk_group TerminalGroup"){
-        Send, ^+c
-    }
-    else{
-
-        Send, ^c
-    }
-    Sleep, 10
+    selected := get_selected()
 
     if WinActive("ahk_group BrowserGroup") 
     {
-        Send, ^t%Clipboard%{Enter}
+        Send, ^t%selected%{Enter}
     }
     else 
     {
-        if ((InStr(Clipboard, "http://") = 1) or (InStr(Clipboard, "https://") = 1) or (InStr(Clipboard, "www.") = 1))
-        {
-            Run, %Clipboard%
-        }
+        if ((InStr(selected, "http://") = 1) or (InStr(selected, "https://") = 1) or (InStr(selected, "www.") = 1))
+            Run, %selected%
         else
-        {
-            Run, https://duckduckgo.com/?t=ffab&q=%Clipboard%&atb=v292-4&ia=web
-        }
+            Run, https://duckduckgo.com/?t=ffab&q=%selected%&atb=v292-4&ia=web
     }
-    Clipboard := ClipSave ; restoring the contents of clipboard
 return
 
 ; notepad
@@ -320,7 +305,7 @@ Return
 ; upper case
 !9:: changeCaseTo("upper")
 
-; GOOGLE DOCS/SHEETS
+; ==GOOGLE DOCS/SHEETS==
 
 ^Insert::docSheetWr("^!m")
 
@@ -418,7 +403,7 @@ Return
 Return
 
 ; more
-::/nrd::npm run dev
+::/nrd::npm run dev/
 
 ; Others
 ::/gm::Good morning
