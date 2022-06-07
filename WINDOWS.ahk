@@ -84,6 +84,25 @@ activate(program, action:="minimize", ahk_type:="ahk_exe"){
     }
 }
 
+get_selected(){
+    ; copy selected contents to clipboard 
+    ;  return selected contents via clipboard (sends ctrl + c), but restores the previous contents of clipboard
+
+    ClipSave = %ClipboardAll% ; saving the contents of clipboard
+    Clipboard := "" 
+
+    if WinActive("ahk_group TerminalGroup"){
+        Send, ^+c
+    }
+    else {
+        Send, ^c
+    }
+    Sleep, 10
+    copied = %Clipboard%
+    Clipboard := ClipSave ; restoring the contents of clipboard
+    return copied
+}
+
 exp(path){
     ; navigate to path using ctrl + l in file explorer
     Send, ^l^a
@@ -154,7 +173,7 @@ changeCaseTo(case){
 
 ; == HOTKEYS ==
 
-; remapping function keys
+; Remapping Function Keys
 
 ; F1 to Firefox
 F1::activate("firefox.exe", "cycle")
@@ -193,9 +212,9 @@ F7::activate("excel.exe")
 ; F12 is 
 ; F12::
 
-; windows keys hotkeys
+; Windows Keys Hotkeys
 
-; Search Selected Text/Clipboard On The Web
+; search selected text/clipboard on the web
 #s::
     ClipSave = %ClipboardAll% ; saving the contents of clipboard
     Clipboard := "" 
@@ -227,7 +246,7 @@ F7::activate("excel.exe")
     Clipboard := ClipSave ; restoring the contents of clipboard
 return
 
-; Notepad
+; notepad
 #n::
     IfWinNotExist, ahk_exe notepad.exe
         Run, notepad.exe
@@ -242,21 +261,15 @@ return
     Run, notepad.exe
 return
 
-; Transform selected text to: 
+; Transform Selected Text To
 ; lower case
-!7:: 
-    changeCaseTo("lower")
-Return
+!7:: changeCaseTo("lower")
 
 ; titled case (capitalize)
-!8:: 
-    changeCaseTo("cap")
-Return
+!8:: changeCaseTo("cap")
 
 ; upper case
-!9:: 
-    changeCaseTo("upper")
-Return
+!9:: changeCaseTo("upper")
 
 #e::
     IfWinNotExist, ahk_class CabinetWClass
