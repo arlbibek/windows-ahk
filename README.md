@@ -40,7 +40,7 @@ A simple and intuitive AutoHotKey script for enhancing windows shortcuts, dedica
 
 > **To automatically start the script when you log on to the computer.**
 >
-> Simply, Create a shortcut of (or place) the exe/ahk on the startup folder (i.e. `C:\Users\<USERNAME>\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup`)
+> Simply, Create a shortcut of (or place) the exe/ahk on the startup folder, _to go to startup folder: Launch Run (<kbd>Win</kbd> + <kbd>R</kbd>) and open (search for) `shell:startup`_
 
 ---
 
