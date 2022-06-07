@@ -197,12 +197,18 @@ F7::activate("excel.exe")
 
 ; Search Selected Text/Clipboard On The Web
 #s::
-    if WinActive("ahk_group TerminalGroup")
-        Send, ^+c
-    else
-        Send, ^c
+    ClipSave = %ClipboardAll% ; saving the contents of clipboard
+    Clipboard := "" 
 
-    Sleep, 30
+    if WinActive("ahk_group TerminalGroup"){
+        Send, ^+c
+    }
+    else{
+
+        Send, ^c
+    }
+    Sleep, 10
+
     if WinActive("ahk_group BrowserGroup") 
     {
         Send, ^t%Clipboard%{Enter}
@@ -218,6 +224,7 @@ F7::activate("excel.exe")
             Run, https://duckduckgo.com/?t=ffab&q=%Clipboard%&atb=v292-4&ia=web
         }
     }
+    Clipboard := ClipSave ; restoring the contents of clipboard
 return
 
 ; Notepad
