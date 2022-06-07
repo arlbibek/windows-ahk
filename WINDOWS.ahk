@@ -103,7 +103,7 @@ get_selected(){
     return copied
 }
 
-exp(path){
+exploreTo(path){
     ; navigate to path using ctrl + l in file explorer
     Send, ^l^a
     Sleep, 50
@@ -169,6 +169,7 @@ changeCaseTo(case){
     ; reselecting the text
     Len := Strlen(selected_text)
     Send +{left %Len%}
+    Sleep, 10
 }
 
 ; == HOTKEYS ==
@@ -215,21 +216,19 @@ F7::activate("excel.exe")
 ; Windows Keys Hotkeys
 
 ; search selected text/clipboard on the web
-#s::
-    selected := get_selected()
 
-    if WinActive("ahk_group BrowserGroup") 
-    {
-        Send, ^t%selected%{Enter}
+; windows file explorer 
+#e::
+    IfWinNotExist, ahk_class CabinetWClass
+        Run, explorer.exe
+    GroupAdd, ActiveExplorers, ahk_class CabinetWClass
+    if WinActive("ahk_exe explorer.exe"){
+        GroupActivate, ActiveExplorers, r
     }
-    else 
-    {
-        if ((InStr(selected, "http://") = 1) or (InStr(selected, "https://") = 1) or (InStr(selected, "www.") = 1))
-            Run, %selected%
-        else
-            Run, https://duckduckgo.com/?t=ffab&q=%selected%&atb=v292-4&ia=web
-    }
+    else
+        WinActivate ahk_class CabinetWClass
 return
+#+e::Run, explorer.exe
 
 ; notepad
 #n::activate("notepad.exe", "cycle")
@@ -251,61 +250,61 @@ Esc::
 return
 #IfWinActive
 
-; windows file explorer 
-#e::
-    IfWinNotExist, ahk_class CabinetWClass
-        Run, explorer.exe
-    GroupAdd, ActiveExplorers, ahk_class CabinetWClass
-    if WinActive("ahk_exe explorer.exe"){
-        GroupActivate, ActiveExplorers, r
+; search selected text
+#s::
+    selected := get_selected()
+
+    if WinActive("ahk_group BrowserGroup") 
+    {
+        Send, ^t%selected%{Enter}
     }
-    else
-        WinActivate ahk_class CabinetWClass
+    else 
+    {
+        if ((InStr(selected, "http://") = 1) or (InStr(selected, "https://") = 1) or (InStr(selected, "www.") = 1))
+            Run, %selected%
+        else
+            Run, https://duckduckgo.com/?t=ffab&q=%selected%&atb=v292-4&ia=web
+    }
 return
-#+e::Run, explorer.exe
+
+; 
+!7::changeCaseTo("lower")
+!8::changeCaseTo("cap")
+!9::changeCaseTo("upper")
+
+; == File Explore ==
 
 ; navigating within the file Explorer
 #IfWinActive ahk_group ExplorerGroup
-    ^+u::exp(userdir)
-    ^+e::exp(pc)
-    ^+h::exp(desktop)
-    ^+d::exp(documents)
-    ^+j::exp(downloads)
-    ^+m::exp(music)
-    ^+p::exp(pictures)
-    ^+v::exp(videos)
-    ^+c::exp(c)
-    ^+a::exp(arlbibek)
-    ^+s::exp(screenshot)
+    ^+u::exploreTo(userdir)
+    ^+e::exploreTo(pc)
+    ^+h::exploreTo(desktop)
+    ^+d::exploreTo(documents)
+    ^+j::exploreTo(downloads)
+    ^+m::exploreTo(music)
+    ^+p::exploreTo(pictures)
+    ^+v::exploreTo(videos)
+    ^+c::exploreTo(c)
+    ^+a::exploreTo(arlbibek)
+    ^+s::exploreTo(screenshot)
 #IfWinActive
 
 ; opening programs via file explorer
 #IfWinActive ahk_class CabinetWClass 
-    ^+t::exp("wt") ; windows terminal
+    ^+t::exploreTo("wt") ; windows terminal
     ^+\::Send, {AppsKey}{Up 4}{Enter} ; vscode in current directory
 #IfWinActive
 
-; TERMINALs
+; == TERMINALS ==
 
 #IfWinActive, ahk_group TerminalGroup
-    ^+\::Send, code .{Enter} ; vscode in current directory
-    ^+w:: WinClose, TerminalGroup
-::cud:: 
-    SendInput, /mnt/c/Users/%A_UserName%/ ; useful for WSLs
+^+\::
+    ; vscode in current directory
+    Send, code .{Enter} 
 Return
 #IfWinActive
 
-; Transform Selected Text To
-; lower case
-!7:: changeCaseTo("lower")
-
-; titled case (capitalize)
-!8:: changeCaseTo("cap")
-
-; upper case
-!9:: changeCaseTo("upper")
-
-; ==GOOGLE DOCS/SHEETS==
+; == GOOGLE DOCS/SHEETS ==
 
 ^Insert::docSheetWr("^!m")
 
@@ -314,7 +313,7 @@ Return
 
 ; Highlight selected text/shell
 !1::
-    docSheetWr("!/Highlight color: " . "yellow")
+    docSheetWr("!/Highlight color: yellow")
     Sleep, 200
     docSheetWr("{Enter}")
 return
@@ -329,8 +328,8 @@ return
 ; Wrap selected shell (Sheets only)
 !2::
     sheetWr("!/Wrap text{Down 2}{Enter}")
-    ; Sleep, 200
-    ; sheetWr("{Enter}")
+    Sleep, 200
+    sheetWr("{Enter}")
 return
 
 ; Trim whitespace (Sheets only)
@@ -354,9 +353,20 @@ return
     docSheetWr("{Enter}")
 return
 
-; HOTSTRINGS
+; == HOT STRINGS ==
+
+; Terminal Group
+
+#IfWinActive, ahk_group TerminalGroup
+::/cud:: 
+    ; useful for WSLs
+    SendInput, /mnt/c/Users/%A_UserName%/ 
+Return
+::/nrd::npm run dev
+#IfWinActive
 
 ; Current Date and Time
+
 ::/datetime::
     FormatTime, CurrentDateTime,, dddd, MMMM dd, yyyy, HH:mm
     SendInput, %CurrentDateTime%
@@ -402,9 +412,6 @@ Return
     SendInput, %CurrentDate%
 Return
 
-; more
-::/nrd::npm run dev/
-
 ; Others
 ::/gm::Good morning
 ::/ge::Good evening
@@ -412,7 +419,9 @@ Return
 ::/ty::Thank you
 ::/tyvm::Thank you very much
 ::/wc::Welcome
-::/mp::My pleasure!
+::/mp::
+    SendRaw, My pleasure!
+return
 ::/lorem::Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 ::/plankton::Plankton are the diverse collection of organisms found in water that are unable to propel themselves against a current. The individual organisms constituting plankton are called plankters. In the ocean, they provide a crucial source of food to many small and large aquatic organisms, such as bivalves, fish and whales.
 

@@ -55,29 +55,28 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 
 #### Global
 
-| Key                                              | Action                                                                        |
-| ------------------------------------------------ | ----------------------------------------------------------------------------- |
-| <kbd>F1</kbd>                                    | Open/Switch/Cycle through Firefox                                             |
-| <kbd>Alt</kbd> + <kbd>F1</kbd>                   | Open Firefox (new window)                                                     |
-| <kbd>F3</kbd>                                    | Open/Switch/Minimize Spotify                                                  |
-| <kbd>F4</kbd>                                    | Open/Switch/Cycle through VS Code                                             |
-| <kbd>F5</kbd>                                    | \*is Refresh                                                                  |
-| <kbd>F6</kbd>                                    | Open/Switch to/Minimize Microsoft Word                                        |
-| <kbd>F7</kbd>                                    | Open/Switch to/Minimize Microsoft Excel                                       |
-| <kbd>Win</kbd> + <kbd>E</kbd>                    | Open/Switch/Cycle through File Explorer                                       |
-| <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd> | Open File Explorer (new window)                                               |
-| <kbd>Win</kbd> + <kbd>N</kbd>                    | Open/Switch/Cycle through Notepad                                             |
-| <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd> | Open Notepad (new window)                                                     |
-| <kbd>Win</kbd> + <kbd>S</kbd>                    | Search selected text via active browser (or the default browser) 🔍           |
-| <kbd>Alt</kbd> + <kbd>7</kbd>                    | Transform selected text to lower case (eg. `Hello, Word!` to `hello, word!`)  |
-| <kbd>Alt</kbd> + <kbd>8</kbd>                    | Transform selected text to titled case (eg. `hello, word!` to `Hello, Word!`) |
-| <kbd>Alt</kbd> + <kbd>9</kbd>                    | Transform selected text to upper case (eg. `Hello, Word!` to `HELLO, WORD!`)  |
+| Key                                              | Action                                                                                          |
+| ------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| <kbd>F1</kbd>                                    | Open/Switch/Cycle through Firefox                                                               |
+| <kbd>Shift</kbd> + <kbd>F1</kbd>                 | Open Firefox (new window)                                                                       |
+| <kbd>F3</kbd>                                    | Open/Switch/Minimize Spotify                                                                    |
+| <kbd>F4</kbd>                                    | Open/Switch/Cycle through VS Code                                                               |
+| <kbd>F6</kbd>                                    | Open/Switch to/Minimize Microsoft Word                                                          |
+| <kbd>F7</kbd>                                    | Open/Switch to/Minimize Microsoft Excel                                                         |
+| <kbd>Win</kbd> + <kbd>E</kbd>                    | Open/Switch/Cycle through File Explorer                                                         |
+| <kbd>Shift</kbd> + <kbd>Win</kbd> + <kbd>E</kbd> | Open File Explorer (new window)                                                                 |
+| <kbd>Win</kbd> + <kbd>N</kbd>                    | Open/Switch/Cycle through Notepad (_<kbd>Esc</kbd> will close notepad without saving contents_) |
+| <kbd>Shift</kbd> + <kbd>Win</kbd> + <kbd>N</kbd> | Open Notepad (new window)                                                                       |
+| <kbd>Win</kbd> + <kbd>S</kbd>                    | Search selected text via active browser (or the default browser) 🔍                             |
+| <kbd>Alt</kbd> + <kbd>7</kbd>                    | Transform selected text to lower case (eg. `Hello, Word!` to `hello, word!`)                    |
+| <kbd>Alt</kbd> + <kbd>8</kbd>                    | Transform selected text to titled case (eg. `hello, word!` to `Hello, Word!`)                   |
+| <kbd>Alt</kbd> + <kbd>9</kbd>                    | Transform selected text to upper case (eg. `Hello, Word!` to `HELLO, WORD!`)                    |
 
 #### File Explorer
 
 | Key                                                | Action                                                                                                                                    |
 | -------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| <kbd>Win</kbd> + <kbd>E</kbd>                      | Cycle through all the active File Explorers                                                                                               |
+| <kbd>Win</kbd> + <kbd>E</kbd>                      | Run/Switch/Cycle through all the active File Explorers                                                                                    |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>U</kbd>  | Navigate to Current user directory 👤                                                                                                     |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd>  | Navigate to This Pc 💻                                                                                                                    |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>H</kbd>  | Navigate to the Desktop (H for Home 😅)                                                                                                   |
@@ -98,11 +97,13 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 
 `WindowsTerminal` `PowerShell` `Command Prompt` `Debian (wsl)` `Kali (wsl)` `Ubuntu (wsl)`
 
-| Key                                                | Action                                                      |
-| -------------------------------------------------- | ----------------------------------------------------------- |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>\\</kbd> | Open VS Code in Current Working Directory (_uses `code .`_) |
+| Key                                                | Action                                                    |
+| -------------------------------------------------- | --------------------------------------------------------- |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>\\</kbd> | Open VS Code in Current Working Directory (uses `code .`) |
 
-> **Note:** _For those hotkeys that throw an error saying `Error. Failed attempt to launch program or document:` ... `Specifically: The system cannot find the file specified.`, please consider adding the respective program (folder) to the [path of your system variables](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/ "See: Add to the PATH on Windows 10")._
+> **Note**
+>
+> > _For those hotkeys that throw an error saying `Error. Failed attempt to launch program or document:` ... `Specifically: The system cannot find the file specified.`, please consider adding the respective program (folder) to the [path of your system variables](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/ "See: Add to the PATH on Windows 10")._
 
 ### Google Docs/Sheets
 
@@ -132,6 +133,13 @@ Hotstrings are mainly used to expand abbreviations as you type them (auto-replac
 ::wtf::Wow that's fantastic
 ```
 
+#### Terminal Group
+
+| Abbreviation | Phrase                                                            |
+| ------------ | ----------------------------------------------------------------- |
+| `/cud`       | _full path of current user directory_ (eg. `/mnt/c/Users/bibek/`) |
+| `/nrd`       | npm run dev                                                       |
+
 #### Date and time
 
 Assuming today's date and time is `Sunday, October 10, 2021, 02:55 PM`
@@ -144,7 +152,7 @@ Assuming today's date and time is `Sunday, October 10, 2021, 02:55 PM`
 | `/timett`     | 02:55 PM                          |
 | `/date`       | October 10, 2021                  |
 | `/daten`      | 10/10/2021                        |
-| `/weekday`    | Sunday                            |
+| `/week`       | Sunday                            |
 | `/day`        | 10                                |
 | `/month`      | October                           |
 | `/monthn`     | 10                                |
@@ -152,19 +160,18 @@ Assuming today's date and time is `Sunday, October 10, 2021, 02:55 PM`
 
 #### Others
 
-| Abbreviation | Phrase                                                                     |
-| ------------ | -------------------------------------------------------------------------- |
-| `/gm`        | Good morning                                                               |
-| `/ge`        | Good evening                                                               |
-| `/gn`        | Good night                                                                 |
-| `/ty`        | Thank you                                                                  |
-| `/tyvm`      | Thank you very much                                                        |
-| `/wc`        | Welcome                                                                    |
-| `/mp`        | My pleasure                                                                |
-| `/lorem`     | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod... |
+| Abbreviation | Phrase                                                                            |
+| ------------ | --------------------------------------------------------------------------------- |
+| `/gm`        | Good morning                                                                      |
+| `/ge`        | Good evening                                                                      |
+| `/gn`        | Good night                                                                        |
+| `/ty`        | Thank you                                                                         |
+| `/tyvm`      | Thank you very much                                                               |
+| `/wc`        | Welcome                                                                           |
+| `/mp`        | My pleasure!                                                                      |
+| `/lorem`     | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod..         |
+| `/plankton`  | Plankton are the diverse collection of organisms found in water that are unable.. |
 
 ---
-
-That is all.
 
 Made with ❤️ by [Bibek Aryal](https://bibeka.com.np/).
