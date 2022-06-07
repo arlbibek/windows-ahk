@@ -1,5 +1,5 @@
 .vscode
 /SP*
-test*
+*test*
 *.exe
 data.ini
