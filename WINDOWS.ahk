@@ -37,6 +37,53 @@ screenshot := userdir . "Documents\ShareX\Screenshots\"
 
 ; FUNCTIONs
 
+activate(program, action:="minimize", ahk_type:="ahk_exe"){
+    ; Open/Switch/(Minimize/Cycle through) a program
+    ; `program` is the name of the program (eg. firefox.exe), 
+    ; `action` is the action to perform on when the program window already is in active state, should be either "minimize" or "cycle" (default is minimize)
+    ; `ahk_type` is the ahk type either ahk_class or ahk_exe (default is ahk_exe), 
+    try 
+    {
+        IfWinNotExist %ahk_type% %program%
+            Run %program%
+    }
+    catch e
+    {
+        err := e.extra
+        FileNotFound := "The system cannot find the file specified."
+        IfInString, err, %FileNotFound%
+        {
+            MsgBox, % e.extra "`n"e.message "`n`nNote: Please install and/or consider adding the respective program (folder) to the PATH of the System Variables. `n(This may need system restart to take effect)" 
+            return
+        }
+        else
+            MsgBox, 16,, % e.extra "`n"e.message 
+    }
+    if (action == "cycle"){
+        program_name := StrSplit(program, ".")[1]
+        group_name = %program_name%Group
+        GroupAdd, %group_name%, %ahk_type% %program%
+    }
+    ahk_program = %ahk_type% %program% 
+    if WinActive(ahk_program)
+    {
+        If (action == "minimize"){
+            WinMinimize, %ahk_type% %program% ; minimize
+        }
+        else if (action == "cycle"){
+            GroupActivate, %group_name%, r ; cycle
+        } 
+        else {
+            MsgBox % "Wrong paramater value: " action "`nThe paramater 'action' should be either 'minimize' or 'cycle'."
+        }
+    }
+    else
+    {
+
+        WinActivate, %ahk_type% %program%
+    }
+}
+
 exp(path){
     ; navigate to path using ctrl + l in file explorer
     Send, ^l^a
@@ -105,7 +152,48 @@ changeCaseTo(case){
     Clipboard := ClipSave
 }
 
-; HOTKEYS
+; == HOTKEYS ==
+
+; remapping function keys
+
+; F1 to Firefox
+F1::activate("firefox.exe", "cycle")
++F1::Run, firefox.exe
+
+; F2 is Rename
+; F2::
+
+; F3 to Spotify
+F3::activate("spotify.exe")
+
+; F4 to VS Code
+F4::activate("code.exe", "cycle")
+
+; F5 is Refresh
+; F5::
+
+; F6 to Microsoft 
+F6::activate("winword.exe")
+
+; F7 to Microsoft Excel 
+F7::activate("excel.exe")
+
+; F8 is 
+; F8::
+
+; F9 is 
+; F9::
+
+; F10 is 
+; F10::
+
+; F11 is 
+; F11::
+
+; F12 is 
+; F12::
+
+; windows keys hotkeys
 
 ; Search Selected Text/Clipboard On The Web
 #s::
@@ -163,169 +251,6 @@ Return
     changeCaseTo("upper")
 Return
 
-; Firefox
-F1::
-    try 
-    {
-        IfWinNotExist, ahk_exe firefox.exe
-            Run, firefox.exe
-    }
-    catch e
-    {
-        err := e.extra
-        FileNotFound := "The system cannot find the file specified."
-        IfInString, err, %FileNotFound%
-        {
-            MsgBox, % "`n"e.extra "`n"e.message "`n`nNote: Please consider adding the respective program (folder) to the PATH of the System Variables. (This may need system restart to take effect)" 
-            return
-        }
-        else
-            MsgBox, 16,, % e.extra "`n"e.message 
-    }
-    GroupAdd, FirefoxGroup, ahk_exe firefox.exe
-    if WinActive("ahk_exe firefox.exe"){
-        GroupActivate, FirefoxGroup, r 
-        ; Send, ^{Tab}
-    }
-    else
-        WinActivate ahk_exe firefox.exe
-return
-
-!F1::
-    try 
-    {
-        IfWinNotExist, ahk_exe Joplin.exe
-            Run, firefox.exe
-    }
-    catch e
-    {
-        err := e.extra
-        FileNotFound := "The system cannot find the file specified."
-        IfInString, err, %FileNotFound%
-        {
-            MsgBox, % "`n"e.extra "`n"e.message "`n`nNote: Please consider adding the respective program (folder) to the PATH of the System Variables. (This may need system restart to take effect)" 
-            return
-        }
-        else
-            MsgBox, 16,, % e.extra "`n"e.message 
-    }
-return
-
-; F2::is Rename
-
-; Spotify
-F3::
-    try 
-    {
-        IfWinNotExist ahk_exe spotify.exe
-            Run spotify.exe
-    }
-    catch e
-    {
-        err := e.extra
-        FileNotFound := "The system cannot find the file specified."
-        IfInString, err, %FileNotFound%
-        {
-            MsgBox, % "`n"e.extra "`n"e.message "`n`nNote: Please consider adding the respective program (folder) to the PATH of the System Variables. (This may need system restart to take effect)" 
-            return
-        }
-        else
-            MsgBox, 16,, % e.extra "`n"e.message 
-    }
-    if WinActive("ahk_exe spotify.exe")
-        WinMinimize, ahk_exe spotify.exe ; minimize
-    else
-        WinActivate ahk_exe spotify.exe
-return
-
-; VS Code
-F4::
-
-    try 
-    {
-        IfWinNotExist ahk_exe code.exe
-            Run code.exe
-    }
-    catch e
-    {
-        err := e.extra
-        FileNotFound := "The system cannot find the file specified."
-        IfInString, err, %FileNotFound%
-        {
-            MsgBox, % "`n"e.extra "`n"e.message "`n`nNote: Please consider adding the respective program (folder) to the PATH of the System Variables. (This may need system restart to take effect)" 
-            return
-        }
-        else
-            MsgBox, 16,, % e.extra "`n"e.message 
-    }
-    GroupAdd, CodeGroup, ahk_exe code.exe
-    if WinActive("ahk_exe code.exe")
-        GroupActivate, CodeGroup, r
-    else
-        WinActivate ahk_exe code.exe
-return
-
-; F5::is Refresh
-
-; F6 : MICROSOFT WORD
-
-F6::
-    try 
-    {
-        IfWinNotExist ahk_exe winword.exe
-            Run winword.exe
-    }
-    catch e
-    {
-        err := e.extra
-        FileNotFound := "The system cannot find the file specified."
-        IfInString, err, %FileNotFound%
-        {
-            pathErrMsgBox(e.extra, e.message)
-        }
-        else
-            errMsgBox(e.extra, e.message)
-    }
-    if WinActive("ahk_exe winword.exe")
-        Send, #m
-    else
-        WinActivate ahk_exe winword.exe
-return
-
-; F7 : MICROSOFT EXCEL 
-
-F7::
-    try 
-    {
-        IfWinNotExist ahk_exe excel.exe
-            Run excel.exe
-    }
-    catch e
-    {
-        err := e.extra
-        FileNotFound := "The system cannot find the file specified."
-        IfInString, err, %FileNotFound%
-        {
-            pathErrMsgBox(e.extra, e.message)
-        }
-        else
-            errMsgBox(e.extra, e.message)
-    }
-    if WinActive("ahk_exe excel.exe")
-        Send, #m
-    else
-        WinActivate ahk_exe excel.exe
-return
-
-; F8::
-; F9::
-; F10::
-; F11::is Full Screen
-; F12::
-
-; File Explorer
-
-; open/switch to file explorer 
 #e::
     IfWinNotExist, ahk_class CabinetWClass
         Run, explorer.exe
