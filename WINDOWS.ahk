@@ -266,16 +266,7 @@ Esc::
 return
 #IfWinActive
 
-; Transform Selected Text To
-; lower case
-!7:: changeCaseTo("lower")
-
-; titled case (capitalize)
-!8:: changeCaseTo("cap")
-
-; upper case
-!9:: changeCaseTo("upper")
-
+; windows file explorer 
 #e::
     IfWinNotExist, ahk_class CabinetWClass
         Run, explorer.exe
@@ -286,10 +277,7 @@ return
     else
         WinActivate ahk_class CabinetWClass
 return
-
-#+e::
-    Run, explorer.exe
-Return
+#+e::Run, explorer.exe
 
 ; navigating within the file Explorer
 #IfWinActive ahk_group ExplorerGroup
@@ -321,6 +309,16 @@ Return
     SendInput, /mnt/c/Users/%A_UserName%/ ; useful for WSLs
 Return
 #IfWinActive
+
+; Transform Selected Text To
+; lower case
+!7:: changeCaseTo("lower")
+
+; titled case (capitalize)
+!8:: changeCaseTo("cap")
+
+; upper case
+!9:: changeCaseTo("upper")
 
 ; GOOGLE DOCS/SHEETS
 
