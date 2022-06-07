@@ -247,19 +247,24 @@ F7::activate("excel.exe")
 return
 
 ; notepad
-#n::
-    IfWinNotExist, ahk_exe notepad.exe
-        Run, notepad.exe
-    GroupAdd, NotepadGroup, ahk_exe notepad.exe
-    if WinActive("ahk_exe notepad.exe"){
-        GroupActivate, NotepadGroup, r 
+#n::activate("notepad.exe", "cycle")
++#n::Run, notepad.exe
+; close notepad (without saving) on esc
+#IfWinActive ahk_exe notepad.exe
+Esc::
+    Send, ^a
+    Sleep, 50
+    contents_of_notepad := get_selected()
+    contents_len := StrLen(contents_of_notepad)
+    if (contents_len > 0 ){
+        WinClose, ahk_exe notepad.exe
+        Send, {Right}{Enter}
+    } else {
+        WinClose, ahk_exe notepad.exe
+
     }
-    else
-        WinActivate ahk_exe notepad.exe
 return
-#+n::
-    Run, notepad.exe
-return
+#IfWinActive
 
 ; Transform Selected Text To
 ; lower case
