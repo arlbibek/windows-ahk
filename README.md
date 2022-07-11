@@ -66,8 +66,9 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 | <kbd>Shift</kbd> + <kbd>F1</kbd>                 | Open Firefox (new window)                                                                       |
 | <kbd>F3</kbd>                                    | Open/Switch/Minimize Spotify                                                                    |
 | <kbd>F4</kbd>                                    | Open/Switch/Cycle through VS Code                                                               |
-| <kbd>F6</kbd>                                    | Open/Switch to/Minimize Microsoft Word                                                          |
-| <kbd>F7</kbd>                                    | Open/Switch to/Minimize Microsoft Excel                                                         |
+| <kbd>F6</kbd>                                    | Open/Switch to/Minimize SumatraPDF                                                              |
+| <kbd>F7</kbd>                                    | Open/Switch to/Minimize Microsoft Word                                                          |
+| <kbd>F8</kbd>                                    | Open/Switch to/Minimize Microsoft Excel                                                         |
 | <kbd>Win</kbd> + <kbd>E</kbd>                    | Open/Switch/Cycle through File Explorer                                                         |
 | <kbd>Shift</kbd> + <kbd>Win</kbd> + <kbd>E</kbd> | Open File Explorer (new window)                                                                 |
 | <kbd>Win</kbd> + <kbd>N</kbd>                    | Open/Switch/Cycle through Notepad (_<kbd>Esc</kbd> will close notepad without saving contents_) |

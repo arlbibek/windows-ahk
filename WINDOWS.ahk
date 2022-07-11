@@ -193,14 +193,14 @@ F4::activate("code.exe", "cycle")
 ; F5 is Refresh
 ; F5::
 
-; F6 to Microsoft 
-F6::activate("winword.exe")
+; F6 is SumatraPDF
+F6::activate("SumatraPDF.exe")
 
-; F7 to Microsoft Excel 
-F7::activate("excel.exe")
+; F7 to Microsoft 
+F7::activate("winword.exe")
 
-; F8 is 
-; F8::
+; F8 to Microsoft Excel 
+F8::activate("excel.exe")
 
 ; F9 is 
 ; F9::
