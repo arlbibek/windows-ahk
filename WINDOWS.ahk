@@ -32,7 +32,7 @@ music := userdir . "Music\"
 pictures := userdir . "Pictures\"
 videos := userdir . "Videos\"
 c := "C:\"
-arlbibek := userdir . "arlbibek\"
+arlbibek := documents . "arlbibek\"
 screenshot := userdir . "Documents\ShareX\Screenshots\"
 
 ; FUNCTIONs
@@ -104,21 +104,13 @@ get_selected(){
 
 win_search(search_str){
     ; Search Of The String Via Active Browser Or Default
-    ; Default Search Engine Is DuckDuckGo
+    ; Default Search Engine Is DuckDuckGo (& always will be)
 
     ; only search if something has been selected
     len_str := StrLen(search_str)
     If (len_str == 0) { 
-        ; display a input box for user to enter a string to search for
-        ; InputBox, OutputVar , Title, Prompt, HIDE, Width, Height, X, Y, Locale, Timeout, Default
-        InputBox, UserInput , Enter text to search, , , , 100, , , , , Search..
-        if ErrorLevel {
-            Return
-        }
-        else {
-            win_search(UserInput)
-        }
-
+        ; resend the command if noting is selected
+        Send, #s
     } else {
         ; Removes all CR+LF's (? next line).
         search_str := StrReplace(search_str, "`r`n")
