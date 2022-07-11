@@ -88,16 +88,15 @@ get_selected(){
     ; copy selected contents to clipboard 
     ;  return selected contents via clipboard (sends ctrl + c), but restores the previous contents of clipboard
 
-    ClipSave = %ClipboardAll% ; saving the contents of clipboard
-    Clipboard := "" 
-
+    ClipSave := ClipboardAll ; saving the contents of clipboard
+    Clipboard = 
     if WinActive("ahk_group TerminalGroup"){
         Send, ^+c
     }
     else {
         Send, ^c
     }
-    Sleep, 10
+    ClipWait, 2
     copied = %Clipboard%
     Clipboard := ClipSave ; restoring the contents of clipboard
     return copied
@@ -254,17 +253,33 @@ return
 #s::
     selected := get_selected()
 
-    if WinActive("ahk_group BrowserGroup") 
-    {
-        Send, ^t%selected%{Enter}
-    }
-    else 
-    {
-        if ((InStr(selected, "http://") = 1) or (InStr(selected, "https://") = 1) or (InStr(selected, "www.") = 1))
-            Run, %selected%
-        else
-            Run, https://duckduckgo.com/?t=ffab&q=%selected%&atb=v292-4&ia=web
-    }
+    ; only search if something has been selected
+    LenSelected := StrLen(selected)
+    If (LenSelected != 0){ 
+        ; Removes all CR+LF's (? next line).
+        selected := StrReplace(selected, "`r`n")
+        if WinActive("ahk_group BrowserGroup") 
+        {
+
+            Send, ^t
+            SendRaw, %selected%
+            Send, {Enter}
+        }
+        else 
+        {
+            ; TODO: Instead of if conditions add RegEx match to detect url
+            if ((InStr(selected, "http://") = 1) or (InStr(selected, "https://") = 1) or (InStr(selected, "www.") = 1))
+            {
+                Run % selected
+            }
+            else
+            {
+                selected := StrReplace(selected, A_Space, "+") ; Replaces all spaces with pluses.
+                ; TODO: Find a  way to escape special characters (such as  !*'();:@&=+$,/?#[]) in a variable. 
+                Run, https://duckduckgo.com/?t=ffab&q=%selected%&atb=v292-4&ia=web
+            }
+        }
+    } 
 return
 
 ; 
