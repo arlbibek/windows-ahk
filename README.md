@@ -51,7 +51,12 @@ A simple and intuitive AutoHotKey script for enhancing windows shortcuts, dedica
 ### Hotkey
 
 aka **shortcut keys** - easily trigger an action (such as launching a program or keyboard macro)
-[[See documentation](https://www.autohotkey.com/docs/Hotkeys.htm "See hotkey documentation")].
+[[ahk](https://www.autohotkey.com/docs/Hotkeys.htm "See hotkey documentation")].
+
+| #   | Notes                                                                                                                                                                                                                                                                                                                                                                            |
+| --- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| -   | The tilde `~` at the beginning of certain key (eg. <kbd>~CapsLock</kbd>) means holding down the key.                                                                                                                                                                                                                                                                             |
+| -   | For those hotkeys that throw an error saying `Error. Failed attempt to launch program or document:` ... `Specifically: The system cannot find the file specified.`, please consider adding the respective program (folder) to the [path of your system variables](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/ "See: Add to the PATH on Windows 10"). |
 
 #### Global
 
@@ -68,9 +73,9 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 | <kbd>Win</kbd> + <kbd>N</kbd>                    | Open/Switch/Cycle through Notepad (_<kbd>Esc</kbd> will close notepad without saving contents_) |
 | <kbd>Shift</kbd> + <kbd>Win</kbd> + <kbd>N</kbd> | Open Notepad (new window)                                                                       |
 | <kbd>Win</kbd> + <kbd>S</kbd>                    | Search selected text via active browser (or the default browser) 🔍                             |
-| <kbd>Alt</kbd> + <kbd>7</kbd>                    | Transform selected text to lower case (eg. `Hello, Word!` to `hello, word!`)                    |
-| <kbd>Alt</kbd> + <kbd>8</kbd>                    | Transform selected text to titled case (eg. `hello, word!` to `Hello, Word!`)                   |
-| <kbd>Alt</kbd> + <kbd>9</kbd>                    | Transform selected text to upper case (eg. `Hello, Word!` to `HELLO, WORD!`)                    |
+| <kbd>~CapsLock</kbd> + <kbd>7</kbd>              | Transform selected text to lower case (eg. `Hello, Word!` to `hello, word!`)                    |
+| <kbd>~CapsLock</kbd> + <kbd>8</kbd>              | Transform selected text to titled case (eg. `hello, word!` to `Hello, Word!`)                   |
+| <kbd>~CapsLock</kbd> + <kbd>9</kbd>              | Transform selected text to upper case (eg. `Hello, Word!` to `HELLO, WORD!`)                    |
 
 #### File Explorer
 
@@ -101,13 +106,9 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 | -------------------------------------------------- | --------------------------------------------------------- |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>\\</kbd> | Open VS Code in Current Working Directory (uses `code .`) |
 
-> **Note**
->
-> > _For those hotkeys that throw an error saying `Error. Failed attempt to launch program or document:` ... `Specifically: The system cannot find the file specified.`, please consider adding the respective program (folder) to the [path of your system variables](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/ "See: Add to the PATH on Windows 10")._
-
 ### Google Docs/Sheets
 
-Note that the following command will (only) work within google docs or the sheets window regardless of the browser.
+Note that the following commands will (only) work within google docs or the sheets window regardless of the browser.
 
 and it is highly recommended that you disable the google sheets autocomplete feature. [ `Menu >> Tools >> Autocomplete` *Uncheck the* `Enable autocomplete` *option* ]
 

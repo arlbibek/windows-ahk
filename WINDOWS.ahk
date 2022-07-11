@@ -4,7 +4,7 @@
 SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir% ; Ensures a consistent starting directory.
 
-Menu, Tray, Icon, shell32.dll, 16 ;this changes the icon into a little laptop thingy.
+Menu, Tray, Icon, shell32.dll, 16 ;this changes the icon into a little laptop thing.
 
 ; grouping all terminal (WSLs as well)
 GroupAdd, TerminalGroup, ahk_exe WindowsTerminal.exe
@@ -112,10 +112,12 @@ exploreTo(path){
 }
 
 pathErrMsgBox(eextra, emessage){
+    ; displays path error message to the user
     MsgBox, % "`n"eextra "`n"emessage "`n`nNote: Please consider adding the respective program (folder) to the PATH of the System Variables. (This may need system restart to take effect)"
 }
 
 errMsgBox(eextra, emessage){
+    ; displays error message to the user
     MsgBox, 16,, % e.extra "`n"e.message 
 }
 
@@ -148,7 +150,7 @@ sheetWr(text){
 }
 
 changeCaseTo(case){
-    ; Change selected_text text to "lower", "capitalize" or "upper" case letters
+    ; Change selected text to "lower", "capitalize" or "upper" case letters
     selected_text := get_selected()
     if (case == "lower"){
         StringLower, selected_text, selected_text
@@ -282,10 +284,19 @@ return
     } 
 return
 
-; 
-!7::changeCaseTo("lower")
-!8::changeCaseTo("cap")
-!9::changeCaseTo("upper")
+; change case of selected text(s)
+~CapsLock & 7::
+    changeCaseTo("lower")
+    Send, {CapsLock} ; Resetting CapsLock to previous state
+return
+~CapsLock & 8::
+    changeCaseTo("cap")
+    Send, {CapsLock}
+return
+~CapsLock & 9::
+    changeCaseTo("upper")
+    Send, {CapsLock}
+return
 
 ; == File Explore ==
 
