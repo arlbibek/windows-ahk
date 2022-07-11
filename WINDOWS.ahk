@@ -96,10 +96,51 @@ get_selected(){
     else {
         Send, ^c
     }
-    ClipWait, 2
+    ClipWait, 1
     copied = %Clipboard%
     Clipboard := ClipSave ; restoring the contents of clipboard
     return copied
+}
+
+win_search(search_str){
+    ; Search Of The String Via Active Browser Or Default
+    ; Default Search Engine Is DuckDuckGo
+
+    ; only search if something has been selected
+    len_str := StrLen(search_str)
+    If (len_str == 0) { 
+        ; display a input box for user to enter a string to search for
+        ; InputBox, OutputVar , Title, Prompt, HIDE, Width, Height, X, Y, Locale, Timeout, Default
+        InputBox, UserInput , Enter text to search, , , , 100, , , , , Search..
+        if ErrorLevel {
+            Return
+        }
+        else {
+            win_search(UserInput)
+        }
+
+    } else {
+        ; Removes all CR+LF's (? next line).
+        search_str := StrReplace(search_str, "`r`n")
+        if WinActive("ahk_group BrowserGroup") {
+            Send, ^t
+            SendRaw, %search_str%
+            Send, {Enter}
+        }
+        else {
+            ; TODO: Instead of if conditions add RegEx match to detect url
+            if ((InStr(search_str, "http://") = 1) or (InStr(search_str, "https://") = 1) or (InStr(search_str, "www.") = 1))
+            {
+                Run % search_str
+            }
+            else {
+                search_str := StrReplace(search_str, A_Space, "+") ; Replaces all spaces with pluses.
+                ; TODO: Find a  way to escape special characters (such as  !*'();:@&=+$,/?#[]) in a variable. 
+                Run, https://duckduckgo.com/?t=ffab&q=%search_str%&atb=v292-4&ia=web
+            }
+        }
+    }
+
 }
 
 exploreTo(path){
@@ -254,34 +295,7 @@ return
 ; search selected text
 #s::
     selected := get_selected()
-
-    ; only search if something has been selected
-    LenSelected := StrLen(selected)
-    If (LenSelected != 0){ 
-        ; Removes all CR+LF's (? next line).
-        selected := StrReplace(selected, "`r`n")
-        if WinActive("ahk_group BrowserGroup") 
-        {
-
-            Send, ^t
-            SendRaw, %selected%
-            Send, {Enter}
-        }
-        else 
-        {
-            ; TODO: Instead of if conditions add RegEx match to detect url
-            if ((InStr(selected, "http://") = 1) or (InStr(selected, "https://") = 1) or (InStr(selected, "www.") = 1))
-            {
-                Run % selected
-            }
-            else
-            {
-                selected := StrReplace(selected, A_Space, "+") ; Replaces all spaces with pluses.
-                ; TODO: Find a  way to escape special characters (such as  !*'();:@&=+$,/?#[]) in a variable. 
-                Run, https://duckduckgo.com/?t=ffab&q=%selected%&atb=v292-4&ia=web
-            }
-        }
-    } 
+    win_search(selected)
 return
 
 ; change case of selected text(s)
