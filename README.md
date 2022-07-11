@@ -172,6 +172,11 @@ Assuming today's date and time is `Sunday, October 10, 2021, 02:55 PM`
 | `/lorem`     | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod..         |
 | `/plankton`  | Plankton are the diverse collection of organisms found in water that are unable.. |
 
+### Some other useful resources (scripts)
+
+- [AutoHotkey Script Showcase](https://www.autohotkey.com/docs/scripts/index.htm "This showcase lists some scripts created by different authors which show what AutoHotkey might be capable of.") by autohotkey.
+- [Skrommel's One Hour Software](https://www.dcmembers.com/skrommel/downloads/)
+
 ---
 
 Made with ❤️ by [Bibek Aryal](https://bibeka.com.np/).
