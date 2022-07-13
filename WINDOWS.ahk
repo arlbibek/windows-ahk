@@ -290,6 +290,15 @@ return
     win_search(selected)
 return
 
+; Toggle presentation mode
+^!p::
+    Run, presentationsettings.exe
+    Sleep, 500
+    Send, {Space}
+    Sleep, 500
+    Send, {Enter}
+Return
+
 ; change case of selected text(s)
 ~CapsLock & 7::
     changeCaseTo("lower")

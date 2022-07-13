@@ -74,6 +74,7 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 | <kbd>Win</kbd> + <kbd>N</kbd>                    | Open/Switch/Cycle through Notepad (_<kbd>Esc</kbd> will close notepad without saving contents_) |
 | <kbd>Shift</kbd> + <kbd>Win</kbd> + <kbd>N</kbd> | Open Notepad (new window)                                                                       |
 | <kbd>Win</kbd> + <kbd>S</kbd>                    | Search selected text via active browser (or the default browser) 🔍                             |
+| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>P</kbd>  | Toggle presentation mode on or off                                                              |
 | <kbd>~CapsLock</kbd> + <kbd>7</kbd>              | Transform selected text to lower case (eg. `Hello, Word!` to `hello, word!`)                    |
 | <kbd>~CapsLock</kbd> + <kbd>8</kbd>              | Transform selected text to titled case (eg. `hello, word!` to `Hello, Word!`)                   |
 | <kbd>~CapsLock</kbd> + <kbd>9</kbd>              | Transform selected text to upper case (eg. `Hello, Word!` to `HELLO, WORD!`)                    |
