@@ -204,6 +204,10 @@ changeCaseTo(case){
     Len := Strlen(selected_text)
     Send +{left %Len%}
     Sleep, 10
+
+    ; # BUG 
+    ; for some reason while changing the case of text with multiple lines 
+    ; the code the the each new line (\n or `n) is sent twice
 }
 
 ; == HOTKEYS ==
