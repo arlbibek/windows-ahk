@@ -60,24 +60,25 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 
 #### Global
 
-| Key                                              | Action                                                                                          |
-| ------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
-| <kbd>F1</kbd>                                    | Open/Switch/Cycle through Firefox                                                               |
-| <kbd>Shift</kbd> + <kbd>F1</kbd>                 | Open Firefox (new window)                                                                       |
-| <kbd>F3</kbd>                                    | Open/Switch/Minimize Spotify                                                                    |
-| <kbd>F4</kbd>                                    | Open/Switch/Cycle through VS Code                                                               |
-| <kbd>F6</kbd>                                    | Open/Switch to/Minimize SumatraPDF                                                              |
-| <kbd>F7</kbd>                                    | Open/Switch to/Minimize Microsoft Word                                                          |
-| <kbd>F8</kbd>                                    | Open/Switch to/Minimize Microsoft Excel                                                         |
-| <kbd>Win</kbd> + <kbd>E</kbd>                    | Open/Switch/Cycle through File Explorer                                                         |
-| <kbd>Shift</kbd> + <kbd>Win</kbd> + <kbd>E</kbd> | Open File Explorer (new window)                                                                 |
-| <kbd>Win</kbd> + <kbd>N</kbd>                    | Open/Switch/Cycle through Notepad (_<kbd>Esc</kbd> will close notepad without saving contents_) |
-| <kbd>Shift</kbd> + <kbd>Win</kbd> + <kbd>N</kbd> | Open Notepad (new window)                                                                       |
-| <kbd>Win</kbd> + <kbd>S</kbd>                    | Search selected text via active browser (or the default browser) 🔍                             |
-| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>P</kbd>  | Toggle presentation mode on or off                                                              |
-| <kbd>~CapsLock</kbd> + <kbd>7</kbd>              | Transform selected text to lower case (eg. `Hello, Word!` to `hello, word!`)                    |
-| <kbd>~CapsLock</kbd> + <kbd>8</kbd>              | Transform selected text to titled case (eg. `hello, word!` to `Hello, Word!`)                   |
-| <kbd>~CapsLock</kbd> + <kbd>9</kbd>              | Transform selected text to upper case (eg. `Hello, Word!` to `HELLO, WORD!`)                    |
+| Key                                                            | Action                                                                                                                                                        |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <kbd>F1</kbd>                                                  | Open/Switch/Cycle through Firefox                                                                                                                             |
+| <kbd>Shift</kbd> + <kbd>F1</kbd>                               | Open Firefox (new window)                                                                                                                                     |
+| <kbd>F3</kbd>                                                  | Open/Switch/Minimize Spotify                                                                                                                                  |
+| <kbd>F4</kbd>                                                  | Open/Switch/Cycle through VS Code                                                                                                                             |
+| <kbd>F6</kbd>                                                  | Open/Switch to/Minimize SumatraPDF                                                                                                                            |
+| <kbd>F7</kbd>                                                  | Open/Switch to/Minimize Microsoft Word                                                                                                                        |
+| <kbd>F8</kbd>                                                  | Open/Switch to/Minimize Microsoft Excel                                                                                                                       |
+| <kbd>Win</kbd> + <kbd>E</kbd>                                  | Open/Switch/Cycle through File Explorer                                                                                                                       |
+| <kbd>Shift</kbd> + <kbd>Win</kbd> + <kbd>E</kbd>               | Open File Explorer (new window)                                                                                                                               |
+| <kbd>Win</kbd> + <kbd>N</kbd>                                  | Open/Switch/Cycle through Notepad (_<kbd>Esc</kbd> will close notepad without saving contents_)                                                               |
+| <kbd>Shift</kbd> + <kbd>Win</kbd> + <kbd>N</kbd>               | Open Notepad (new window)                                                                                                                                     |
+| <kbd>Win</kbd> + <kbd>S</kbd>                                  | Search selected text via active browser (or the default browser) 🔍                                                                                           |
+| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>P</kbd>                | Toggle presentation mode on or off                                                                                                                            |
+| <kbd>~CapsLock</kbd> & <kbd>7</kbd>                            | Transform selected text to lower case (eg. `Hello, Word!` to `hello, word!`)                                                                                  |
+| <kbd>~CapsLock</kbd> & <kbd>8</kbd>                            | Transform selected text to titled case (eg. `hello, word!` to `Hello, Word!`)                                                                                 |
+| <kbd>~CapsLock</kbd> & <kbd>9</kbd>                            | Transform selected text to upper case (eg. `Hello, Word!` to `HELLO, WORD!`)                                                                                  |
+| <kbd>~Ctrl</kbd> & <kbd title="Left Mouse Button">LMouse</kbd> | Drag a window by click any point inside the window (rather than just the title bar) [[ref](https://www.autohotkey.com/docs/scripts/index.htm#EasyWindowDrag)] |
 
 #### File Explorer
 
