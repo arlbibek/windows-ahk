@@ -2,13 +2,13 @@
 
 A simple and intuitive AutoHotKey script for enhancing windows shortcuts, dedicated to improving users’ workflow.
 
-> ## AutoHotKey
->
-> AutoHotkey is a free and open-source custom scripting language for Microsoft Windows, initially aimed at providing easy keyboard shortcuts or hotkeys, fast macro-creation, and software automation that allows users of most levels of computer skill to automate repetitive tasks in any Windows application.
->
-> - Homepage: [autohotkey.com](https://www.autohotkey.com "Go to autohotkey homepage")
-> - Downloading page: [/download](https://www.autohotkey.com/download "Go to autohotkey download page")
-> - Direct download: [/ahk-install.exe](https://www.autohotkey.com/download/ahk-install.exe "Directly download autohotkey")
+## About AutoHotKey
+
+AutoHotkey is a free and open-source custom scripting language for Microsoft Windows, initially aimed at providing easy keyboard shortcuts or hotkeys, fast macro-creation, and software automation that allows users of most levels of computer skill to automate repetitive tasks in any Windows application.
+
+- Homepage: [autohotkey.com](https://www.autohotkey.com "Go to autohotkey homepage")
+- Downloading page: [/download](https://www.autohotkey.com/download "Go to autohotkey download page")
+- Direct download: [/ahk-install.exe](https://www.autohotkey.com/download/ahk-install.exe "Directly download autohotkey")
 
 ## Usages
 
@@ -31,8 +31,8 @@ A simple and intuitive AutoHotKey script for enhancing windows shortcuts, dedica
 
 [ _If you have trust issues with .exe(s) and/or want to make some changes_ ]
 
-1. First, Download and Install AutoHotKey [ *from one of the links above* ].
-2. Then, Download the `WINDOWS.ahk` file from one of the [releases](https://github.com/arlbibek/windows-ahk/releases "Visit releases page") (or you may clone the repo).
+1. First, download and Install AutoHotKey [ *from one of the links above* ].
+2. Then, download the `WINDOWS.ahk` file from one of the [releases](https://github.com/arlbibek/windows-ahk/releases "Visit releases page") (or you may clone the repo).
 3. Run the `WINDOWS.ahk` file.
 4. Done! _You shall now see the `WINDOWS.ahk` file running on the system tray._
 
