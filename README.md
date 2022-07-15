@@ -36,9 +36,9 @@ A simple and intuitive AutoHotKey script for enhancing windows shortcuts, dedica
 3. Run the `WINDOWS.ahk` file.
 4. Done! _You shall now see the `WINDOWS.ahk` file running on the system tray._
 
-> **To automatically start the script when you log on to the computer.**
+> To automatically run the script when you log on to the computer, simply, click on the `Run at startup` option in the script's tray menu.
 >
-> Simply, Create a shortcut of (or place) the exe/ahk on the startup folder, _to go to startup folder: Launch Run (<kbd>Win</kbd> + <kbd>R</kbd>) and open (search for) `shell:startup`_
+> ![Tray menu options](assets/tray_startup.png)
 
 ---
 

@@ -35,6 +35,36 @@ c := "C:\"
 arlbibek := documents . "arlbibek\"
 screenshot := userdir . "Documents\ShareX\Screenshots\"
 
+; ==MODIFYING TRAY MENU==
+
+Menu, Tray, NoStandard ; removing original menu
+
+; adding run at startup option to tray menu
+splitPath, a_scriptFullPath, , , script_ext, script_name
+global startup_shortcut := a_startup "\" script_name "." script_ext ".lnk"
+
+Menu, Tray, Add, Run at startup, run_at_startup
+Menu, Tray, % fileExist(startup_shortcut) ? "check" : "unCheck", Run at startup
+
+run_at_startup(){
+    ; Toggle run at startup for the current script 
+    IfExist, %startup_shortcut% 
+    {
+        FileDelete, % startup_shortcut
+        Menu, Tray, unCheck, Run at startup
+        TrayTip, , Startup Shortcut removed, 5
+    } 
+    else 
+    {
+        FileCreateShortcut, % a_scriptFullPath, % startup_shortcut
+        Menu, Tray, check, Run at startup
+        TrayTip, , Startup Shortcut created, 5
+    }
+}
+
+Menu, Tray, Add ; creates a separator line
+Menu, Tray, Standard ; puts original menu back
+
 ; FUNCTIONs
 
 activate(program, action:="minimize", ahk_type:="ahk_exe"){
