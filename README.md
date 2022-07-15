@@ -128,13 +128,6 @@ Hotstrings are mainly used to expand abbreviations as you type them (auto-replac
 ::wtf::Wow that's fantastic
 ```
 
-#### Terminal Group
-
-| Abbreviation | Phrase                                                            |
-| ------------ | ----------------------------------------------------------------- |
-| `/cud`       | _full path of current user directory_ (eg. `/mnt/c/Users/bibek/`) |
-| `/nrd`       | npm run dev                                                       |
-
 #### Date and time
 
 Assuming today's date and time is `Sunday, October 10, 2021, 02:55 PM`
@@ -157,6 +150,9 @@ Assuming today's date and time is `Sunday, October 10, 2021, 02:55 PM`
 
 | Abbreviation | Phrase                                                                            |
 | ------------ | --------------------------------------------------------------------------------- |
+| `/paste`     | _Paste contents of clip board_                                                    |
+| `/cud`       | _Full path of current user directory_ (eg. `/mnt/c/Users/bibek/`)                 |
+| `/nrd`       | npm run dev                                                                       |
 | `/gm`        | Good morning                                                                      |
 | `/ge`        | Good evening                                                                      |
 | `/gn`        | Good night                                                                        |

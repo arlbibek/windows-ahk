@@ -455,16 +455,6 @@ return
 
 ; == HOT STRINGS ==
 
-; Terminal Group
-
-#IfWinActive, ahk_group TerminalGroup
-::/cud:: 
-    ; useful for WSLs
-    SendInput, /mnt/c/Users/%A_UserName%/ 
-Return
-::/nrd::npm run dev
-#IfWinActive
-
 ; Current Date and Time
 
 ::/datetime::
@@ -513,6 +503,15 @@ Return
 Return
 
 ; Others
+::/paste::
+    Send, %Clipboard%
+Return
+::/cud:: 
+    ; useful for WSLs
+    SendInput, /mnt/c/Users/%A_UserName%/ 
+Return
+::/nrd::npm run dev
+
 ::/gm::Good morning
 ::/ge::Good evening
 ::/gn::Good night
