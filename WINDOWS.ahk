@@ -99,7 +99,6 @@ get_selected(){
     ClipWait, 1
     copied = %Clipboard%
     Clipboard := ClipSave ; restoring the contents of clipboard
-    return copied
 }
 
 win_search(search_str){
