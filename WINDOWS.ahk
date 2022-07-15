@@ -131,7 +131,6 @@ win_search(search_str){
             }
         }
     }
-
 }
 
 exploreTo(path){
