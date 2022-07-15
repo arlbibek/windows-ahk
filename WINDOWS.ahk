@@ -62,6 +62,13 @@ run_at_startup(){
     }
 }
 
+; Adding View on GitHub option
+Menu, Tray, Add, View in GitHub, view_in_github
+
+view_in_github(){
+    Run, https://github.com/arlbibek/windows-ahk
+}
+
 Menu, Tray, Add ; creates a separator line
 Menu, Tray, Standard ; puts original menu back
 
