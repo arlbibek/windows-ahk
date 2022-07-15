@@ -10,14 +10,14 @@ A simple and intuitive AutoHotKey script for enhancing windows shortcuts, dedica
 > - Downloading page: [/download](https://www.autohotkey.com/download "Go to autohotkey download page")
 > - Direct download: [/ahk-install.exe](https://www.autohotkey.com/download/ahk-install.exe "Directly download autohotkey")
 
+## Usages
+
 ```text
 +------------------------------------------+
 | CAUTION!                                 |
 | These scripts tend to be very addictive. |
 +------------------------------------------+
 ```
-
-## Usages
 
 ### Option 1
 
@@ -36,20 +36,20 @@ A simple and intuitive AutoHotKey script for enhancing windows shortcuts, dedica
 3. Run the `WINDOWS.ahk` file.
 4. Done! _You shall now see the `WINDOWS.ahk` file running on the system tray._
 
-> To automatically run the script when you log on to the computer, simply, click on the `Run at startup` option in the script's tray menu.
+> - To automatically run the script when you log on to the computer, simply, click on the `Run at startup` option in the script's tray menu.
 >
-> ![Tray menu options](assets/tray_startup.png)
+>   ![Tray menu options](assets/tray_startup.png)
 
 ---
 
 ## Keyboard Shortcuts
 
-| #   | Notes                                                                                                                                                                                                                                                                                                                                                                            |
-| --- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| -   | **It is important to note that all the pre-existing hotkeys/shortcuts will be overridden.**                                                                                                                                                                                                                                                                                      |
-| -   | The tilde `~` at the beginning of certain key (eg. <kbd>~CapsLock</kbd>) means holding down the key.                                                                                                                                                                                                                                                                             |
-| -   | For those hotkeys that throw an error saying `Error. Failed attempt to launch program or document:` ... `Specifically: The system cannot find the file specified.`, please consider adding the respective program (folder) to the [path of your system variables](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/ "See: Add to the PATH on Windows 10"). |
-| -   | Anything with this (🤵) emoji is a custom/specific shortcut that might not work or suit your needs.                                                                                                                                                                                                                                                                              |
+> **Notes**
+>
+> - It is important to note that all the pre-existing hotkeys/shortcuts will be overridden.
+> - The tilde `~` at the beginning of certain key (eg. <kbd>~CapsLock</kbd>) means holding down the key.
+> - For those hotkeys that throw an error saying `Error. Failed attempt to launch program or document:` ... `Specifically: The system cannot find the file specified.`, _please consider adding the respective program (folder) to the [path of your system variables](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/ "See: Add to the PATH on Windows 10")_.
+> - Anything with this (🤵) emoji is a custom/specific shortcut that might not work or suit your needs.
 
 ### Hotkey
 
