@@ -10,8 +10,6 @@ A simple and intuitive AutoHotKey script for enhancing windows shortcuts, dedica
 > - Downloading page: [/download](https://www.autohotkey.com/download "Go to autohotkey download page")
 > - Direct download: [/ahk-install.exe](https://www.autohotkey.com/download/ahk-install.exe "Directly download autohotkey")
 
-**It is important to note that all the pre-existing hotkeys/shortcuts will be overridden.**
-
 ```text
 +------------------------------------------+
 | CAUTION!                                 |
@@ -46,17 +44,17 @@ A simple and intuitive AutoHotKey script for enhancing windows shortcuts, dedica
 
 ## Keyboard Shortcuts
 
-- _Anything with this_ (🤵) _emoji is a custom/specific shortcut that might not work or suit your needs._
+| #   | Notes                                                                                                                                                                                                                                                                                                                                                                            |
+| --- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| -   | **It is important to note that all the pre-existing hotkeys/shortcuts will be overridden.**                                                                                                                                                                                                                                                                                      |
+| -   | The tilde `~` at the beginning of certain key (eg. <kbd>~CapsLock</kbd>) means holding down the key.                                                                                                                                                                                                                                                                             |
+| -   | For those hotkeys that throw an error saying `Error. Failed attempt to launch program or document:` ... `Specifically: The system cannot find the file specified.`, please consider adding the respective program (folder) to the [path of your system variables](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/ "See: Add to the PATH on Windows 10"). |
+| -   | Anything with this (🤵) emoji is a custom/specific shortcut that might not work or suit your needs.                                                                                                                                                                                                                                                                              |
 
 ### Hotkey
 
 aka **shortcut keys** - easily trigger an action (such as launching a program or keyboard macro)
 [[ahk](https://www.autohotkey.com/docs/Hotkeys.htm "See hotkey documentation")].
-
-| #   | Notes                                                                                                                                                                                                                                                                                                                                                                            |
-| --- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| -   | The tilde `~` at the beginning of certain key (eg. <kbd>~CapsLock</kbd>) means holding down the key.                                                                                                                                                                                                                                                                             |
-| -   | For those hotkeys that throw an error saying `Error. Failed attempt to launch program or document:` ... `Specifically: The system cannot find the file specified.`, please consider adding the respective program (folder) to the [path of your system variables](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/ "See: Add to the PATH on Windows 10"). |
 
 #### Global
 
@@ -80,7 +78,10 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 | <kbd>~CapsLock</kbd> & <kbd>9</kbd>                            | Transform selected text to upper case (eg. `Hello, Word!` to `HELLO, WORD!`)                                                                                  |
 | <kbd>~Ctrl</kbd> & <kbd title="Left Mouse Button">LMouse</kbd> | Drag a window by click any point inside the window (rather than just the title bar) [[ref](https://www.autohotkey.com/docs/scripts/index.htm#EasyWindowDrag)] |
 
-#### File Explorer
+#### File Explorer & Terminal Groups
+
+> This works for all the explorer-based "save" and "load" boxes
+> and Terminal Groups (i.e. `WindowsTerminal` `PowerShell` `Command Prompt` `Debian (wsl)` `Kali (wsl)` `Ubuntu (wsl)`)
 
 | Key                                                | Action                                                                                                                                    |
 | -------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
@@ -98,16 +99,6 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>  | 🤵 Navigate to Screenshot directory                                                                                                       |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>T</kbd>  | Open Windows Terminal in Current Working Directory                                                                                        |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>\\</kbd> | Open VS Code in Current Working Directory (_uses context menu_); <br/> _And if a file/folder is selected this will create it's shortcut;_ |
-
-> _This works for all the Explorer-based "save" and "load" boxes as well!_
-
-#### Terminal Groups
-
-`WindowsTerminal` `PowerShell` `Command Prompt` `Debian (wsl)` `Kali (wsl)` `Ubuntu (wsl)`
-
-| Key                                                | Action                                                    |
-| -------------------------------------------------- | --------------------------------------------------------- |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>\\</kbd> | Open VS Code in Current Working Directory (uses `code .`) |
 
 ### Google Docs/Sheets
 

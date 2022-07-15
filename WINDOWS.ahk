@@ -387,10 +387,21 @@ return
 ; == TERMINALS ==
 
 #IfWinActive, ahk_group TerminalGroup
-^+\::
-    ; vscode in current directory
-    Send, code .{Enter} 
-Return
+    ; vs code
+    ^+\::Send, code .{Enter} 
+    ; file explorer
+    #e::Send, explorer .{Return}
+    ^+u::Send, explorer %userdir%{Return}
+    ^+e::Send, explorer %pc%{Return}
+    ^+h::Send, explorer %desktop%{Return}
+    ^+d::Send, explorer %documents%{Return}
+    ^+j::Send, explorer %downloads%{Return}
+    ^+m::Send, explorer %music%{Return}
+    ^+p::Send, explorer %pictures%{Return}
+    ^+v::Send, explorer %videos%{Return}
+    ^+c::Send, explorer %c%{Return}
+    ^+a::Send, explorer %arlbibek%{Return}
+    ^+s::Send, explorer %screenshot%{Return}
 #IfWinActive
 
 ; == GOOGLE DOCS/SHEETS ==
