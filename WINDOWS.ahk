@@ -36,16 +36,6 @@ arlbibek := documents . "arlbibek\"
 screenshot := userdir . "Documents\ShareX\Screenshots\"
 
 ; ==MODIFYING TRAY MENU==
-
-Menu, Tray, NoStandard ; removing original menu
-
-; adding run at startup option to tray menu
-splitPath, a_scriptFullPath, , , script_ext, script_name
-global startup_shortcut := a_startup "\" script_name "." script_ext ".lnk"
-
-Menu, Tray, Add, Run at startup, run_at_startup
-Menu, Tray, % fileExist(startup_shortcut) ? "check" : "unCheck", Run at startup
-
 run_at_startup(){
     ; Toggle run at startup for the current script 
     IfExist, %startup_shortcut% 
@@ -61,18 +51,31 @@ run_at_startup(){
         TrayTip, , Startup Shortcut created, 5
     }
 }
-
-; Adding View on GitHub option
-Menu, Tray, Add, View in GitHub, view_in_github
-
 view_in_github(){
     Run, https://github.com/arlbibek/windows-ahk
 }
 
-Menu, Tray, Add ; creates a separator line
-Menu, Tray, Standard ; puts original menu back
+update_tray_menu(){
 
-; FUNCTIONs
+    Menu, Tray, NoStandard ; removing original menu
+
+    ; adding run at startup option to tray menu
+    splitPath, a_scriptFullPath, , , script_ext, script_name
+    global startup_shortcut := a_startup "\" script_name "." script_ext ".lnk"
+
+    Menu, Tray, Add, Run at startup, run_at_startup
+    Menu, Tray, % fileExist(startup_shortcut) ? "check" : "unCheck", Run at startup
+
+    ; Adding View on GitHub option
+    Menu, Tray, Add, View in GitHub, view_in_github
+
+    Menu, Tray, Add ; creates a separator line
+    Menu, Tray, Standard ; puts original menu back
+}
+
+update_tray_menu()
+
+; ==FUNCTIONS==
 
 activate(program, action:="minimize", ahk_type:="ahk_exe"){
     ; Open/Switch/(Minimize/Cycle through) a program
@@ -126,7 +129,7 @@ get_selected(){
     ;  return selected contents via clipboard (sends ctrl + c), but restores the previous contents of clipboard
 
     ClipSave := ClipboardAll ; saving the contents of clipboard
-    Clipboard = 
+    Clipboard = ; clearing contents of Clipboard
     if WinActive("ahk_group TerminalGroup"){
         Send, ^+c
     }
@@ -136,6 +139,7 @@ get_selected(){
     ClipWait, 1
     copied = %Clipboard%
     Clipboard := ClipSave ; restoring the contents of clipboard
+    return %copied%
 }
 
 win_search(search_str){
@@ -179,6 +183,34 @@ exploreTo(path){
     Send, {Enter}
 }
 
+changeCaseTo(case){
+    ; Change selected text to "lower", "capitalize" or "upper" case letters
+    selected_text := get_selected()
+    if (case == "lower"){
+        StringLower, selected_text, selected_text
+    } 
+    else if (case == "cap" or case == "capitalize") {
+        StringUpper selected_text, selected_text, T
+    } 
+    else if (case == "upper") {
+        StringUpper, selected_text, selected_text
+    } 
+    else {
+        MsgBox % "Wrong parameter value: " case "`nThe parameter should be either 'lower', 'cap' or 'upper'."
+    }
+    Sleep, 10
+    SendRaw, %selected_text%
+
+    ; reselecting the text
+    Len := Strlen(selected_text)
+    Send +{left %Len%}
+    Sleep, 10
+
+    ; # BUG 
+    ; for some reason while changing the case of text with multiple lines, 
+    ; each new line (\n or `n) is sent twice
+}
+
 pathErrMsgBox(eextra, emessage){
     ; displays path error message to the user
     MsgBox, % "`n"eextra "`n"emessage "`n`nNote: Please consider adding the respective program (folder) to the PATH of the System Variables. (This may need system restart to take effect)"
@@ -215,34 +247,6 @@ sheetWr(text){
     if InStr(ActiveTitle, gsheet, True) {
         Send, %text%
     }
-}
-
-changeCaseTo(case){
-    ; Change selected text to "lower", "capitalize" or "upper" case letters
-    selected_text := get_selected()
-    if (case == "lower"){
-        StringLower, selected_text, selected_text
-    } 
-    else if (case == "cap" or case == "capitalize") {
-        StringUpper selected_text, selected_text, T
-    } 
-    else if (case == "upper") {
-        StringUpper, selected_text, selected_text
-    } 
-    else {
-        MsgBox % "Wrong parameter value: " case "`nThe parameter should be either 'lower', 'cap' or 'upper'."
-    }
-    Sleep, 10
-    SendRaw, %selected_text%
-
-    ; reselecting the text
-    Len := Strlen(selected_text)
-    Send +{left %Len%}
-    Sleep, 10
-
-    ; # BUG 
-    ; for some reason while changing the case of text with multiple lines 
-    ; the code the the each new line (\n or `n) is sent twice
 }
 
 ; == HOTKEYS ==
@@ -339,15 +343,15 @@ return
 Return
 
 ; change case of selected text(s)
-~CapsLock & 7::
+CapsLock & 7::
     changeCaseTo("lower")
     Send, {CapsLock} ; Resetting CapsLock to previous state
 return
-~CapsLock & 8::
+CapsLock & 8::
     changeCaseTo("cap")
     Send, {CapsLock}
 return
-~CapsLock & 9::
+CapsLock & 9::
     changeCaseTo("upper")
     Send, {CapsLock}
 return
@@ -356,15 +360,14 @@ return
 ; https://www.autohotkey.com
 ; Normally, a window can only be dragged by clicking on its title bar.
 ; This script extends that so that any point inside a window can be dragged.
-; To activate this mode, hold down Ctrl clicking, then drag the window to a new position.
+; To activate this mode, hold down CapsLock or the middle mouse button while
+; clicking, then drag the window to a new position.
 
-; Note: You can optionally release Ctrl key after
+; Note: You can optionally release CapsLock or the middle mouse button after
 ; pressing down the mouse button rather than holding it down the whole time.
 ; This script requires v1.0.25+.
 
-; Reference: https://www.autohotkey.com/docs/scripts/index.htm#EasyWindowDrag
-
-~Ctrl & LButton::
+CapsLock & LButton::
     CoordMode, Mouse ; Switch to screen/absolute coordinates.
     MouseGetPos, EWD_MouseStartX, EWD_MouseStartY, EWD_MouseWin
     WinGetPos, EWD_OriginalPosX, EWD_OriginalPosY,,, ahk_id %EWD_MouseWin%

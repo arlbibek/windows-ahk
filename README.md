@@ -58,25 +58,25 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 
 #### Global
 
-| Key                                                            | Action                                                                                                                                                        |
-| -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <kbd>F1</kbd>                                                  | Open/Switch/Cycle through Firefox                                                                                                                             |
-| <kbd>Shift</kbd> + <kbd>F1</kbd>                               | Open Firefox (new window)                                                                                                                                     |
-| <kbd>F3</kbd>                                                  | Open/Switch/Minimize Spotify                                                                                                                                  |
-| <kbd>F4</kbd>                                                  | Open/Switch/Cycle through VS Code                                                                                                                             |
-| <kbd>F6</kbd>                                                  | Open/Switch to/Minimize SumatraPDF                                                                                                                            |
-| <kbd>F7</kbd>                                                  | Open/Switch to/Minimize Microsoft Word                                                                                                                        |
-| <kbd>F8</kbd>                                                  | Open/Switch to/Minimize Microsoft Excel                                                                                                                       |
-| <kbd>Win</kbd> + <kbd>E</kbd>                                  | Open/Switch/Cycle through File Explorer                                                                                                                       |
-| <kbd>Shift</kbd> + <kbd>Win</kbd> + <kbd>E</kbd>               | Open File Explorer (new window)                                                                                                                               |
-| <kbd>Win</kbd> + <kbd>N</kbd>                                  | Open/Switch/Cycle through Notepad (_<kbd>Esc</kbd> will close notepad without saving contents_)                                                               |
-| <kbd>Shift</kbd> + <kbd>Win</kbd> + <kbd>N</kbd>               | Open Notepad (new window)                                                                                                                                     |
-| <kbd>Win</kbd> + <kbd>S</kbd>                                  | Search selected text via active browser (or the default browser) 🔍                                                                                           |
-| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>P</kbd>                | Toggle presentation mode on or off                                                                                                                            |
-| <kbd>~CapsLock</kbd> & <kbd>7</kbd>                            | Transform selected text to lower case (eg. `Hello, Word!` to `hello, word!`)                                                                                  |
-| <kbd>~CapsLock</kbd> & <kbd>8</kbd>                            | Transform selected text to titled case (eg. `hello, word!` to `Hello, Word!`)                                                                                 |
-| <kbd>~CapsLock</kbd> & <kbd>9</kbd>                            | Transform selected text to upper case (eg. `Hello, Word!` to `HELLO, WORD!`)                                                                                  |
-| <kbd>~Ctrl</kbd> & <kbd title="Left Mouse Button">LMouse</kbd> | Drag a window by click any point inside the window (rather than just the title bar) [[ref](https://www.autohotkey.com/docs/scripts/index.htm#EasyWindowDrag)] |
+| Key                                                               | Action                                                                                                                                                                                                    |
+| ----------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <kbd>F1</kbd>                                                     | Open/Switch/Cycle through Firefox                                                                                                                                                                         |
+| <kbd>Shift</kbd> + <kbd>F1</kbd>                                  | Open Firefox (new window)                                                                                                                                                                                 |
+| <kbd>F3</kbd>                                                     | Open/Switch/Minimize Spotify                                                                                                                                                                              |
+| <kbd>F4</kbd>                                                     | Open/Switch/Cycle through VS Code                                                                                                                                                                         |
+| <kbd>F6</kbd>                                                     | Open/Switch to/Minimize SumatraPDF                                                                                                                                                                        |
+| <kbd>F7</kbd>                                                     | Open/Switch to/Minimize Microsoft Word                                                                                                                                                                    |
+| <kbd>F8</kbd>                                                     | Open/Switch to/Minimize Microsoft Excel                                                                                                                                                                   |
+| <kbd>Win</kbd> + <kbd>E</kbd>                                     | Open/Switch/Cycle through File Explorer                                                                                                                                                                   |
+| <kbd>Shift</kbd> + <kbd>Win</kbd> + <kbd>E</kbd>                  | Open File Explorer (new window)                                                                                                                                                                           |
+| <kbd>Win</kbd> + <kbd>N</kbd>                                     | Open/Switch/Cycle through Notepad (_<kbd>Esc</kbd> will close notepad without saving contents_)                                                                                                           |
+| <kbd>Shift</kbd> + <kbd>Win</kbd> + <kbd>N</kbd>                  | Open Notepad (new window)                                                                                                                                                                                 |
+| <kbd>Win</kbd> + <kbd>S</kbd>                                     | Search selected text via active browser (or the default browser) 🔍                                                                                                                                       |
+| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>P</kbd>                   | Toggle presentation mode on or off                                                                                                                                                                        |
+| <kbd>CapsLock</kbd> & <kbd>7</kbd>                                | Transform selected text to lower case (eg. `Hello, Word!` to `hello, word!`) <a title="for some reason while changing the case of text with multiple lines, each new line (\n or `n) is sent twice">⚠</a> |
+| <kbd>CapsLock</kbd> & <kbd>8</kbd>                                | Transform selected text to titled case (eg. `hello, word!` to `Hello, Word!`) ⚠                                                                                                                           |
+| <kbd>CapsLock</kbd> & <kbd>9</kbd>                                | Transform selected text to upper case (eg. `Hello, Word!` to `HELLO, WORD!`) ⚠                                                                                                                            |
+| <kbd>CapsLock</kbd> & <kbd title="Left Mouse Button">LMouse</kbd> | Drag a window by click any point inside the window (rather than just the title bar) [[ref](https://www.autohotkey.com/docs/scripts/index.htm#EasyWindowDrag)]                                             |
 
 #### File Explorer & Terminal Groups
 
@@ -104,7 +104,7 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 
 Note that the following commands will (only) work within google docs or the sheets window regardless of the browser.
 
-and it is highly recommended that you disable the google sheets autocomplete feature. [ `Menu >> Tools >> Autocomplete` *Uncheck the* `Enable autocomplete` *option* ]
+and it is highly recommended that you disable the google sheets autocomplete feature. [ `Menu >> Tools >> Autocomplete` _Uncheck the_ `Enable autocomplete` _option_ ]
 
 | Key                                              | Action                                          |
 | ------------------------------------------------ | ----------------------------------------------- |
