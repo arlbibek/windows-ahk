@@ -199,16 +199,11 @@ changeCaseTo(case){
         MsgBox % "Wrong parameter value: " case "`nThe parameter should be either 'lower', 'cap' or 'upper'."
     }
     Sleep, 10
-    SendRaw, %selected_text%
+    Send, {Text}%selected_text% ; The {Text} mode is similar to the Raw mode, except that no attempt is made to translate characters (other than `r, `n, `t and `b) to keycodes
 
-    ; reselecting the text
-    Len := Strlen(selected_text)
-    Send +{left %Len%}
-    Sleep, 10
-
-    ; # BUG 
-    ; for some reason while changing the case of text with multiple lines, 
-    ; each new line (\n or `n) is sent twice
+    ; attempting to reselect the previously selected text
+    str_len := StrLen(selected_text)
+    Send +{left %str_len%}
 }
 
 pathErrMsgBox(eextra, emessage){
