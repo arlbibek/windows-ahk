@@ -54,6 +54,9 @@ run_at_startup(){
 view_in_github(){
     Run, https://github.com/arlbibek/windows-ahk
 }
+view_ahk_doc(){
+    Run, https://www.autohotkey.com/docs/AutoHotkey.htm
+}
 
 update_tray_menu(){
 
@@ -68,6 +71,9 @@ update_tray_menu(){
 
     ; Adding View on GitHub option
     Menu, Tray, Add, View in GitHub, view_in_github
+
+    ; Adding See AHK Documentation option
+    Menu, Tray, Add, See AutoHotKey documentation, view_ahk_doc
 
     Menu, Tray, Add ; creates a separator line
     Menu, Tray, Standard ; puts original menu back
