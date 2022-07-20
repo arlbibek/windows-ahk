@@ -69,10 +69,10 @@ update_tray_menu(){
     Menu, Tray, Add, Run at startup, run_at_startup
     Menu, Tray, % fileExist(startup_shortcut) ? "check" : "unCheck", Run at startup
 
-    ; Adding View on GitHub option
+    ; adding view on github option
     Menu, Tray, Add, View in GitHub, view_in_github
 
-    ; Adding See AHK Documentation option
+    ; adding see ahk documentation option
     Menu, Tray, Add, See AutoHotKey documentation, view_ahk_doc
 
     Menu, Tray, Add ; creates a separator line
@@ -414,7 +414,6 @@ return
     ^+m::exploreTo(music)
     ^+p::exploreTo(pictures)
     ^+v::exploreTo(videos)
-    ^+c::exploreTo(c)
     ^+a::exploreTo(arlbibek)
     ^+s::exploreTo(screenshot)
 #IfWinActive
@@ -440,7 +439,6 @@ return
     ^+m::Send, explorer %music%{Return}
     ^+p::Send, explorer %pictures%{Return}
     ^+v::Send, explorer %videos%{Return}
-    ^+c::Send, explorer %c%{Return}
     ^+a::Send, explorer %arlbibek%{Return}
     ^+s::Send, explorer %screenshot%{Return}
 #IfWinActive
