@@ -35,6 +35,10 @@ c := "C:\"
 arlbibek := documents . "arlbibek\"
 screenshot := userdir . "Documents\ShareX\Screenshots\"
 
+; adding run at startup option to tray menu
+splitPath, a_scriptFullPath, , , script_ext, script_name
+global startup_shortcut := a_startup "\" script_name "." script_ext ".lnk"
+
 ; ==MODIFYING TRAY MENU==
 run_at_startup(){
     ; Toggle run at startup for the current script 
@@ -42,14 +46,17 @@ run_at_startup(){
     {
         FileDelete, % startup_shortcut
         Menu, Tray, unCheck, Run at startup
-        TrayTip, , Startup Shortcut removed, 5
+        TrayTip, Startup shortcut removed, This script will not run when you turn on your computer, 5, 1
     } 
     else 
     {
         FileCreateShortcut, % a_scriptFullPath, % startup_shortcut
         Menu, Tray, check, Run at startup
-        TrayTip, , Startup Shortcut created, 5
+        TrayTip, Startup shortcut added, This script will now automatically run when your turn on you computer, 5, 1
     }
+}
+visit_startup(){
+    Run, C:\Users\bibek\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
 }
 view_in_github(){
     Run, https://github.com/arlbibek/windows-ahk
@@ -61,10 +68,6 @@ view_ahk_doc(){
 update_tray_menu(){
 
     Menu, Tray, NoStandard ; removing original menu
-
-    ; adding run at startup option to tray menu
-    splitPath, a_scriptFullPath, , , script_ext, script_name
-    global startup_shortcut := a_startup "\" script_name "." script_ext ".lnk"
 
     Menu, Tray, Add, Run at startup, run_at_startup
     Menu, Tray, % fileExist(startup_shortcut) ? "check" : "unCheck", Run at startup
