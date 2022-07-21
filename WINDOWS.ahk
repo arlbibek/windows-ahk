@@ -64,6 +64,31 @@ view_in_github(){
 view_ahk_doc(){
     Run, https://www.autohotkey.com/docs/AutoHotkey.htm
 }
+togglePresentationMode(){
+    ; Toggle presentation mode
+    Run, presentationsettings.exe
+    Sleep, 500
+
+    ControlGet, presentationMode, Checked, , Button1, Presentation Settings, , , 
+
+    If (presentationMode == 1){
+        ; presentationMode is on, turning it off
+        Control, UnCheck , , Button1, Presentation Settings, , , 
+
+        TrayTip, Presentation mode has been toggled off, You computer will sleep accordingly, 5, 1
+        Menu, Tray, % "unCheck", Presentation mode {Ctrl+Alt+P} ; updating tray menu status
+
+    } Else {
+        ; presentationMode is off, turning it on
+        Control, Check , , Button1, Presentation Settings, , , 
+        Control, Check , , Button3, Presentation Settings, , , 
+
+        TrayTip, Presentation mode has been toggled on, You computer will stay awake indefinitely, 5, 1
+        Menu, Tray, % "check", Presentation mode {Ctrl+Alt+P} ; updating tray menu status
+    }
+    ; Closing Presentation Settings window
+    Control, Check, , Button7, Presentation Settings, , , 
+}
 
 update_tray_menu(){
 
@@ -71,6 +96,10 @@ update_tray_menu(){
 
     Menu, Tray, Add, Run at startup, run_at_startup
     Menu, Tray, % fileExist(startup_shortcut) ? "check" : "unCheck", Run at startup
+
+    Menu, Tray, Add, Presentation mode {Ctrl+Alt+P}, togglePresentationMode
+
+    Menu, Tray, Add ; creates a separator line
 
     ; adding view on github option
     Menu, Tray, Add, View in GitHub, view_in_github
@@ -338,13 +367,7 @@ return
 return
 
 ; Toggle presentation mode
-^!p::
-    Run, presentationsettings.exe
-    Sleep, 500
-    Send, {Space}
-    Sleep, 500
-    Send, {Enter}
-Return
+^!p::togglePresentationMode()
 
 ; change case of selected text(s)
 CapsLock & 7::
