@@ -4,7 +4,7 @@
 SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir% ; Ensures a consistent starting directory.
 
-Menu, Tray, Icon, shell32.dll, 16 ;this changes the icon into a little laptop thing.
+Menu, Tray, Icon, shell32.dll, 16 ; this changes the icon into a little laptop thing.
 
 ; grouping all terminal (WSLs as well)
 GroupAdd, TerminalGroup, ahk_exe WindowsTerminal.exe
@@ -14,7 +14,7 @@ GroupAdd, TerminalGroup, ahk_exe debian.exe
 GroupAdd, TerminalGroup, ahk_exe kali.exe
 GroupAdd, TerminalGroup, ahk_exe ubuntu.exe
 
-GroupAdd, ExplorerGroup, ahk_class #32770 ;This is for all the Explorer-based "save" and "load" boxes, from any program!
+GroupAdd, ExplorerGroup, ahk_class #32770 ; This is for all the Explorer-based "save" and "load" boxes, from any program!
 GroupAdd, ExplorerGroup, ahk_class CabinetWClass
 
 GroupAdd, BrowserGroup, ahk_exe firefox.exe
@@ -41,18 +41,18 @@ global startup_shortcut := a_startup "\" script_name "." script_ext ".lnk"
 
 ; ==MODIFYING TRAY MENU==
 run_at_startup(){
-    ; Toggle run at startup for the current script 
-    IfExist, %startup_shortcut% 
+    ; Toggle run at startup for the current script
+    IfExist, %startup_shortcut%
     {
         FileDelete, % startup_shortcut
         Menu, Tray, unCheck, Run at startup
         TrayTip, Startup shortcut removed, This script will not run when you turn on your computer, 5, 1
-    } 
-    else 
+    }
+    else
     {
         FileCreateShortcut, % a_scriptFullPath, % startup_shortcut
         Menu, Tray, check, Run at startup
-        TrayTip, Startup shortcut added, This script will now automatically run when your turn on you computer, 5, 1
+        TrayTip, Startup shortcut added, This script will now automatically run when your turn on your computer, 5, 1
     }
 }
 visit_startup(){
@@ -69,25 +69,25 @@ togglePresentationMode(){
     Run, presentationsettings.exe
     Sleep, 500
 
-    ControlGet, presentationMode, Checked, , Button1, Presentation Settings, , , 
+    ControlGet, presentationMode, Checked, , Button1, Presentation Settings, , ,
 
     If (presentationMode == 1){
         ; presentationMode is on, turning it off
-        Control, UnCheck , , Button1, Presentation Settings, , , 
+        Control, UnCheck , , Button1, Presentation Settings, , ,
 
-        TrayTip, Presentation mode has been toggled off, You computer will sleep accordingly, 5, 1
+        TrayTip, Presentation mode has been toggled off, Your computer will sleep accordingly, 5, 1
         Menu, Tray, % "unCheck", Presentation mode {Ctrl+Alt+P} ; updating tray menu status
 
     } Else {
         ; presentationMode is off, turning it on
-        Control, Check , , Button1, Presentation Settings, , , 
-        Control, Check , , Button3, Presentation Settings, , , 
+        Control, Check , , Button1, Presentation Settings, , ,
+        Control, Check , , Button3, Presentation Settings, , ,
 
-        TrayTip, Presentation mode has been toggled on, You computer will stay awake indefinitely, 5, 1
+        TrayTip, Presentation mode has been toggled on, Your computer will stay awake indefinitely, 5, 1
         Menu, Tray, % "check", Presentation mode {Ctrl+Alt+P} ; updating tray menu status
     }
     ; Closing Presentation Settings window
-    Control, Check, , Button7, Presentation Settings, , , 
+    Control, Check, , Button7, Presentation Settings, , ,
 }
 
 update_tray_menu(){
@@ -99,7 +99,7 @@ update_tray_menu(){
 
     Menu, Tray, Add, Presentation mode {Ctrl+Alt+P}, togglePresentationMode
 
-    Menu, Tray, Add ; creates a separator line
+    Menu, Tray, Add ; create a separator line
 
     ; adding view on github option
     Menu, Tray, Add, View in GitHub, view_in_github
@@ -107,7 +107,7 @@ update_tray_menu(){
     ; adding see ahk documentation option
     Menu, Tray, Add, See AutoHotKey documentation, view_ahk_doc
 
-    Menu, Tray, Add ; creates a separator line
+    Menu, Tray, Add ; create a separator line
     Menu, Tray, Standard ; puts original menu back
 }
 
@@ -117,10 +117,10 @@ update_tray_menu()
 
 activate(program, action:="minimize", ahk_type:="ahk_exe"){
     ; Open/Switch/(Minimize/Cycle through) a program
-    ; `program` is the name of the program (eg. firefox.exe), 
-    ; `action` is the action to perform on when the program window already is in active state, should be either "minimize" or "cycle" (default is minimize)
-    ; `ahk_type` is the ahk type either ahk_class or ahk_exe (default is ahk_exe), 
-    try 
+    ; `program` is the name of the program (eg. firefox.exe),
+    ; `action` is the action to perform when the program window already is in an active state, it should be either "minimize" or "cycle" (default is minimise)
+    ; `ahk_type` is the ahk type either ahk_class or ahk_exe (default is ahk_exe),
+    try
     {
         IfWinNotExist %ahk_type% %program%
             Run %program%
@@ -131,18 +131,18 @@ activate(program, action:="minimize", ahk_type:="ahk_exe"){
         FileNotFound := "The system cannot find the file specified."
         IfInString, err, %FileNotFound%
         {
-            MsgBox, % e.extra "`n"e.message "`n`nNote: Please install and/or consider adding the respective program (folder) to the PATH of the System Variables. `n(This may need system restart to take effect)" 
+            MsgBox, % e.extra "`n"e.message "`n`nNote: Please install and/or consider adding the respective program (folder) to the PATH of the System Variables. `n(This may need system restart to take effect)"
             return
         }
         else
-            MsgBox, 16,, % e.extra "`n"e.message 
+            MsgBox, 16,, % e.extra "`n"e.message
     }
     if (action == "cycle"){
         program_name := StrSplit(program, ".")[1]
         group_name = %program_name%Group
         GroupAdd, %group_name%, %ahk_type% %program%
     }
-    ahk_program = %ahk_type% %program% 
+    ahk_program = %ahk_type% %program%
     if WinActive(ahk_program)
     {
         If (action == "minimize"){
@@ -150,7 +150,7 @@ activate(program, action:="minimize", ahk_type:="ahk_exe"){
         }
         else if (action == "cycle"){
             GroupActivate, %group_name%, r ; cycle
-        } 
+        }
         else {
             MsgBox % "Wrong parameter value: " action "`nThe parameter 'action' should be either 'minimize' or 'cycle'."
         }
@@ -163,10 +163,10 @@ activate(program, action:="minimize", ahk_type:="ahk_exe"){
 }
 
 get_selected(){
-    ; copy selected contents to clipboard 
-    ;  return selected contents via clipboard (sends ctrl + c), but restores the previous contents of clipboard
+    ; copy selected contents to the clipboard
+    ;  return selected contents via clipboard (sends ctrl + c), but restores the previous contents of the clipboard
 
-    ClipSave := ClipboardAll ; saving the contents of clipboard
+    ClipSave := ClipboardAll ; saving the contents of the clipboard
     Clipboard = ; clearing contents of Clipboard
     if WinActive("ahk_group TerminalGroup"){
         Send, ^+c
@@ -176,7 +176,7 @@ get_selected(){
     }
     ClipWait, 1
     copied = %Clipboard%
-    Clipboard := ClipSave ; restoring the contents of clipboard
+    Clipboard := ClipSave ; restoring the contents of the clipboard
     return %copied%
 }
 
@@ -186,8 +186,8 @@ win_search(search_str){
 
     ; only search if something has been selected
     len_str := StrLen(search_str)
-    If (len_str == 0) { 
-        ; resend the command if noting is selected
+    If (len_str == 0) {
+        ; resend the command if nothing is selected
         Send, #s
     } else {
         ; Removes all CR+LF's (? next line).
@@ -198,14 +198,14 @@ win_search(search_str){
             Send, {Enter}
         }
         else {
-            ; TODO: Instead of if conditions add RegEx match to detect url
+            ; TODO: Instead of if conditions add RegEx match to detect URL
             if ((InStr(search_str, "http://") = 1) or (InStr(search_str, "https://") = 1) or (InStr(search_str, "www.") = 1))
             {
                 Run % search_str
             }
             else {
                 search_str := StrReplace(search_str, A_Space, "+") ; Replaces all spaces with pluses.
-                ; TODO: Find a  way to escape special characters (such as  !*'();:@&=+$,/?#[]) in a variable. 
+                ; TODO: Find a  way to escape special characters (such as  !*'();:@&=+$,/?#[]) in a variable.
                 Run, https://duckduckgo.com/?t=ffab&q=%search_str%&atb=v292-4&ia=web
             }
         }
@@ -213,7 +213,7 @@ win_search(search_str){
 }
 
 exploreTo(path){
-    ; navigate to path using ctrl + l in file explorer
+    ; navigate to a path using ctrl + l in file explorer
     Send, ^l^a
     Sleep, 50
     Send, %path%
@@ -226,13 +226,13 @@ changeCaseTo(case){
     selected_text := get_selected()
     if (case == "lower"){
         StringLower, selected_text, selected_text
-    } 
+    }
     else if (case == "cap" or case == "capitalize") {
         StringUpper selected_text, selected_text, T
-    } 
+    }
     else if (case == "upper") {
         StringUpper, selected_text, selected_text
-    } 
+    }
     else {
         MsgBox % "Wrong parameter value: " case "`nThe parameter should be either 'lower', 'cap' or 'upper'."
     }
@@ -245,13 +245,13 @@ changeCaseTo(case){
 }
 
 pathErrMsgBox(eextra, emessage){
-    ; displays path error message to the user
+    ; displays a path error message to the user
     MsgBox, % "`n"eextra "`n"emessage "`n`nNote: Please consider adding the respective program (folder) to the PATH of the System Variables. (This may need system restart to take effect)"
 }
 
 errMsgBox(eextra, emessage){
-    ; displays error message to the user
-    MsgBox, 16,, % e.extra "`n"e.message 
+    ; displays an error message to the user
+    MsgBox, 16,, % e.extra "`n"e.message
 }
 
 docSheetWr(text){
@@ -305,29 +305,29 @@ F4::activate("code.exe", "cycle")
 ; F6 is SumatraPDF
 F6::activate("SumatraPDF.exe")
 
-; F7 to Microsoft 
+; F7 to Microsoft
 F7::activate("winword.exe")
 
-; F8 to Microsoft Excel 
+; F8 to Microsoft Excel
 F8::activate("excel.exe")
 
-; F9 is 
+; F9 is
 ; F9::
 
-; F10 is 
+; F10 is
 ; F10::
 
-; F11 is 
+; F11 is
 ; F11::
 
-; F12 is 
+; F12 is
 ; F12::
 
 ; Windows Keys Hotkeys
 
 ; search selected text/clipboard on the web
 
-; windows file explorer 
+; windows file explorer
 #e::
     IfWinNotExist, ahk_class CabinetWClass
         Run, explorer.exe
@@ -343,7 +343,7 @@ return
 ; notepad
 #n::activate("notepad.exe", "cycle")
 +#n::Run, notepad.exe
-; close notepad (without saving) on esc
+; close notepad (without saving) on ESC
 #IfWinActive ahk_exe notepad.exe
 Esc::
     Send, ^a
@@ -369,7 +369,7 @@ return
 ; Toggle presentation mode
 ^!p::togglePresentationMode()
 
-; change case of selected text(s)
+; change the case of selected text(s)
 CapsLock & 7::
     changeCaseTo("lower")
     Send, {CapsLock} ; Resetting CapsLock to previous state
@@ -398,8 +398,8 @@ CapsLock & LButton::
     CoordMode, Mouse ; Switch to screen/absolute coordinates.
     MouseGetPos, EWD_MouseStartX, EWD_MouseStartY, EWD_MouseWin
     WinGetPos, EWD_OriginalPosX, EWD_OriginalPosY,,, ahk_id %EWD_MouseWin%
-    WinGet, EWD_WinState, MinMax, ahk_id %EWD_MouseWin% 
-    if EWD_WinState = 0 ; Only if the window isn't maximized 
+    WinGet, EWD_WinState, MinMax, ahk_id %EWD_MouseWin%
+    if EWD_WinState = 0 ; Only if the window isn't maximized
         SetTimer, EWD_WatchMouse, 10 ; Track the mouse as the user drags it.
 return
 
@@ -428,9 +428,9 @@ EWD_WatchMouse:
     EWD_MouseStartY := EWD_MouseY
 return
 
-; == File Explore ==
+; == File Explorer ==
 
-; navigating within the file Explorer
+; navigating within the file explorer
 #IfWinActive ahk_group ExplorerGroup
     ^+u::exploreTo(userdir)
     ^+e::exploreTo(pc)
@@ -445,16 +445,16 @@ return
 #IfWinActive
 
 ; opening programs via file explorer
-#IfWinActive ahk_class CabinetWClass 
+#IfWinActive ahk_class CabinetWClass
     ^+t::exploreTo("wt") ; windows terminal
-    ^+\::Send, {AppsKey}{Up 4}{Enter} ; vscode in current directory
+    ^+\::Send, {AppsKey}{Up 4}{Enter} ; VS code in current directory
 #IfWinActive
 
 ; == TERMINALS ==
 
 #IfWinActive, ahk_group TerminalGroup
     ; vs code
-    ^+\::Send, code .{Enter} 
+    ^+\::Send, code .{Enter}
     ; file explorer
     #e::Send, explorer .{Return}
     ^+u::Send, explorer %userdir%{Return}
@@ -571,9 +571,9 @@ Return
 ::/paste::
     Send, %Clipboard%
 Return
-::/cud:: 
+::/cud::
     ; useful for WSLs
-    SendInput, /mnt/c/Users/%A_UserName%/ 
+    SendInput, /mnt/c/Users/%A_UserName%/
 Return
 ::/nrd::npm run dev
 
@@ -589,4 +589,5 @@ return
 ::/lorem::Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 ::/plankton::Plankton are the diverse collection of organisms found in water that are unable to propel themselves against a current. The individual organisms constituting plankton are called plankters. In the ocean, they provide a crucial source of food to many small and large aquatic organisms, such as bivalves, fish and whales.
 
-; Made with ❤️ by Bibek Aryal. 
+; Made with ❤️ by Bibek Aryal.
+
