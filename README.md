@@ -2,6 +2,17 @@
 
 A simple and intuitive AutoHotKey script for enhancing windows shortcuts, dedicated to improving users’ workflow.
 
+## Features
+
+Here are some of the list of features
+
+- [x] Quickly open/switch between apps
+- [x] Easy navigation in the file explorer
+- [x] Quick text search (via selection)
+- [x] Toggle presentation mode
+- [x] Quickly transform text case
+- [x] Easy hotstrings to get current datetime (_enter `/date` to get current date eg. July 13, 2022_) and more
+
 ## About AutoHotKey
 
 AutoHotkey is a free and open-source custom scripting language for Microsoft Windows, initially aimed at providing easy keyboard shortcuts or hotkeys, fast macro-creation, and software automation that allows users of most levels of computer skill to automate repetitive tasks in any Windows application.
