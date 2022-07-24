@@ -55,9 +55,6 @@ run_at_startup(){
         TrayTip, Startup shortcut added, This script will now automatically run when your turn on your computer, 5, 1
     }
 }
-visit_startup(){
-    Run, C:\Users\bibek\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
-}
 view_in_github(){
     Run, https://github.com/arlbibek/windows-ahk
 }
