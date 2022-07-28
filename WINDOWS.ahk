@@ -112,6 +112,31 @@ update_tray_menu()
 
 ; ==FUNCTIONS==
 
+get_default_browser() {
+    ; return ahk_exe name of the users default browser (e.g. firefox.exe) 
+    ; referenced from: https://www.autohotkey.com/board/topic/67330-how-to-open-default-web-browser/
+
+    ; Find the Registry key name for the default browser
+    RegRead, BrowserKeyName, HKEY_CURRENT_USER, Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.html\UserChoice, Progid
+
+    ; Find the executable command associated with the above Registry key
+    RegRead, BrowserFullCommand, HKEY_CLASSES_ROOT, %BrowserKeyName%\shell\open\command
+
+    ; The above RegRead will return the path and executable name of the browser contained within quotes and optional parameters
+    ; We only want the text contained inside the first set of quotes which is the path and executable
+    ; Find the ending quote position (we know the beginning quote is in position 0 so start searching at position 1)
+    StringGetPos, pos, BrowserFullCommand, ",,1
+
+    ; Decrement the found position by one to work correctly with the StringMid function
+    pos := --pos
+
+    ; Extract and return the path and executable of the browser
+    StringMid, BrowserPathandEXE, BrowserFullCommand, 2, %pos%
+    splitPath, BrowserPathandEXE, BrowserClassEXE, , script_ext, script_name
+
+    Return BrowserClassEXE
+}
+
 activate(program, action:="minimize", ahk_type:="ahk_exe"){
     ; Open/Switch/(Minimize/Cycle through) a program
     ; `program` is the name of the program (eg. firefox.exe),
@@ -284,8 +309,8 @@ sheetWr(text){
 ; Remapping Function Keys
 
 ; F1 to Firefox
-F1::activate("firefox.exe", "cycle")
-+F1::Run, firefox.exe
+F1::activate(get_default_browser(), "cycle")
++F1::Run % get_default_browser()
 
 ; F2 is Rename
 ; F2::
