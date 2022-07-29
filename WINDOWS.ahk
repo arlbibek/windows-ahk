@@ -389,10 +389,9 @@ Esc::
     contents_len := StrLen(contents_of_notepad)
     if (contents_len > 0 ){
         WinClose, ahk_exe notepad.exe
-        Send, {Right}{Enter}
+        Control, Check, , Button2, Notepad, , ,
     } else {
         WinClose, ahk_exe notepad.exe
-
     }
 return
 #IfWinActive
