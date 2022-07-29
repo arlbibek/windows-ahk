@@ -266,16 +266,6 @@ changeCaseTo(case){
     Send +{left %str_len%}
 }
 
-pathErrMsgBox(eextra, emessage){
-    ; displays a path error message to the user
-    MsgBox, % "`n"eextra "`n"emessage "`n`nNote: Please consider adding the respective program (folder) to the PATH of the System Variables. (This may need system restart to take effect)"
-}
-
-errMsgBox(eextra, emessage){
-    ; displays an error message to the user
-    MsgBox, 16,, % e.extra "`n"e.message
-}
-
 docSheetWr(text){
     ; For Google Docs/Sheets only
     gdoc := " - Google Docs"
