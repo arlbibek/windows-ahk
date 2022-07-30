@@ -55,9 +55,6 @@ run_at_startup(){
         TrayTip, Startup shortcut added, This script will now automatically run when your turn on your computer, 5, 1
     }
 }
-visit_startup(){
-    Run, C:\Users\bibek\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
-}
 view_in_github(){
     Run, https://github.com/arlbibek/windows-ahk
 }
@@ -114,6 +111,31 @@ update_tray_menu(){
 update_tray_menu()
 
 ; ==FUNCTIONS==
+
+get_default_browser() {
+    ; return ahk_exe name of the users default browser (e.g. firefox.exe) 
+    ; referenced from: https://www.autohotkey.com/board/topic/67330-how-to-open-default-web-browser/
+
+    ; Find the Registry key name for the default browser
+    RegRead, BrowserKeyName, HKEY_CURRENT_USER, Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.html\UserChoice, Progid
+
+    ; Find the executable command associated with the above Registry key
+    RegRead, BrowserFullCommand, HKEY_CLASSES_ROOT, %BrowserKeyName%\shell\open\command
+
+    ; The above RegRead will return the path and executable name of the browser contained within quotes and optional parameters
+    ; We only want the text contained inside the first set of quotes which is the path and executable
+    ; Find the ending quote position (we know the beginning quote is in position 0 so start searching at position 1)
+    StringGetPos, pos, BrowserFullCommand, ",,1
+
+    ; Decrement the found position by one to work correctly with the StringMid function
+    pos := --pos
+
+    ; Extract and return the path and executable of the browser
+    StringMid, BrowserPathandEXE, BrowserFullCommand, 2, %pos%
+    splitPath, BrowserPathandEXE, BrowserClassEXE, , script_ext, script_name
+
+    Return BrowserClassEXE
+}
 
 activate(program, action:="minimize", ahk_type:="ahk_exe"){
     ; Open/Switch/(Minimize/Cycle through) a program
@@ -244,16 +266,6 @@ changeCaseTo(case){
     Send +{left %str_len%}
 }
 
-pathErrMsgBox(eextra, emessage){
-    ; displays a path error message to the user
-    MsgBox, % "`n"eextra "`n"emessage "`n`nNote: Please consider adding the respective program (folder) to the PATH of the System Variables. (This may need system restart to take effect)"
-}
-
-errMsgBox(eextra, emessage){
-    ; displays an error message to the user
-    MsgBox, 16,, % e.extra "`n"e.message
-}
-
 docSheetWr(text){
     ; For Google Docs/Sheets only
     gdoc := " - Google Docs"
@@ -287,8 +299,8 @@ sheetWr(text){
 ; Remapping Function Keys
 
 ; F1 to Firefox
-F1::activate("firefox.exe", "cycle")
-+F1::Run, firefox.exe
+F1::activate(get_default_browser(), "cycle")
++F1::Run % get_default_browser()
 
 ; F2 is Rename
 ; F2::
@@ -323,6 +335,31 @@ F8::activate("excel.exe")
 ; F12 is
 ; F12::
 
+$Escape:: ; Long press (> 0.5 sec) on Esc closes window - but if you change your mind you can keep it pressed for 3 more seconds
+    KeyWait, Escape, T0.5 ; Wait no more than 0.5 sec for key release (also suppress auto-repeat)
+    If ErrorLevel ; timeout, so key is still down...
+    {
+        SoundPlay *64 ; Play an asterisk
+        WinGet, X, ProcessName, A
+        SplashTextOn,,150,,`nRelease button to close %x%`n`nKeep pressing it to NOT close window...
+        KeyWait, Escape, T3 ; Wait no more than 3 more sec for key to be released
+        SplashTextOff
+        If !ErrorLevel ; No timeout, so key was released
+        {
+            PostMessage, 0x112, 0xF060,,, A ; ...so close window      
+            Return
+        }
+        ; Otherwise,                
+        SoundPlay *64
+        KeyWait, Escape ; Wait for button to be released
+        ; Then do nothing...            
+        Return
+    }
+
+    Send {Esc}
+    ; REFERENCED FROM: https://www.autohotkey.com/board/topic/80697-long-keypress-hotkeys-wo-modifiers/
+Return
+
 ; Windows Keys Hotkeys
 
 ; search selected text/clipboard on the web
@@ -352,10 +389,9 @@ Esc::
     contents_len := StrLen(contents_of_notepad)
     if (contents_len > 0 ){
         WinClose, ahk_exe notepad.exe
-        Send, {Right}{Enter}
+        Control, Check, , Button2, Notepad, , ,
     } else {
         WinClose, ahk_exe notepad.exe
-
     }
 return
 #IfWinActive

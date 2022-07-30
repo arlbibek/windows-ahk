@@ -60,7 +60,7 @@ AutoHotkey is a free and open-source custom scripting language for Microsoft Win
 > **Notes**
 >
 > - It is important to note that all the pre-existing hotkeys/shortcuts will be overridden.
-> - The tilde `~` at the beginning of certain key (eg. <kbd>~CapsLock</kbd>) means holding down the key.
+> - The tilde `~` at the beginning of certain key (eg. <kbd>~Esc</kbd>) means holding down the key.
 > - For those hotkeys that throw an error saying `Error. Failed attempt to launch program or document:` ... `Specifically: The system cannot find the file specified.`, _please consider adding the respective program (folder) to the [path of your system variables](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/ "See: Add to the PATH on Windows 10")_.
 > - Anything with this (🤵) emoji is a custom/specific shortcut that might not work or suit your needs.
 
@@ -73,13 +73,14 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 
 | Key                                                               | Action                                                                                                                                                                                                 |
 | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| <kbd>F1</kbd>                                                     | Open/Switch/Cycle through Firefox                                                                                                                                                                      |
-| <kbd>Shift</kbd> + <kbd>F1</kbd>                                  | Open Firefox (new window)                                                                                                                                                                              |
+| <kbd>F1</kbd>                                                     | Open/Switch/Cycle through default browser (eg. Firefox)                                                                                                                                                |
+| <kbd>Shift</kbd> + <kbd>F1</kbd>                                  | Open default browser (new window)                                                                                                                                                                      |
 | <kbd>F3</kbd>                                                     | Open/Switch/Minimize Spotify                                                                                                                                                                           |
 | <kbd>F4</kbd>                                                     | Open/Switch/Cycle through VS Code                                                                                                                                                                      |
 | <kbd>F6</kbd>                                                     | Open/Switch to/Minimize SumatraPDF                                                                                                                                                                     |
 | <kbd>F7</kbd>                                                     | Open/Switch to/Minimize Microsoft Word                                                                                                                                                                 |
 | <kbd>F8</kbd>                                                     | Open/Switch to/Minimize Microsoft Excel                                                                                                                                                                |
+| <kbd>~Esc</kbd>                                                   | Close current active window <br /> _Long press (> 0.5 sec) on Esc to close current active window - but if you change your mind you can keep it pressed for 3 more seconds_                             |
 | <kbd>Win</kbd> + <kbd>E</kbd>                                     | Open/Switch/Cycle through File Explorer                                                                                                                                                                |
 | <kbd>Shift</kbd> + <kbd>Win</kbd> + <kbd>E</kbd>                  | Open File Explorer (new window)                                                                                                                                                                        |
 | <kbd>Win</kbd> + <kbd>N</kbd>                                     | Open/Switch/Cycle through Notepad (<kbd>Esc</kbd> will close notepad without saving contents)                                                                                                          |
