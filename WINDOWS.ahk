@@ -362,8 +362,6 @@ Return
 
 ; Windows Keys Hotkeys
 
-; search selected text/clipboard on the web
-
 ; windows file explorer
 #e::
     IfWinNotExist, ahk_class CabinetWClass
@@ -396,11 +394,21 @@ Esc::
 return
 #IfWinActive
 
-; search selected text
+; search selected text/clipboard on the web
 #s::
     selected := get_selected()
     win_search(selected)
 return
+
+;  Center Window
+#c::
+    WinGetTitle, ActiveWindowTitle, A
+    WinGetPos,,, Width, Height, %ActiveWindowTitle%
+    TargetX := (A_ScreenWidth / 2) - (Width / 2)
+    TargetY := (A_ScreenHeight / 2) - (Height / 2)
+
+    WinMove, %ActiveWindowTitle%,, %TargetX%, %TargetY%
+Return
 
 ; Toggle presentation mode
 ^!p::togglePresentationMode()
