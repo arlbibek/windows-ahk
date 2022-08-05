@@ -91,6 +91,7 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 | <kbd>CapsLock</kbd> & <kbd>7</kbd>                                | Transform selected text to lower case (eg. `Hello, Word!` to `hello, word!`)                                                                                                                           |
 | <kbd>CapsLock</kbd> & <kbd>8</kbd>                                | Transform selected text to titled case (eg. `hello, word!` to `Hello, Word!`)                                                                                                                          |
 | <kbd>CapsLock</kbd> & <kbd>9</kbd>                                | Transform selected text to upper case (eg. `Hello, Word!` to `HELLO, WORD!`)                                                                                                                           |
+| <kbd>Shift</kbd> + <kbd>Space</kbd>                               | Replace Space(s) with Underscore(s) of selected text (eg. `Hello World` to `Hello_World`)                                                                                                              |
 | <kbd>CapsLock</kbd> & <kbd title="Left Mouse Button">LMouse</kbd> | Drag a window by click any point inside the window (rather than just the title bar) [[Easy Window Dragging]](https://www.autohotkey.com/docs/scripts/index.htm#EasyWindowDrag "Visit original source") |
 
 #### File Explorer & Terminal Groups

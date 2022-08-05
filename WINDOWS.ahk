@@ -427,6 +427,17 @@ CapsLock & 9::
     Send, {CapsLock}
 return
 
+; replace A_Space with underscore
++Space::
+    str := get_selected()
+    str := StrReplace(str, A_Space, "_")
+    SendRaw % str
+
+    ; attempting to reselect the previously selected text
+    str_len := StrLen(str)
+    Send +{left %str_len%}
+Return
+
 ; Easy Window Dragging (requires XP/2k/NT)
 ; https://www.autohotkey.com
 ; Normally, a window can only be dragged by clicking on its title bar.
