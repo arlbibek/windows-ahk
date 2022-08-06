@@ -49,11 +49,26 @@ AutoHotkey is a free and open-source custom scripting language for Microsoft Win
 4. You shall now see the `WINDOWS.ahk` file running on the system tray.
 5. Done! See [keyboard shortcuts](#keyboard-shortcuts).
 
-> _To automatically run the script when you log on to the computer, simply, click on the `Run at startup` option in the script's tray menu._
->
-> ![Tray menu options](assets/tray_startup.png)
+---
+
+<details>
+  <summary><i>Click to see details on tray menu options</i></summary>
+
+## Tray menu options
+
+| Option                       | Action                                                                                   | Key                                             |
+| ---------------------------- | ---------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| Run at startup               | Enable/disable script to run automatically as startup (when you log on to you computer)  |                                                 |
+| Presentation Mode            | Toggle windows default presentation mode off/on (keeps your computer awake indefinitely) | <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>P</kbd> |
+| Open script location         | Navigate to script's current directory                                                   |                                                 |
+| View in GitHub               | View source code in GitHub                                                               |                                                 |
+| See AutoHotKey documentation | Visit official AutoHotKey documentation via web                                          |                                                 |
+
+> ![Tray menu options](assets/tray_menu.png)
 
 ---
+
+</details>
 
 ## Keyboard Shortcuts
 
