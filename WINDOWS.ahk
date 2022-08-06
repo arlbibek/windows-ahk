@@ -55,12 +55,7 @@ run_at_startup(){
         TrayTip, Startup shortcut added, This script will now automatically run when your turn on your computer, 5, 1
     }
 }
-view_in_github(){
-    Run, https://github.com/arlbibek/windows-ahk
-}
-view_ahk_doc(){
-    Run, https://www.autohotkey.com/docs/AutoHotkey.htm
-}
+
 togglePresentationMode(){
     ; Toggle presentation mode
     Run, presentationsettings.exe
@@ -87,14 +82,31 @@ togglePresentationMode(){
     Control, Check, , Button7, Presentation Settings, , ,
 }
 
+view_in_github(){
+    Run, https://github.com/arlbibek/windows-ahk
+}
+
+view_ahk_doc(){
+    Run, https://www.autohotkey.com/docs/AutoHotkey.htm
+}
+
+open_file_location(){
+    Run % A_ScriptDir
+}
+
 update_tray_menu(){
 
     Menu, Tray, NoStandard ; removing original menu
 
+    ; adding run at startup option
     Menu, Tray, Add, Run at startup, run_at_startup
     Menu, Tray, % fileExist(startup_shortcut) ? "check" : "unCheck", Run at startup
 
+    ; adding toggle Presentation mode option
     Menu, Tray, Add, Presentation mode {Ctrl+Alt+P}, togglePresentationMode
+
+    ; adding open script location
+    Menu, Tray, Add, Open script location, open_file_location
 
     Menu, Tray, Add ; create a separator line
 
