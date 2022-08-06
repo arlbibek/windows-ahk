@@ -49,11 +49,26 @@ AutoHotkey is a free and open-source custom scripting language for Microsoft Win
 4. You shall now see the `WINDOWS.ahk` file running on the system tray.
 5. Done! See [keyboard shortcuts](#keyboard-shortcuts).
 
-> _To automatically run the script when you log on to the computer, simply, click on the `Run at startup` option in the script's tray menu._
->
-> ![Tray menu options](assets/tray_startup.png)
+---
+
+<details>
+  <summary><i>Click to see details on tray menu options</i></summary>
+
+## Tray menu options
+
+| Option                       | Action                                                                                   | Key                                             |
+| ---------------------------- | ---------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| Run at startup               | Enable/disable script to run automatically as startup (when you log on to you computer)  |                                                 |
+| Presentation Mode            | Toggle windows default presentation mode off/on (keeps your computer awake indefinitely) | <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>P</kbd> |
+| Open script location         | Navigate to script's current directory                                                   |                                                 |
+| View in GitHub               | View source code in GitHub                                                               |                                                 |
+| See AutoHotKey documentation | Visit official AutoHotKey documentation via web                                          |                                                 |
+
+> ![Tray menu options](assets/tray_menu.png)
 
 ---
+
+</details>
 
 ## Keyboard Shortcuts
 
@@ -86,11 +101,36 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 | <kbd>Win</kbd> + <kbd>N</kbd>                                     | Open/Switch/Cycle through Notepad (<kbd>Esc</kbd> will close notepad without saving contents)                                                                                                          |
 | <kbd>Shift</kbd> + <kbd>Win</kbd> + <kbd>N</kbd>                  | Open Notepad (new window)                                                                                                                                                                              |
 | <kbd>Win</kbd> + <kbd>S</kbd>                                     | Search selected text via active browser (or the default browser) 🔍                                                                                                                                    |
+| <kbd>Win</kbd> + <kbd>C</kbd>                                     | Center current window                                                                                                                                                                                  |
 | <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>P</kbd>                   | Toggle presentation mode on or off                                                                                                                                                                     |
 | <kbd>CapsLock</kbd> & <kbd>7</kbd>                                | Transform selected text to lower case (eg. `Hello, Word!` to `hello, word!`)                                                                                                                           |
 | <kbd>CapsLock</kbd> & <kbd>8</kbd>                                | Transform selected text to titled case (eg. `hello, word!` to `Hello, Word!`)                                                                                                                          |
 | <kbd>CapsLock</kbd> & <kbd>9</kbd>                                | Transform selected text to upper case (eg. `Hello, Word!` to `HELLO, WORD!`)                                                                                                                           |
+| <kbd>Shift</kbd> + <kbd>Space</kbd>                               | Replace Space(s) with Underscore(s) of selected text (eg. `Hello World` to `Hello_World`)                                                                                                              |
 | <kbd>CapsLock</kbd> & <kbd title="Left Mouse Button">LMouse</kbd> | Drag a window by click any point inside the window (rather than just the title bar) [[Easy Window Dragging]](https://www.autohotkey.com/docs/scripts/index.htm#EasyWindowDrag "Visit original source") |
+
+##### Advanced Window Snap ([Dacio's Fork](https://gist.github.com/dacioromero/b25c3a782b29bfc783b36804324fd780))
+
+Advanced Window Snap expands upon Windows built-in window-snapping hotkeys (which are <kbd>Win</kbd> + <kbd>LEFT</kbd> to snap an active window to the left half of a monitor and <kbd>Win</kbd> + <kbd>RIGHT</kbd> to snap a window to the right half of a monitor) by adding 9 additional snap methods.
+
+| Key                                                                     | Action                                                         |
+| ----------------------------------------------------------------------- | -------------------------------------------------------------- |
+| **Directional Arrow Hotkeys**                                           |                                                                |
+| <kbd>Win</kbd> + <kbd>Alt</kbd> + <kbd>UP</kbd>                         | Window will snap to the top **half** of the screen             |
+| <kbd>Win</kbd> + <kbd>Alt</kbd> + <kbd>DOWN</kbd>                       | Window will snap to the bottom **half** of the screen          |
+| <kbd>Ctrl</kbd> + <kbd>Win</kbd> + <kbd>Alt</kbd> + <kbd>UP</kbd>       | Window will snap to the top **third** of the screen            |
+| <kbd>Ctrl</kbd> + <kbd>Win</kbd> + <kbd>Alt</kbd> + <kbd>DOWN</kbd>     | Window will snap to the bottom **third** of the screen         |
+| **Numberpad Hotkeys (Landscape)**                                       | **These are ideal for Landscape Monitors**                     |
+| <kbd>Win</kbd> + <kbd>Alt</kbd> + <kbd>Numpad 7</kbd>                   | Window will snap to the top-left **quarter** of the screen     |
+| <kbd>Win</kbd> + <kbd>Alt</kbd> + <kbd>Numpad 8</kbd>                   | Window will snap to the top **half** of the screen             |
+| <kbd>Win</kbd> + <kbd>Alt</kbd> + <kbd>Numpad 9</kbd>                   | Window will snap to the top-right **quarter** of the screen    |
+| <kbd>Win</kbd> + <kbd>Alt</kbd> + <kbd>Numpad 1</kbd>                   | Window will snap to the bottom-left **quarter** of the screen  |
+| <kbd>Win</kbd> + <kbd>Alt</kbd> + <kbd>Numpad 2</kbd>                   | Window will snap to the bottom **half** of the screen          |
+| <kbd>Win</kbd> + <kbd>Alt</kbd> + <kbd>Numpad 3</kbd>                   | Window will snap to the bottom-right **quarter** of the screen |
+| **Numberpad Hotkeys (Portrait)**                                        | **These are ideal for Portrait Monitors**                      |
+| <kbd>Ctrl</kbd> + <kbd>Win</kbd> + <kbd>Alt</kbd> + <kbd>Numpad 8</kbd> | Window will snap to the top **third** of the screen            |
+| <kbd>Ctrl</kbd> + <kbd>Win</kbd> + <kbd>Alt</kbd> + <kbd>Numpad 5</kbd> | Window will snap to the middle **third** of the screen         |
+| <kbd>Ctrl</kbd> + <kbd>Win</kbd> + <kbd>Alt</kbd> + <kbd>Numpad 2</kbd> | Window will snap to the bottom **third** of the screen         |
 
 #### File Explorer & Terminal Groups
 
@@ -179,7 +219,7 @@ Assuming today's date and time is `Sunday, October 10, 2021, 02:55 PM`
 | `/lorem`     | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod..         |
 | `/plankton`  | Plankton are the diverse collection of organisms found in water that are unable.. |
 
-### Some other useful resources (scripts)
+## Some other useful resources (scripts)
 
 - [AutoHotKey documentation](https://www.autohotkey.com/docs/AutoHotkey.htm)
 - [AutoHotkey Script Showcase](https://www.autohotkey.com/docs/scripts/index.htm "This showcase lists some scripts created by different authors which show what AutoHotkey might be capable of.") by autohotkey.

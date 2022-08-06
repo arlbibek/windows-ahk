@@ -1,5 +1,8 @@
+# Added by Bibek Aryal
 .vscode
 /SP*
 *test*
 *.exe
-data.ini
+/data.ini
+/changes.md
+/WINWORD.ahk
