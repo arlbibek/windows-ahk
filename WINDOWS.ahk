@@ -422,6 +422,14 @@ return
     WinMove, %ActiveWindowTitle%,, %TargetX%, %TargetY%
 Return
 
+^!c:: ; copy text without the new line (useful for copying text from pdf file)
+    Clipboard=
+    Send, ^c
+    ClipWait, 3
+    Clipboard := StrReplace(Clipboard, "`r`n", " ") ; trim Next line
+    Clipboard := StrReplace(Clipboard, "- ", "") ; trim
+Return
+
 ; Toggle presentation mode
 ^!p::togglePresentationMode()
 
