@@ -1,5 +1,6 @@
 ﻿#SingleInstance Force ; Skips the dialog box and replaces the old instance automatically.
 #NoEnv ; Recommended for performance and compatibility with future AutoHotkey releases.
+#Persistent ; Prevent the script from exiting automatically.
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir% ; Ensures a consistent starting directory.
@@ -37,7 +38,10 @@ screenshot := userdir . "Documents\ShareX\Screenshots\"
 
 ; adding run at startup option to tray menu
 splitPath, a_scriptFullPath, , , script_ext, script_name
-global startup_shortcut := a_startup "\" script_name "." script_ext ".lnk"
+global script_full_name := script_name "." script_ext
+global startup_shortcut := a_startup "\" script_full_name ".lnk"
+
+TrayTip, , %script_full_name% started, 5, 1
 
 ; ==MODIFYING TRAY MENU==
 run_at_startup(){
