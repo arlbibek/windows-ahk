@@ -133,10 +133,9 @@ Advanced Window Snap expands upon Windows built-in window-snapping hotkeys (whic
 | <kbd>Ctrl</kbd> + <kbd>Win</kbd> + <kbd>Alt</kbd> + <kbd>Numpad 5</kbd> | Window will snap to the middle **third** of the screen         |
 | <kbd>Ctrl</kbd> + <kbd>Win</kbd> + <kbd>Alt</kbd> + <kbd>Numpad 2</kbd> | Window will snap to the bottom **third** of the screen         |
 
-#### File Explorer & Terminal Groups
+#### File Explorer
 
-> This works for all the explorer-based "save" and "load" boxes
-> and Terminal Groups (i.e. `WindowsTerminal` `PowerShell` `Command Prompt` `Debian (wsl)` `Kali (wsl)` `Ubuntu (wsl)`)
+> This works for all the explorer-based "save" and "load" boxes as well.
 
 | Key                                                | Action                                                                                                                               |
 | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
@@ -152,6 +151,15 @@ Advanced Window Snap expands upon Windows built-in window-snapping hotkeys (whic
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>A</kbd>  | 🤵 Navigate to arlbibek directory                                                                                                    |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>  | 🤵 Navigate to Screenshot directory                                                                                                  |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>T</kbd>  | Open Windows Terminal in Current Working Directory                                                                                   |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>\\</kbd> | Open VS Code in Current Working Directory (uses context menu); <br /> & if a file/folder is selected this will create it's shortcut; |
+
+#### Terminal Groups
+
+`WindowsTerminal` `PowerShell` `Command Prompt` `Debian (wsl)` `Kali (wsl)` `Ubuntu (wsl)`
+
+| Key                                                | Action                                                                                                                               |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| <kbd>Win</kbd> + <kbd>E</kbd>                      | Run/Switch/Cycle through all the active File Explorers                                                                               |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>\\</kbd> | Open VS Code in Current Working Directory (uses context menu); <br /> & if a file/folder is selected this will create it's shortcut; |
 
 ### Google Docs/Sheets
