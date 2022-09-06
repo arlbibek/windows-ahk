@@ -5,9 +5,19 @@
 SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir% ; Ensures a consistent starting directory.
 
-Menu, Tray, Icon, shell32.dll, 16 ; this changes the icon into a little laptop thing.
+; grouping explorers
+GroupAdd, ExplorerGroup, ahk_class CabinetWClass
+GroupAdd, ExplorerGroup, ahk_class #32770 ; This is for all the Explorer-based "save" and "load" boxes, from any program!
 
-; grouping all terminal (WSLs as well)
+; grouping browsers
+GroupAdd, BrowserGroup, ahk_exe firefox.exe
+GroupAdd, BrowserGroup, ahk_exe chrome.exe
+GroupAdd, BrowserGroup, ahk_exe brave.exe
+GroupAdd, BrowserGroup, ahk_exe msedge.exe
+GroupAdd, BrowserGroup, ahk_exe opera.exe
+GroupAdd, BrowserGroup, ahk_exe iexplore.exe
+
+; grouping terminals (WSLs as well)
 GroupAdd, TerminalGroup, ahk_exe WindowsTerminal.exe
 GroupAdd, TerminalGroup, ahk_exe powershell.exe
 GroupAdd, TerminalGroup, ahk_exe cmd.exe
@@ -15,15 +25,8 @@ GroupAdd, TerminalGroup, ahk_exe debian.exe
 GroupAdd, TerminalGroup, ahk_exe kali.exe
 GroupAdd, TerminalGroup, ahk_exe ubuntu.exe
 
-GroupAdd, ExplorerGroup, ahk_class #32770 ; This is for all the Explorer-based "save" and "load" boxes, from any program!
-GroupAdd, ExplorerGroup, ahk_class CabinetWClass
-
-GroupAdd, BrowserGroup, ahk_exe firefox.exe
-GroupAdd, BrowserGroup, ahk_exe chrome.exe
-GroupAdd, BrowserGroup, ahk_exe brave.exe
-GroupAdd, BrowserGroup, ahk_exe msedge.exe
-
-; dir
+; variables
+; directory paths
 userdir := "C:\Users\" . A_UserName . "\"
 pc := "This PC"
 desktop := userdir . "Desktop\"
@@ -36,97 +39,12 @@ c := "C:\"
 arlbibek := documents . "arlbibek\"
 screenshot := userdir . "Documents\ShareX\Screenshots\"
 
-; adding run at startup option to tray menu
+; script name and startup path
 splitPath, a_scriptFullPath, , , script_ext, script_name
 global script_full_name := script_name "." script_ext
 global startup_shortcut := a_startup "\" script_full_name ".lnk"
 
-TrayTip, , %script_full_name% started, 5, 1
-
-; ==MODIFYING TRAY MENU==
-run_at_startup(){
-    ; Toggle run at startup for the current script
-    IfExist, %startup_shortcut%
-    {
-        FileDelete, % startup_shortcut
-        Menu, Tray, unCheck, Run at startup
-        TrayTip, Startup shortcut removed, This script will not run when you turn on your computer, 5, 1
-    }
-    else
-    {
-        FileCreateShortcut, % a_scriptFullPath, % startup_shortcut
-        Menu, Tray, check, Run at startup
-        TrayTip, Startup shortcut added, This script will now automatically run when your turn on your computer, 5, 1
-    }
-}
-
-togglePresentationMode(){
-    ; Toggle presentation mode
-    Run, presentationsettings.exe
-    Sleep, 500
-
-    ControlGet, presentationMode, Checked, , Button1, Presentation Settings, , ,
-
-    If (presentationMode == 1){
-        ; presentationMode is on, turning it off
-        Control, UnCheck , , Button1, Presentation Settings, , ,
-
-        TrayTip, Presentation mode has been toggled off, Your computer will sleep accordingly, 5, 1
-        Menu, Tray, % "unCheck", Presentation mode {Ctrl+Alt+P} ; updating tray menu status
-
-    } Else {
-        ; presentationMode is off, turning it on
-        Control, Check , , Button1, Presentation Settings, , ,
-        Control, Check , , Button3, Presentation Settings, , ,
-
-        TrayTip, Presentation mode has been toggled on, Your computer will stay awake indefinitely, 5, 1
-        Menu, Tray, % "check", Presentation mode {Ctrl+Alt+P} ; updating tray menu status
-    }
-    ; Closing Presentation Settings window
-    Control, Check, , Button7, Presentation Settings, , ,
-}
-
-view_in_github(){
-    Run, https://github.com/arlbibek/windows-ahk
-}
-
-view_ahk_doc(){
-    Run, https://www.autohotkey.com/docs/AutoHotkey.htm
-}
-
-open_file_location(){
-    Run % A_ScriptDir
-}
-
-update_tray_menu(){
-
-    Menu, Tray, NoStandard ; removing original menu
-
-    ; adding run at startup option
-    Menu, Tray, Add, Run at startup, run_at_startup
-    Menu, Tray, % fileExist(startup_shortcut) ? "check" : "unCheck", Run at startup
-
-    ; adding toggle Presentation mode option
-    Menu, Tray, Add, Presentation mode {Ctrl+Alt+P}, togglePresentationMode
-
-    ; adding open script location
-    Menu, Tray, Add, Open script location, open_file_location
-
-    Menu, Tray, Add ; create a separator line
-
-    ; adding view on github option
-    Menu, Tray, Add, View in GitHub, view_in_github
-
-    ; adding see ahk documentation option
-    Menu, Tray, Add, See AutoHotKey documentation, view_ahk_doc
-
-    Menu, Tray, Add ; create a separator line
-    Menu, Tray, Standard ; puts original menu back
-}
-
-update_tray_menu()
-
-; ==FUNCTIONS==
+; FUNCTIONS
 
 get_default_browser() {
     ; return ahk_exe name of the users default browser (e.g. firefox.exe) 
@@ -153,18 +71,15 @@ get_default_browser() {
     Return BrowserClassEXE
 }
 
-activate(program, action:="minimize", ahk_type:="ahk_exe"){
+activate(program, action:="minimize"){
     ; Open/Switch/(Minimize/Cycle through) a program
     ; `program` is the name of the program (eg. firefox.exe),
     ; `action` is the action to perform when the program window already is in an active state, it should be either "minimize" or "cycle" (default is minimise)
-    ; `ahk_type` is the ahk type either ahk_class or ahk_exe (default is ahk_exe),
-    try
-    {
+    ahk_type := "ahk_exe"
+    try {
         IfWinNotExist %ahk_type% %program%
             Run %program%
-    }
-    catch e
-    {
+    } catch e {
         err := e.extra
         FileNotFound := "The system cannot find the file specified."
         IfInString, err, %FileNotFound%
@@ -180,29 +95,24 @@ activate(program, action:="minimize", ahk_type:="ahk_exe"){
         group_name = %program_name%Group
         GroupAdd, %group_name%, %ahk_type% %program%
     }
+
     ahk_program = %ahk_type% %program%
-    if WinActive(ahk_program)
-    {
+    if WinActive(ahk_program) {
         If (action == "minimize"){
             WinMinimize, %ahk_type% %program% ; minimize
-        }
-        else if (action == "cycle"){
+        } else if (action == "cycle"){
             GroupActivate, %group_name%, r ; cycle
-        }
-        else {
+        } else {
             MsgBox % "Wrong parameter value: " action "`nThe parameter 'action' should be either 'minimize' or 'cycle'."
         }
-    }
-    else
-    {
-
+    } else {
         WinActivate, %ahk_type% %program%
     }
 }
 
 get_selected(){
     ; copy selected contents to the clipboard
-    ;  return selected contents via clipboard (sends ctrl + c), but restores the previous contents of the clipboard
+    ; return selected contents via clipboard (sends ctrl + c), but restores the previous contents of the clipboard
 
     ClipSave := ClipboardAll ; saving the contents of the clipboard
     Clipboard = ; clearing contents of Clipboard
@@ -260,30 +170,32 @@ exploreTo(path){
 }
 
 changeCaseTo(case){
-    ; Change selected text to "lower", "capitalize" or "upper" case letters
+    ; Change selected text to "lower", "titled" or "upper" case letters
     selected_text := get_selected()
     if (case == "lower"){
         StringLower, selected_text, selected_text
     }
-    else if (case == "cap" or case == "capitalize") {
+    else if (case == "titled") {
         StringUpper selected_text, selected_text, T
     }
     else if (case == "upper") {
         StringUpper, selected_text, selected_text
     }
     else {
-        MsgBox % "Wrong parameter value: " case "`nThe parameter should be either 'lower', 'cap' or 'upper'."
+        MsgBox % "Wrong parameter value: " case "`nThe parameter should be either 'lower', 'titled' or 'upper'."
     }
     Sleep, 10
     Send, {Text}%selected_text% ; The {Text} mode is similar to the Raw mode, except that no attempt is made to translate characters (other than `r, `n, `t and `b) to keycodes
 
     ; attempting to reselect the previously selected text
     str_len := StrLen(selected_text)
-    Send +{left %str_len%}
+    Send, +{left %str_len%}
+    Send, {CapsLock} ; resetting CapsLock previous  state
 }
 
+; For google docs/sheets
 docSheetWr(text){
-    ; For Google Docs/Sheets only
+    ; for google docs/sheets only
     gdoc := " - Google Docs"
     gsheet := " - Google Sheets"
     WinGetActiveTitle, ActiveTitle
@@ -293,7 +205,7 @@ docSheetWr(text){
 }
 
 docWr(text){
-    ; For Google Docs
+    ; for google docs
     gdoc := " - Google Docs"
     WinGetActiveTitle, ActiveTitle
     if InStr(ActiveTitle, gdoc, True) {
@@ -302,7 +214,7 @@ docWr(text){
 }
 
 sheetWr(text){
-    ; For Google Sheets
+    ; for google sheets
     gsheet := " - Google Sheets"
     WinGetActiveTitle, ActiveTitle
     if InStr(ActiveTitle, gsheet, True) {
@@ -310,9 +222,100 @@ sheetWr(text){
     }
 }
 
+; For modifying tray menu
+
+runAtStartup(){
+    ; Toggle run at startup for the current script
+    IfExist, %startup_shortcut% {
+        FileDelete, % startup_shortcut
+        Menu, Tray, unCheck, Run at startup
+        TrayTip, Startup shortcut removed, This script will not run when you turn on your computer, 5, 1
+    } else
+    {
+        FileCreateShortcut, % a_scriptFullPath, % startup_shortcut
+        Menu, Tray, check, Run at startup
+        TrayTip, Startup shortcut added, This script will now automatically run when your turn on your computer, 5, 1
+    }
+}
+
+togglePresentationMode(){
+    ; Toggle presentation mode
+    Run, presentationsettings.exe
+    Sleep, 500
+
+    ControlGet, presentationMode, Checked, , Button1, Presentation Settings, , ,
+
+    If (presentationMode == 1){
+        ; presentationMode is on, turning it off
+        Control, UnCheck , , Button1, Presentation Settings, , ,
+
+        TrayTip, Presentation mode has been toggled off, Your computer will sleep accordingly, 5, 1
+        Menu, Tray, % "unCheck", Presentation mode {Ctrl+Alt+P} ; updating tray menu status
+
+    } Else {
+        ; presentationMode is off, turning it on
+        Control, Check , , Button1, Presentation Settings, , ,
+        Control, Check , , Button3, Presentation Settings, , ,
+
+        TrayTip, Presentation mode has been toggled on, Your computer will stay awake indefinitely, 5, 1
+        Menu, Tray, % "check", Presentation mode {Ctrl+Alt+P} ; updating tray menu status
+    }
+    ; Closing Presentation Settings window
+    Control, Check, , Button7, Presentation Settings, , ,
+}
+
+viewInGithub(){
+    ; view source code in github
+    Run, https://github.com/arlbibek/windows-ahk
+}
+
+viewAHKDoc(){
+    ; view 
+    Run, https://www.autohotkey.com/docs/AutoHotkey.htm
+}
+
+openFileLocation(){
+    Run % A_ScriptDir
+}
+
+updateTrayMenu(){
+    ; modifying tray menu
+
+    ; removing original menu
+    Menu, Tray, NoStandard 
+
+    ; adding run at startup option
+    Menu, Tray, Add, Run at startup, runAtStartup
+    Menu, Tray, % fileExist(startup_shortcut) ? "check" : "unCheck", Run at startup
+
+    ; adding toggle Presentation mode option
+    Menu, Tray, Add, Presentation mode {Ctrl+Alt+P}, togglePresentationMode
+
+    ; adding open file (script) location
+    Menu, Tray, Add, Open file location, openFileLocation
+
+    Menu, Tray, Add ; create a separator line
+
+    ; adding view on github option
+    Menu, Tray, Add, View in GitHub, viewInGithub
+
+    ; adding see ahk documentation option
+    Menu, Tray, Add, See AutoHotKey documentation, viewAHKDoc
+
+    ; puts original menu back
+    Menu, Tray, Add 
+    Menu, Tray, Standard 
+}
+
+; ====================================
+
+; showing a tray notification that the script has started
+TrayTip, , %script_full_name% started, 5, 1
+updateTrayMenu()
+
 ; == HOTKEYS ==
 
-; Remapping Function Keys
+; Remapping function keys
 
 ; F1 to Firefox
 F1::activate(get_default_browser(), "cycle")
@@ -351,34 +354,9 @@ F8::activate("excel.exe")
 ; F12 is
 ; F12::
 
-$Escape:: ; Long press (> 0.5 sec) on Esc closes window - but if you change your mind you can keep it pressed for 3 more seconds
-    KeyWait, Escape, T0.5 ; Wait no more than 0.5 sec for key release (also suppress auto-repeat)
-    If ErrorLevel ; timeout, so key is still down...
-    {
-        SoundPlay *64 ; Play an asterisk
-        WinGet, X, ProcessName, A
-        SplashTextOn,,150,,`nRelease button to close %x%`n`nKeep pressing it to NOT close window...
-        KeyWait, Escape, T3 ; Wait no more than 3 more sec for key to be released
-        SplashTextOff
-        If !ErrorLevel ; No timeout, so key was released
-        {
-            PostMessage, 0x112, 0xF060,,, A ; ...so close window      
-            Return
-        }
-        ; Otherwise,                
-        SoundPlay *64
-        KeyWait, Escape ; Wait for button to be released
-        ; Then do nothing...            
-        Return
-    }
+; Windows hotkeys
 
-    Send {Esc}
-    ; REFERENCED FROM: https://www.autohotkey.com/board/topic/80697-long-keypress-hotkeys-wo-modifiers/
-Return
-
-; Windows Keys Hotkeys
-
-; windows file explorer
+; file explorer
 #e::
     IfWinNotExist, ahk_class CabinetWClass
         Run, explorer.exe
@@ -394,39 +372,24 @@ return
 ; notepad
 #n::activate("notepad.exe", "cycle")
 +#n::Run, notepad.exe
-; close notepad (without saving) on ESC
-#IfWinActive ahk_exe notepad.exe
-Esc::
-    Send, ^a
-    Sleep, 50
-    contents_of_notepad := get_selected()
-    contents_len := StrLen(contents_of_notepad)
-    if (contents_len > 0 ){
-        WinClose, ahk_exe notepad.exe
-        Control, Check, , Button2, Notepad, , ,
-    } else {
-        WinClose, ahk_exe notepad.exe
-    }
-return
-#IfWinActive
 
 ; search selected text/clipboard on the web
-#s::
-    selected := get_selected()
-    win_search(selected)
-return
+#s::win_search(get_selected())
++#s::win_search(Clipboard)
 
-;  Center Window
+;  center window
 #c::
     WinGetTitle, ActiveWindowTitle, A
     WinGetPos,,, Width, Height, %ActiveWindowTitle%
     TargetX := (A_ScreenWidth / 2) - (Width / 2)
     TargetY := (A_ScreenHeight / 2) - (Height / 2)
-
     WinMove, %ActiveWindowTitle%,, %TargetX%, %TargetY%
 Return
 
-^!c:: ; copy text without the new line (useful for copying text from pdf file)
+; Other Hotkeys
+
+; Copy text without the new line (useful for copying text from pdf file)
+^!c:: 
     Clipboard=
     Send, ^c
     ClipWait, 3
@@ -437,30 +400,10 @@ Return
 ; Toggle presentation mode
 ^!p::togglePresentationMode()
 
-; change the case of selected text(s)
-CapsLock & 7::
-    changeCaseTo("lower")
-    Send, {CapsLock} ; Resetting CapsLock to previous state
-return
-CapsLock & 8::
-    changeCaseTo("cap")
-    Send, {CapsLock}
-return
-CapsLock & 9::
-    changeCaseTo("upper")
-    Send, {CapsLock}
-return
-
-; replace A_Space with underscore
-+Space::
-    str := get_selected()
-    str := StrReplace(str, A_Space, "_")
-    SendRaw % str
-
-    ; attempting to reselect the previously selected text
-    str_len := StrLen(str)
-    Send +{left %str_len%}
-Return
+; Change the case of selected text(s)
+CapsLock & 7::changeCaseTo("lower")
+CapsLock & 8::changeCaseTo("titled")
+CapsLock & 9::changeCaseTo("upper")
 
 ; Easy Window Dragging (requires XP/2k/NT)
 ; https://www.autohotkey.com
@@ -507,7 +450,43 @@ EWD_WatchMouse:
     EWD_MouseStartY := EWD_MouseY
 return
 
-; == File Explorer ==
+; Replace A_Space with underscore
++Space::
+    str := get_selected()
+    str := StrReplace(str, A_Space, "_")
+    SendRaw % str
+
+    ; attempting to reselect the previously selected text
+    str_len := StrLen(str)
+    Send, +{left %str_len%}
+Return
+
+$Escape:: ; Long press (> 0.5 sec) on Esc closes window - but if you change your mind you can keep it pressed for 3 more seconds
+    KeyWait, Escape, T0.5 ; Wait no more than 0.5 sec for key release (also suppress auto-repeat)
+    If ErrorLevel ; timeout, so key is still down...
+    {
+        SoundPlay *64 ; Play an asterisk
+        WinGet, X, ProcessName, A
+        SplashTextOn,,150,,`nRelease button to close %x%`n`nKeep pressing it to NOT close window...
+        KeyWait, Escape, T3 ; Wait no more than 3 more sec for key to be released
+        SplashTextOff
+        If !ErrorLevel ; No timeout, so key was released
+        {
+            PostMessage, 0x112, 0xF060,,, A ; ...so close window      
+            Return
+        }
+        ; Otherwise,                
+        SoundPlay *64
+        KeyWait, Escape ; Wait for button to be released
+        ; Then do nothing...            
+        Return
+    }
+
+    Send {Esc}
+    ; REFERENCED FROM: https://www.autohotkey.com/board/topic/80697-long-keypress-hotkeys-wo-modifiers/
+Return
+
+; Hotkeys within file explorers
 
 ; navigating within the file explorer
 #IfWinActive ahk_group ExplorerGroup
@@ -526,24 +505,19 @@ return
 ; opening programs via file explorer
 #IfWinActive ahk_class CabinetWClass
     ^+t::exploreTo("wt") ; windows terminal
-    ^+\::Send, {AppsKey}{Up 4}{Enter} ; VS code in current directory
+    ^+\::exploreTo("code .") ; VS code in current directory
 #IfWinActive
 
-; == TERMINALS ==
+; Hotkeys within google docs and sheets
 
-#IfWinActive, ahk_group TerminalGroup
-    ; vs code
-    ^+\::Send, code .{Enter}
-    ; file explorer
-    #e::Send, explorer .{Return}
-#IfWinActive
+^Insert::docSheetWr("^!m") ; open comment box
 
-; == GOOGLE DOCS/SHEETS ==
-
-^Insert::docSheetWr("^!m")
-
-;  strike selected text
-^8::docSheetWr("!+5")
+; Move the current sheet/docs to trash
+^Delete::
+    docSheetWr("!/Move to trash")
+    Sleep, 200
+    docSheetWr("{Enter}")
+return
 
 ; Highlight selected text/shell
 !1::
@@ -580,16 +554,12 @@ return
     docSheetWr("{Enter}")
 return
 
-; move the current sheet/docs to trash
-^Delete::
-    docSheetWr("!/Move to trash")
-    Sleep, 200
-    docSheetWr("{Enter}")
-return
+;  Strike selected text
+!8::docSheetWr("!+5")
 
 ; == HOT STRINGS ==
 
-; Current Date and Time
+; Current date and time
 
 ::/datetime::
     FormatTime, CurrentDateTime,, dddd, MMMM dd, yyyy, HH:mm
@@ -637,150 +607,23 @@ Return
 Return
 
 ; Others
+::wtf::Wow that's fantastic
 ::/paste::
-    Send, %Clipboard%
+    Send % Clipboard
 Return
 ::/cud::
     ; useful for WSLs
     SendInput, /mnt/c/Users/%A_UserName%/
 Return
 ::/nrd::npm run dev
-
 ::/gm::Good morning
 ::/ge::Good evening
 ::/gn::Good night
 ::/ty::Thank you
 ::/tyvm::Thank you very much
 ::/wc::Welcome
-::/mp::
-    SendRaw, My pleasure!
-return
+::/mp::My pleasure
 ::/lorem::Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 ::/plankton::Plankton are the diverse collection of organisms found in water that are unable to propel themselves against a current. The individual organisms constituting plankton are called plankters. In the ocean, they provide a crucial source of food to many small and large aquatic organisms, such as bivalves, fish and whales.
 
-/**
- * Advanced Window Snap
- * Snaps the Active Window to one of nine different window positions.
- *
- * @author Andrew Moore <andrew+github@awmoore.com>, Dacio Romero <DacioRomero@gmail.com>
- * @version 1.01
-*/
-
-/**
- * SnapActiveWindow resizes and moves (snaps) the active window to a given position.
- * @param {string} winPlaceVertical   The vertical placement of the active window.
- *                                    Expecting "bottom" or "middle", otherwise assumes
- *                                    "top" placement.
- * @param {string} winPlaceHorizontal The horizontal placement of the active window.
- *                                    Expecting "left" or "right", otherwise assumes
- *                                    window should span the "full" width of the monitor.
- * @param {string} winSizeHeight      The height of the active window in relation to
- *                                    the active monitor's height. Expecting "half" size,
- *                                    otherwise will resize window to a "third".
- * @param {integer} monitorIndex      The index of the monitor the window will be snapped
- *                                    to. Leaving value at 0 will find the active monitor.
-*/
-
-; REFERENCED FROM: https://gist.github.com/dacioromero/b25c3a782b29bfc783b36804324fd780
-
-SnapActiveWindow(winPlaceVertical, winPlaceHorizontal, winSizeHeight, monitorIndex:=0) {
-    if (monitorIndex == 0) {
-        WinGet activeWin, ID, A
-        monIndex := GetMonitorIndexFromWindow(activeWin)
-    } else {
-        monIndex := monitorIndex
-    }
-
-    SysGet, MonitorWorkArea, MonitorWorkArea, %monIndex%
-
-    if (winSizeHeight == "half") {
-        height := (MonitorWorkAreaBottom - MonitorWorkAreaTop)/2
-    } else {
-        height := (MonitorWorkAreaBottom - MonitorWorkAreaTop)/3
-    }
-
-    if (winPlaceHorizontal == "left") {
-        posX := MonitorWorkAreaLeft
-        width := (MonitorWorkAreaRight - MonitorWorkAreaLeft)/2
-    } else if (winPlaceHorizontal == "right") {
-        posX := MonitorWorkAreaLeft + (MonitorWorkAreaRight - MonitorWorkAreaLeft)/2
-        width := (MonitorWorkAreaRight - MonitorWorkAreaLeft)/2
-    } else {
-        posX := MonitorWorkAreaLeft
-        width := MonitorWorkAreaRight - MonitorWorkAreaLeft
-    }
-
-    if (winPlaceVertical == "bottom") {
-        posY := MonitorWorkAreaBottom - height
-    } else if (winPlaceVertical == "middle") {
-        posY := MonitorWorkAreaTop + height
-    } else {
-        posY := MonitorWorkAreaTop
-    }
-
-    WinMove,A,,%posX%,%posY%,%width%,%height%
-}
-
-/**
- * GetMonitorIndexFromWindow retrieves the HWND (unique ID) of a given window.
- * @param {Uint} windowHandle
- * @author shinywong
- * @link http://www.autohotkey.com/board/topic/69464-how-to-determine-a-window-is-in-which-monitor/?p=440355
-*/
-GetMonitorIndexFromWindow(windowHandle) {
-    ; Starts with 1.
-    monitorIndex := 1
-
-    VarSetCapacity(monitorInfo, 40)
-    NumPut(40, monitorInfo)
-
-    if (monitorHandle := DllCall("MonitorFromWindow", "uint", windowHandle, "uint", 0x2))
-    && DllCall("GetMonitorInfo", "uint", monitorHandle, "uint", &monitorInfo) {
-        monitorLeft := NumGet(monitorInfo, 4, "Int")
-        monitorTop := NumGet(monitorInfo, 8, "Int")
-        monitorRight := NumGet(monitorInfo, 12, "Int")
-        monitorBottom := NumGet(monitorInfo, 16, "Int")
-        workLeft := NumGet(monitorInfo, 20, "Int")
-        workTop := NumGet(monitorInfo, 24, "Int")
-        workRight := NumGet(monitorInfo, 28, "Int")
-        workBottom := NumGet(monitorInfo, 32, "Int")
-        isPrimary := NumGet(monitorInfo, 36, "Int") & 1
-
-        SysGet, monitorCount, MonitorCount
-
-        Loop, %monitorCount% {
-            SysGet, tempMon, Monitor, %A_Index%
-
-            ; Compare location to determine the monitor index.
-            if ((monitorLeft = tempMonLeft) and (monitorTop = tempMonTop)
-            and (monitorRight = tempMonRight) and (monitorBottom = tempMonBottom)) {
-                monitorIndex := A_Index
-                break
-            }
-        }
-    }
-
-return %monitorIndex%
-}
-
-; Directional Arrow Hotkeys
-#!Up::SnapActiveWindow("top","full","half")
-#!Down::SnapActiveWindow("bottom","full","half")
-^#!Up::SnapActiveWindow("top","full","third")
-^#!Down::SnapActiveWindow("bottom","full","third")
-
-; Numberpad Hotkeys (Landscape)
-#!Numpad7::SnapActiveWindow("top","left","half")
-#!Numpad8::SnapActiveWindow("top","full","half")
-#!Numpad9::SnapActiveWindow("top","right","half")
-#!Numpad1::SnapActiveWindow("bottom","left","half")
-#!Numpad2::SnapActiveWindow("bottom","full","half")
-#!Numpad3::SnapActiveWindow("bottom","right","half")
-
-; Numberpad Hotkeys (Portrait)
-^#!Numpad8::SnapActiveWindow("top","full","third")
-^#!Numpad5::SnapActiveWindow("middle","full","third")
-^#!Numpad2::SnapActiveWindow("bottom","full","third")
-
 ; Made with ❤️ by Bibek Aryal.
-
