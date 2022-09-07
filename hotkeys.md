@@ -1,89 +1,15 @@
-# AHK for Windows
+# Keyboard Shortcuts for [windows-ahk](https://github.com/arlbibek/windows-ahk)
 
-A simple and intuitive AutoHotKey script for enhancing windows shortcuts, dedicated to improving users’ workflow.
-
-## Features
-
-Here are some of the list of features
-
-- [x] Quickly open/switch between apps
-- [x] Easy navigation in the file explorer
-- [x] Quick text search (via selection)
-- [x] Toggle presentation mode
-- [x] Quickly transform text case
-- [x] Easy hotstrings to get current datetime (_enter `/date` to get current date eg. July 13, 2022_) and more
-
-## About AutoHotKey
-
-AutoHotkey is a free and open-source custom scripting language for Microsoft Windows, initially aimed at providing easy keyboard shortcuts or hotkeys, fast macro-creation, and software automation that allows users of most levels of computer skill to automate repetitive tasks in any Windows application.
-
-- Homepage: [autohotkey.com](https://www.autohotkey.com "Go to autohotkey homepage")
-- Downloading page: [/download](https://www.autohotkey.com/download "Go to autohotkey download page")
-- Direct download: [/ahk-install.exe](https://www.autohotkey.com/download/ahk-install.exe "Directly download autohotkey")
-
-## Usages
-
-```text
-+------------------------------------------+
-| CAUTION!                                 |
-| These scripts tend to be very addictive. |
-+------------------------------------------+
-```
-
-### Option 1
-
-[ *Recommended* ]
-
-1. Download the `WINDOWS_AHK.exe` from one of the [releases](https://github.com/arlbibek/windows-ahk/releases).
-2. Run the `WINDOWS_AHK.exe` file.
-3. Done! See [keyboard shortcuts](#keyboard-shortcuts).
-
-### Option 2
-
-[ *If you have trust issues with .exe(s) and/or want to make some changes* ]
-
-1. First, download and install AutoHotKey ([/download](https://www.autohotkey.com/download "Go to autohotkey download page")).
-2. Then, download the `WINDOWS.ahk` file from one of the [releases](https://github.com/arlbibek/windows-ahk/releases) (or you may clone the repo).
-3. Run the `WINDOWS.ahk` file.
-4. Done! See [keyboard shortcuts](#keyboard-shortcuts).
-
----
-
-<details>
-  <summary><i>Click to see details on tray menu options</i></summary>
+See full documentation at [README.md](https://github.com/arlbibek/windows-ahk/blob/master/README.md)
 
 ## Tray menu options
 
-| Option                       | Action                                                                                                | Key                                                                 |
-| ---------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Run at startup               | Enable/disable script to run automatically as startup (when you log on to you computer)               |                                                                     |
-| Keyboard shortcut            | View keyboard shortcuts, opens a pdf file containing the list of keyboard shortcuts                   | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>\\</kbd> |
-| Presentation Mode            | Toggle windows default presentation mode <u title="keeps your computer awake indefinitely">on</u>/off | <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>P</kbd>                     |
-| Open file location           | Navigate to script's current directory                                                                |                                                                     |
-| View in GitHub               | View source code in GitHub                                                                            |                                                                     |
-| See AutoHotKey documentation | Visit official AutoHotKey documentation via web                                                       |                                                                     |
+| Key                             | Action                                                              |
+| ------------------------------- | ------------------------------------------------------------------- |
+| Open (this) Keyboard shortcut   | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>\\</kbd> |
+| Toggle Presentation Mode on/off | <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>P</kbd>                     |
 
-> ![Tray menu options](assets/tray_menu.png)
-
----
-
-</details>
-
-## Keyboard Shortcuts
-
-> **Notes**
->
-> - It is important to note that all the pre-existing hotkeys/shortcuts will be overridden.
-> - The tilde `~` at the beginning of certain key (eg. <kbd>~Esc</kbd>) means holding down the key.
-> - For those hotkeys that throw an error saying `Error. Failed attempt to launch program or document:` ... `Specifically: The system cannot find the file specified.`, _please consider adding the respective program (folder) to the [path of your system variables](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/ "See: Add to the PATH on Windows 10")_.
-> - Anything with this (🤵) emoji is a custom/specific shortcut that might not work or suit your needs.
-
-### Hotkey
-
-aka **shortcut keys** - easily trigger an action (such as launching a program or keyboard macro)
-[[ahk]](https://www.autohotkey.com/docs/Hotkeys.htm "See hotkey documentation").
-
-#### Global
+## Global hotkeys
 
 | Key                                                               | Action                                                                                                                                                                                                 |
 | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -110,9 +36,7 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 | <kbd>Shift</kbd> + <kbd>Space</kbd>                               | Replace Space(s) with Underscore(s) of selected text (eg. `Hello World` to `Hello_World`)                                                                                                              |
 | <kbd>~Esc</kbd>                                                   | Close current active window <br /> _Long press (> 0.5 sec) on Esc to close current active window - but if you change your mind you can keep it pressed for 3 more seconds_                             |
 
-#### File Explorer
-
-> This works for all the explorer-based "save" and "load" boxes as well.
+## File Explorer
 
 | Key                                                | Action                                                 |
 | -------------------------------------------------- | ------------------------------------------------------ |
@@ -130,9 +54,7 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>T</kbd>  | Open Windows Terminal in current working directory     |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>\\</kbd> | Open VS Code in current working directory              |
 
-#### Google Docs/Sheets
-
-> Note that the following commands will (only) work within google docs or sheets window of a browser).
+## Google Docs/Sheets
 
 | Key                                              | Action                                          |
 | ------------------------------------------------ | ----------------------------------------------- |
@@ -145,58 +67,47 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 | <kbd>Alt</kbd> + <kbd>4</kbd>                    | Spell check                                     |
 | <kbd>Alt</kbd> + <kbd>8</kbd>                    | Strike selected text(s)/shell(s)                |
 
-### Hotstring
+## Hotstring
 
-**What is a hotstring?**
-
-Hotstrings are mainly used to expand abbreviations as you type them (auto-replace), they can also be used to launch any scripted action [[ahk]](https://www.autohotkey.com/docs/Hotstrings.htm "See hotstring documentation").
+Hotstrings are mainly used to expand abbreviations as you type them (auto-replace).
 
 ```ahk
 ; for example
 ::wtf::Wow that's fantastic
 ```
 
-#### Date and time
-
 Assuming today's date and time is `Sunday, October 10, 2021, 02:55 PM`
 
-| Abbreviation  | Phrase                            |
-| ------------- | --------------------------------- |
-| `/datetime`   | Sunday, October 10, 2021, 14:55   |
-| `/datetimett` | Sunday, October 10, 2021 02:55 PM |
-| `/time`       | 14:55                             |
-| `/timett`     | 02:55 PM                          |
-| `/date`       | October 10, 2021                  |
-| `/daten`      | 10/10/2021                        |
-| `/week`       | Sunday                            |
-| `/day`        | 10                                |
-| `/month`      | October                           |
-| `/monthn`     | 10                                |
-| `/year`       | 2021                              |
-
-#### Others
-
-| Abbreviation | Phrase                                                                            |
-| ------------ | --------------------------------------------------------------------------------- |
-| `/paste`     | _Paste contents of clip board_                                                    |
-| `/cud`       | _Full path of current user directory_ (eg. `/mnt/c/Users/bibek/`)                 |
-| `/nrd`       | npm run dev                                                                       |
-| `/gm`        | Good morning                                                                      |
-| `/ge`        | Good evening                                                                      |
-| `/gn`        | Good night                                                                        |
-| `/ty`        | Thank you                                                                         |
-| `/tyvm`      | Thank you very much                                                               |
-| `/wc`        | Welcome                                                                           |
-| `/mp`        | /mMy pleasure                                                                     |
-| `/lorem`     | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod..         |
-| `/plankton`  | Plankton are the diverse collection of organisms found in water that are unable.. |
-
-## Some other useful resources (scripts)
-
-- [AutoHotKey documentation](https://www.autohotkey.com/docs/AutoHotkey.htm)
-- [AutoHotkey Script Showcase](https://www.autohotkey.com/docs/scripts/index.htm "This showcase lists some scripts created by different authors which show what AutoHotkey might be capable of.") by autohotkey.
-- [Skrommel's One Hour Software](https://www.dcmembers.com/skrommel/downloads/)
+| Abbreviation  | Phrase                                                                            |
+| ------------- | --------------------------------------------------------------------------------- |
+| `/datetime`   | Sunday, October 10, 2021, 14:55                                                   |
+| `/datetimett` | Sunday, October 10, 2021 02:55 PM                                                 |
+| `/time`       | 14:55                                                                             |
+| `/timett`     | 02:55 PM                                                                          |
+| `/date`       | October 10, 2021                                                                  |
+| `/daten`      | 10/10/2021                                                                        |
+| `/week`       | Sunday                                                                            |
+| `/day`        | 10                                                                                |
+| `/month`      | October                                                                           |
+| `/monthn`     | 10                                                                                |
+| `/year`       | 2021                                                                              |
+| `/paste`      | _Paste contents of clip board_                                                    |
+| `/cud`        | _Full path of current user directory_ (eg. `/mnt/c/Users/bibek/`)                 |
+| `/nrd`        | npm run dev                                                                       |
+| `/gm`         | Good morning                                                                      |
+| `/ge`         | Good evening                                                                      |
+| `/gn`         | Good night                                                                        |
+| `/ty`         | Thank you                                                                         |
+| `/tyvm`       | Thank you very much                                                               |
+| `/wc`         | Welcome                                                                           |
+| `/mp`         | /mMy pleasure                                                                     |
+| `/lorem`      | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod..         |
+| `/plankton`   | Plankton are the diverse collection of organisms found in water that are unable.. |
 
 ---
+
+<!-- Use https://md2pdf.netlify.app/ to convert markdown file to pdf -->
+
+[github.com/arlbibek/windows-ahk](https://github.com/arlbibek/windows-ahk)
 
 Made with ❤️ by [Bibek Aryal](https://bibeka.com.np/).
