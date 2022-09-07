@@ -286,7 +286,7 @@ download(url, filename){
 }
 
 viewKeyboardShortcuts(){
-    hotkey_pdf_url = https://github.com/arlbibek/windows-ahk/raw/main/hotkeys.pdf
+    hotkey_pdf_url = https://github.com/arlbibek/windows-ahk/raw/master/hotkeys.pdf
     hotkey_pdf = hotkeys.pdf
     hotkey_pdf_path = %A_ScriptDir%\%hotkey_pdf%
     While, True {
