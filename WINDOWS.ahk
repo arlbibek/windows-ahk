@@ -4,6 +4,7 @@
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir% ; Ensures a consistent starting directory.
+Menu, Tray, Icon, shell32.dll, 16 ; this changes the icon into a little laptop thing.
 
 ; grouping explorers
 GroupAdd, ExplorerGroup, ahk_class CabinetWClass
@@ -222,16 +223,13 @@ sheetWr(text){
     }
 }
 
-; For modifying tray menu
-
 runAtStartup(){
     ; Toggle run at startup for the current script
-    IfExist, %startup_shortcut% {
+    if FileExist(startup_shortcut) {
         FileDelete, % startup_shortcut
         Menu, Tray, unCheck, Run at startup
         TrayTip, Startup shortcut removed, This script will not run when you turn on your computer, 5, 1
-    } else
-    {
+    } else {
         FileCreateShortcut, % a_scriptFullPath, % startup_shortcut
         Menu, Tray, check, Run at startup
         TrayTip, Startup shortcut added, This script will now automatically run when your turn on your computer, 5, 1
@@ -249,7 +247,7 @@ togglePresentationMode(){
         ; presentationMode is on, turning it off
         Control, UnCheck , , Button1, Presentation Settings, , ,
 
-        TrayTip, Presentation mode has been toggled off, Your computer will sleep accordingly, 5, 1
+        TrayTip, %script_full_name%, Presentation mode has been toggled off, 5, 1
         Menu, Tray, % "unCheck", Presentation mode {Ctrl+Alt+P} ; updating tray menu status
 
     } Else {
@@ -257,7 +255,7 @@ togglePresentationMode(){
         Control, Check , , Button1, Presentation Settings, , ,
         Control, Check , , Button3, Presentation Settings, , ,
 
-        TrayTip, Presentation mode has been toggled on, Your computer will stay awake indefinitely, 5, 1
+        TrayTip, %script_full_name%, Presentation mode has been toggled on`, Your computer will stay awake indefinitely, 5, 1
         Menu, Tray, % "check", Presentation mode {Ctrl+Alt+P} ; updating tray menu status
     }
     ; Closing Presentation Settings window
@@ -278,8 +276,39 @@ openFileLocation(){
     Run % A_ScriptDir
 }
 
+download(url, filename){
+    UrlDownloadToFile, %url%, %filename%
+    if ErrorLevel {
+        TrayTip, %script_full_name%, File %filename% couldn't be downloaded from %url%, 5, 1
+    } else {
+        TrayTip, %script_full_name%, File %filename% downloaded., 5, 1
+    }
+}
+
+viewKeyboardShortcuts(){
+    hotkey_pdf_url = https://github.com/arlbibek/windows-ahk/raw/main/hotkeys.pdf
+    hotkey_pdf = hotkeys.pdf
+    hotkey_pdf_path = %A_ScriptDir%\%hotkey_pdf%
+    While, True {
+        if not FileExist(hotkey_pdf_path){
+
+            MsgBox, 4, File not found`, would like to download?, The %hotkey_pdf% file doesn't exist. `nThis pdf file contains detailed the list of keyboard shortcuts for %script_full_name%. `n`nWould you like to download and open the file? `nURL: %hotkey_pdf_url%
+
+            IfMsgBox, Yes
+            download(hotkey_pdf_url, hotkey_pdf)
+
+            else
+                Break 
+
+        } else {
+            Run, %hotkey_pdf_path%
+            Break
+        }
+    }
+}
+
+; For modifying tray menu
 updateTrayMenu(){
-    ; modifying tray menu
 
     ; removing original menu
     Menu, Tray, NoStandard 
@@ -287,6 +316,9 @@ updateTrayMenu(){
     ; adding run at startup option
     Menu, Tray, Add, Run at startup, runAtStartup
     Menu, Tray, % fileExist(startup_shortcut) ? "check" : "unCheck", Run at startup
+
+    ; adding view keyboard shortcuts option
+    Menu, Tray, Add, Keyboard shortcuts {Ctrl+Shift+Alt+\}, viewKeyboardShortcuts
 
     ; adding toggle Presentation mode option
     Menu, Tray, Add, Presentation mode {Ctrl+Alt+P}, togglePresentationMode
@@ -310,8 +342,8 @@ updateTrayMenu(){
 ; ====================================
 
 ; showing a tray notification that the script has started
-TrayTip, , %script_full_name% started, 5, 1
 updateTrayMenu()
+TrayTip, %script_full_name%, %script_full_name% started, 5, 1
 
 ; == HOTKEYS ==
 
@@ -485,6 +517,8 @@ $Escape:: ; Long press (> 0.5 sec) on Esc closes window - but if you change your
     Send {Esc}
     ; REFERENCED FROM: https://www.autohotkey.com/board/topic/80697-long-keypress-hotkeys-wo-modifiers/
 Return
+
+^+!\::viewKeyboardShortcuts()
 
 ; Hotkeys within file explorers
 
