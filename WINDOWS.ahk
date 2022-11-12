@@ -48,7 +48,7 @@ global startup_shortcut := a_startup "\" script_full_name ".lnk"
 ; FUNCTIONS
 
 get_default_browser() {
-    ; return ahk_exe name of the users default browser (e.g. firefox.exe) 
+    ; return ahk_exe name of the users default browser (e.g. firefox.exe)
     ; referenced from: https://www.autohotkey.com/board/topic/67330-how-to-open-default-web-browser/
 
     ; Find the Registry key name for the default browser
@@ -72,14 +72,14 @@ get_default_browser() {
     Return BrowserClassEXE
 }
 
-activate(program, action:="minimize"){
+activate(program, action:="minimize", arguments:=""){
     ; Open/Switch/(Minimize/Cycle through) a program
     ; `program` is the name of the program (eg. firefox.exe),
     ; `action` is the action to perform when the program window already is in an active state, it should be either "minimize" or "cycle" (default is minimise)
     ahk_type := "ahk_exe"
     try {
         IfWinNotExist %ahk_type% %program%
-            Run %program%
+            Run %program% %arguments%
     } catch e {
         err := e.extra
         FileNotFound := "The system cannot find the file specified."
@@ -268,7 +268,7 @@ viewInGithub(){
 }
 
 viewAHKDoc(){
-    ; view 
+    ; view
     Run, https://www.autohotkey.com/docs/AutoHotkey.htm
 }
 
@@ -298,7 +298,7 @@ viewKeyboardShortcuts(){
             download(hotkey_pdf_url, hotkey_pdf)
 
             else
-                Break 
+                Break
 
         } else {
             Run, %hotkey_pdf_path%
@@ -311,7 +311,7 @@ viewKeyboardShortcuts(){
 updateTrayMenu(){
 
     ; removing original menu
-    Menu, Tray, NoStandard 
+    Menu, Tray, NoStandard
 
     ; adding run at startup option
     Menu, Tray, Add, Run at startup, runAtStartup
@@ -335,8 +335,8 @@ updateTrayMenu(){
     Menu, Tray, Add, See AutoHotKey documentation, viewAHKDoc
 
     ; puts original menu back
-    Menu, Tray, Add 
-    Menu, Tray, Standard 
+    Menu, Tray, Add
+    Menu, Tray, Standard
 }
 
 ; ====================================
@@ -377,10 +377,11 @@ F8::activate("excel.exe")
 ; F9 is
 ; F9::
 
-; F10 is
-; F10::
+; F10 is WindowsTerminal
+F10::activate("WindowsTerminal.exe", "minimize", "-d " . userdir) ; Launching windows terminal on current users directory
++F10::Run % "WindowsTerminal.exe -d " . userdir
 
-; F11 is
+; F11 is Full Screen
 ; F11::
 
 ; F12 is
@@ -421,7 +422,7 @@ Return
 ; Other Hotkeys
 
 ; Copy text without the new line (useful for copying text from pdf file)
-^!c:: 
+^!c::
     Clipboard=
     Send, ^c
     ClipWait, 3
@@ -449,12 +450,12 @@ CapsLock & 9::changeCaseTo("upper")
 ; This script requires v1.0.25+.
 
 CapsLock & LButton::
-    CoordMode, Mouse ; Switch to screen/absolute coordinates.
-    MouseGetPos, EWD_MouseStartX, EWD_MouseStartY, EWD_MouseWin
-    WinGetPos, EWD_OriginalPosX, EWD_OriginalPosY,,, ahk_id %EWD_MouseWin%
-    WinGet, EWD_WinState, MinMax, ahk_id %EWD_MouseWin%
-    if EWD_WinState = 0 ; Only if the window isn't maximized
-        SetTimer, EWD_WatchMouse, 10 ; Track the mouse as the user drags it.
+CoordMode, Mouse ; Switch to screen/absolute coordinates.
+MouseGetPos, EWD_MouseStartX, EWD_MouseStartY, EWD_MouseWin
+WinGetPos, EWD_OriginalPosX, EWD_OriginalPosY,,, ahk_id %EWD_MouseWin%
+WinGet, EWD_WinState, MinMax, ahk_id %EWD_MouseWin%
+if EWD_WinState = 0 ; Only if the window isn't maximized
+    SetTimer, EWD_WatchMouse, 10 ; Track the mouse as the user drags it.
 return
 
 EWD_WatchMouse:
@@ -504,13 +505,13 @@ $Escape:: ; Long press (> 0.5 sec) on Esc closes window - but if you change your
         SplashTextOff
         If !ErrorLevel ; No timeout, so key was released
         {
-            PostMessage, 0x112, 0xF060,,, A ; ...so close window      
+            PostMessage, 0x112, 0xF060,,, A ; ...so close window
             Return
         }
-        ; Otherwise,                
+        ; Otherwise,
         SoundPlay *64
         KeyWait, Escape ; Wait for button to be released
-        ; Then do nothing...            
+        ; Then do nothing...
         Return
     }
 

@@ -10,8 +10,8 @@ Here are some of the list of features
 - [x] Easy navigation in the file explorer
 - [x] Quick text search (via selection)
 - [x] Toggle presentation mode
-- [x] Quickly transform text case
-- [x] Easy hotstrings to get current datetime (_enter `/date` to get current date eg. July 13, 2022_) and more
+- [x] Quickly transform text case (e.g. `hello, word!` to `Hello, Word!`)
+- [x] Easy hotstrings to get current datetime (e.g. _enter `/date` to get current date eg. July 13, 2022_) and more
 
 ## About AutoHotKey
 
@@ -35,8 +35,7 @@ AutoHotkey is a free and open-source custom scripting language for Microsoft Win
 [ *Recommended* ]
 
 1. Download the `WINDOWS_AHK.exe` from one of the [releases](https://github.com/arlbibek/windows-ahk/releases).
-2. Run the `WINDOWS_AHK.exe` file.
-3. Done! See [keyboard shortcuts](#keyboard-shortcuts).
+2. Run the `WINDOWS_AHK.exe` file. Done!
 
 ### Option 2
 
@@ -44,8 +43,9 @@ AutoHotkey is a free and open-source custom scripting language for Microsoft Win
 
 1. First, download and install AutoHotKey ([/download](https://www.autohotkey.com/download "Go to autohotkey download page")).
 2. Then, download the `WINDOWS.ahk` file from one of the [releases](https://github.com/arlbibek/windows-ahk/releases) (or you may clone the repo).
-3. Run the `WINDOWS.ahk` file.
-4. Done! See [keyboard shortcuts](#keyboard-shortcuts).
+3. Run the `WINDOWS.ahk` file. Done!
+
+See [keyboard shortcuts](#keyboard-shortcuts).
 
 ---
 
@@ -73,7 +73,7 @@ AutoHotkey is a free and open-source custom scripting language for Microsoft Win
 
 > **Notes**
 >
-> - It is important to note that all the pre-existing hotkeys/shortcuts will be overridden.
+> - It is important to note that all the pre-existing that conflicts with the given hotkeys/shortcuts will be overridden.
 > - The tilde `~` at the beginning of certain key (eg. <kbd>~Esc</kbd>) means holding down the key.
 > - For those hotkeys that throw an error saying `Error. Failed attempt to launch program or document:` ... `Specifically: The system cannot find the file specified.`, _please consider adding the respective program (folder) to the [path of your system variables](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/ "See: Add to the PATH on Windows 10")_.
 > - Anything with this (🤵) emoji is a custom/specific shortcut that might not work or suit your needs.
@@ -91,12 +91,14 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 | <kbd>Shift</kbd> + <kbd>F1</kbd>                                  | Open default browser (new window)                                                                                                                                                                      |
 | <kbd>F3</kbd>                                                     | Open/Switch/Minimize Spotify                                                                                                                                                                           |
 | <kbd>F4</kbd>                                                     | Open/Switch/Cycle through VS Code                                                                                                                                                                      |
-| <kbd>F6</kbd>                                                     | Open/Switch to/Minimize SumatraPDF                                                                                                                                                                     |
-| <kbd>F7</kbd>                                                     | Open/Switch to/Minimize Microsoft Word                                                                                                                                                                 |
-| <kbd>F8</kbd>                                                     | Open/Switch to/Minimize Microsoft Excel                                                                                                                                                                |
+| <kbd>F6</kbd>                                                     | Open/Switch/Minimize SumatraPDF                                                                                                                                                                        |
+| <kbd>F7</kbd>                                                     | Open/Switch/Minimize Microsoft Word                                                                                                                                                                    |
+| <kbd>F8</kbd>                                                     | Open/Switch/Minimize Microsoft Excel                                                                                                                                                                   |
+| <kbd>F10</kbd>                                                    | Open/Switch/Minimize WindowsTerminal                                                                                                                                                                   |
+| <kbd>Shift</kbd> + <kbd>F10</kbd>                                 | Open WindowsTerminal (new window)                                                                                                                                                                      |
 | <kbd>Win</kbd> + <kbd>E</kbd>                                     | Open/Switch/Cycle through File Explorer                                                                                                                                                                |
 | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd>                  | Open File Explorer (new window)                                                                                                                                                                        |
-| <kbd>Win</kbd> + <kbd>N</kbd>                                     | Open/Switch/Cycle through Notepad (<kbd>Esc</kbd> will close notepad without saving contents)                                                                                                          |
+| <kbd>Win</kbd> + <kbd>N</kbd>                                     | Open/Switch/Cycle through Notepad                                                                                                                                                                      |
 | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd>                  | Open Notepad (new window)                                                                                                                                                                              |
 | <kbd>Win</kbd> + <kbd>S</kbd>                                     | Search selected text via active browser (or the default browser)                                                                                                                                       |
 | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>                  | Search contents of clipboard via active browser (or the default browser)                                                                                                                               |
@@ -176,20 +178,20 @@ Assuming today's date and time is `Sunday, October 10, 2021, 02:55 PM`
 
 #### Others
 
-| Abbreviation | Phrase                                                                            |
-| ------------ | --------------------------------------------------------------------------------- |
-| `/paste`     | _Paste contents of clip board_                                                    |
-| `/cud`       | _Full path of current user directory_ (eg. `/mnt/c/Users/bibek/`)                 |
-| `/nrd`       | npm run dev                                                                       |
-| `/gm`        | Good morning                                                                      |
-| `/ge`        | Good evening                                                                      |
-| `/gn`        | Good night                                                                        |
-| `/ty`        | Thank you                                                                         |
-| `/tyvm`      | Thank you very much                                                               |
-| `/wc`        | Welcome                                                                           |
-| `/mp`        | /mMy pleasure                                                                     |
-| `/lorem`     | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod..         |
-| `/plankton`  | Plankton are the diverse collection of organisms found in water that are unable.. |
+| Abbreviation | Phrase                                                                             |
+| ------------ | ---------------------------------------------------------------------------------- |
+| `/paste`     | _Paste contents of clipboard_                                                      |
+| `/cud`       | _Full path of current user directory_ (eg. `/mnt/c/Users/bibek/`)                  |
+| `/nrd`       | npm run dev                                                                        |
+| `/gm`        | Good morning                                                                       |
+| `/ge`        | Good evening                                                                       |
+| `/gn`        | Good night                                                                         |
+| `/ty`        | Thank you                                                                          |
+| `/tyvm`      | Thank you very much                                                                |
+| `/wc`        | Welcome                                                                            |
+| `/mp`        | My pleasure                                                                        |
+| `/lorem`     | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod...         |
+| `/plankton`  | Plankton are the diverse collection of organisms found in water that are unable... |
 
 ## Some other useful resources (scripts)
 

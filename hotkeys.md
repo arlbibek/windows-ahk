@@ -17,12 +17,14 @@ See full documentation at [README.md](https://github.com/arlbibek/windows-ahk/bl
 | <kbd>Shift</kbd> + <kbd>F1</kbd>                                  | Open default browser (new window)                                                                                                                                                                      |
 | <kbd>F3</kbd>                                                     | Open/Switch/Minimize Spotify                                                                                                                                                                           |
 | <kbd>F4</kbd>                                                     | Open/Switch/Cycle through VS Code                                                                                                                                                                      |
-| <kbd>F6</kbd>                                                     | Open/Switch to/Minimize SumatraPDF                                                                                                                                                                     |
-| <kbd>F7</kbd>                                                     | Open/Switch to/Minimize Microsoft Word                                                                                                                                                                 |
-| <kbd>F8</kbd>                                                     | Open/Switch to/Minimize Microsoft Excel                                                                                                                                                                |
+| <kbd>F6</kbd>                                                     | Open/Switch/Minimize SumatraPDF                                                                                                                                                                        |
+| <kbd>F7</kbd>                                                     | Open/Switch/Minimize Microsoft Word                                                                                                                                                                    |
+| <kbd>F8</kbd>                                                     | Open/Switch/Minimize Microsoft Excel                                                                                                                                                                   |
+| <kbd>F10</kbd>                                                    | Open/Switch/Minimize WindowsTerminal                                                                                                                                                                   |
+| <kbd>Shift</kbd> + <kbd>F10</kbd>                                 | Open WindowsTerminal (new window)                                                                                                                                                                      |
 | <kbd>Win</kbd> + <kbd>E</kbd>                                     | Open/Switch/Cycle through File Explorer                                                                                                                                                                |
 | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd>                  | Open File Explorer (new window)                                                                                                                                                                        |
-| <kbd>Win</kbd> + <kbd>N</kbd>                                     | Open/Switch/Cycle through Notepad (<kbd>Esc</kbd> will close notepad without saving contents)                                                                                                          |
+| <kbd>Win</kbd> + <kbd>N</kbd>                                     | Open/Switch/Cycle through Notepad                                                                                                                                                                      |
 | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd>                  | Open Notepad (new window)                                                                                                                                                                              |
 | <kbd>Win</kbd> + <kbd>S</kbd>                                     | Search selected text via active browser (or the default browser)                                                                                                                                       |
 | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>                  | Search contents of clipboard via active browser (or the default browser)                                                                                                                               |
@@ -78,31 +80,31 @@ Hotstrings are mainly used to expand abbreviations as you type them (auto-replac
 
 Assuming today's date and time is `Sunday, October 10, 2021, 02:55 PM`
 
-| Abbreviation  | Phrase                                                                            |
-| ------------- | --------------------------------------------------------------------------------- |
-| `/datetime`   | Sunday, October 10, 2021, 14:55                                                   |
-| `/datetimett` | Sunday, October 10, 2021 02:55 PM                                                 |
-| `/time`       | 14:55                                                                             |
-| `/timett`     | 02:55 PM                                                                          |
-| `/date`       | October 10, 2021                                                                  |
-| `/daten`      | 10/10/2021                                                                        |
-| `/week`       | Sunday                                                                            |
-| `/day`        | 10                                                                                |
-| `/month`      | October                                                                           |
-| `/monthn`     | 10                                                                                |
-| `/year`       | 2021                                                                              |
-| `/paste`      | _Paste contents of clip board_                                                    |
-| `/cud`        | _Full path of current user directory_ (eg. `/mnt/c/Users/bibek/`)                 |
-| `/nrd`        | npm run dev                                                                       |
-| `/gm`         | Good morning                                                                      |
-| `/ge`         | Good evening                                                                      |
-| `/gn`         | Good night                                                                        |
-| `/ty`         | Thank you                                                                         |
-| `/tyvm`       | Thank you very much                                                               |
-| `/wc`         | Welcome                                                                           |
-| `/mp`         | /mMy pleasure                                                                     |
-| `/lorem`      | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod..         |
-| `/plankton`   | Plankton are the diverse collection of organisms found in water that are unable.. |
+| Abbreviation  | Phrase                                                                             |
+| ------------- | ---------------------------------------------------------------------------------- |
+| `/datetime`   | Sunday, October 10, 2021, 14:55                                                    |
+| `/datetimett` | Sunday, October 10, 2021 02:55 PM                                                  |
+| `/time`       | 14:55                                                                              |
+| `/timett`     | 02:55 PM                                                                           |
+| `/date`       | October 10, 2021                                                                   |
+| `/daten`      | 10/10/2021                                                                         |
+| `/week`       | Sunday                                                                             |
+| `/day`        | 10                                                                                 |
+| `/month`      | October                                                                            |
+| `/monthn`     | 10                                                                                 |
+| `/year`       | 2021                                                                               |
+| `/paste`      | _Paste contents of clipboard_                                                      |
+| `/cud`        | _Full path of current user directory_ (eg. `/mnt/c/Users/bibek/`)                  |
+| `/nrd`        | npm run dev                                                                        |
+| `/gm`         | Good morning                                                                       |
+| `/ge`         | Good evening                                                                       |
+| `/gn`         | Good night                                                                         |
+| `/ty`         | Thank you                                                                          |
+| `/tyvm`       | Thank you very much                                                                |
+| `/wc`         | Welcome                                                                            |
+| `/mp`         | My pleasure                                                                        |
+| `/lorem`      | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod...         |
+| `/plankton`   | Plankton are the diverse collection of organisms found in water that are unable... |
 
 ---
 
