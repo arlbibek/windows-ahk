@@ -516,7 +516,7 @@ $Escape:: ; Long press (> 0.5 sec) on Esc closes window - but if you change your
     }
 
     Send {Esc}
-    ; REFERENCED FROM: https://www.autohotkey.com/board/topic/80697-long-keypress-hotkeys-wo-modifiers/
+; REFERENCED FROM: https://www.autohotkey.com/board/topic/80697-long-keypress-hotkeys-wo-modifiers/
 Return
 
 ^+!\::viewKeyboardShortcuts()
@@ -612,12 +612,16 @@ Return
     FormatTime, CurrentDateTime,, hh:mm tt
     SendInput, %CurrentDateTime%
 Return
-::/date::
+::/date:: ; date e.g. December 09, 2022
     FormatTime, CurrentDate,, MMMM dd, yyyy
     SendInput, %CurrentDate%
 Return
-::/daten::
+::/daten:: ; date number e.g. 12/09/2022
     FormatTime, CurrentDate,, MM/dd/yyyy
+    SendInput, %CurrentDate%
+Return
+::/datet:: ; date text e.g. 22.12.09
+    FormatTime, CurrentDate,, yy.MM.dd
     SendInput, %CurrentDate%
 Return
 ::/week::

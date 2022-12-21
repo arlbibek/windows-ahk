@@ -170,6 +170,7 @@ Assuming today's date and time is `Sunday, October 10, 2021, 02:55 PM`
 | `/timett`     | 02:55 PM                          |
 | `/date`       | October 10, 2021                  |
 | `/daten`      | 10/10/2021                        |
+| `/datet`      | 22.12.21                          |
 | `/week`       | Sunday                            |
 | `/day`        | 10                                |
 | `/month`      | October                           |
