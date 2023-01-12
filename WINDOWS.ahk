@@ -431,6 +431,9 @@ Return
 Return
 
 ; Toggle presentation mode
+^+`::activate("SyncTrayzor.exe")
+
+; Toggle presentation mode
 ^!p::togglePresentationMode()
 
 ; Change the case of selected text(s)
