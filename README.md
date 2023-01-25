@@ -54,14 +54,14 @@ See [keyboard shortcuts](#keyboard-shortcuts).
 
 ## Tray menu options
 
-| Option                       | Action                                                                                                | Key                                                                 |
-| ---------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Run at startup               | Enable/disable script to run automatically as startup (when you log on to you computer)               |                                                                     |
-| Keyboard shortcut            | View keyboard shortcuts, opens a pdf file containing the list of keyboard shortcuts                   | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>\\</kbd> |
-| Presentation Mode            | Toggle windows default presentation mode <u title="keeps your computer awake indefinitely">on</u>/off | <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>P</kbd>                     |
-| Open file location           | Navigate to script's current directory                                                                |                                                                     |
-| View in GitHub               | View source code in GitHub                                                                            |                                                                     |
-| See AutoHotKey documentation | Visit official AutoHotKey documentation via web                                                       |                                                                     |
+| Option                       | Action                                                                                  | Key                                                                 |
+| ---------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| Run at startup               | Enable/disable script to run automatically as startup (when you log on to you computer) |                                                                     |
+| Keyboard shortcut            | View keyboard shortcuts, opens a pdf file containing the list of keyboard shortcuts     | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>\\</kbd> |
+| Presentation Mode            | Toggle windows default presentation mode on/off                                         | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>                    |
+| Open file location           | Navigate to script's current directory                                                  |                                                                     |
+| View in GitHub               | View source code in GitHub                                                              |                                                                     |
+| See AutoHotKey documentation | Visit official AutoHotKey documentation via web                                         |                                                                     |
 
 > ![Tray menu options](assets/tray_menu.png)
 
@@ -95,7 +95,7 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 | <kbd>F7</kbd>                                                     | Open/Switch/Minimize Microsoft Word                                                                                                                                                                    |
 | <kbd>F8</kbd>                                                     | Open/Switch/Minimize Microsoft Excel                                                                                                                                                                   |
 | <kbd>F10</kbd>                                                    | Open/Switch/Minimize WindowsTerminal                                                                                                                                                                   |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>\`</kbd>                | Open/Switch/Minimize Synctrayzor (Syncthing)                                                                                                                                |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>\`</kbd>                | Open/Switch/Minimize Synctrayzor (Syncthing)                                                                                                                                                           |
 | <kbd>Shift</kbd> + <kbd>F10</kbd>                                 | Open WindowsTerminal (new window)                                                                                                                                                                      |
 | <kbd>Win</kbd> + <kbd>E</kbd>                                     | Open/Switch/Cycle through File Explorer                                                                                                                                                                |
 | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd>                  | Open File Explorer (new window)                                                                                                                                                                        |
@@ -104,8 +104,8 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 | <kbd>Win</kbd> + <kbd>S</kbd>                                     | Search selected text via active browser (or the default browser)                                                                                                                                       |
 | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>                  | Search contents of clipboard via active browser (or the default browser)                                                                                                                               |
 | <kbd>Win</kbd> + <kbd>C</kbd>                                     | Center current window                                                                                                                                                                                  |
+| <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>                  | Toggle presentation mode on or off                                                                                                                                                                     |
 | <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>c</kbd>                   | Copy text without the new line (useful for copying text from a pdf file)                                                                                                                               |
-| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>P</kbd>                   | Toggle presentation mode on or off                                                                                                                                                                     |
 | <kbd>CapsLock</kbd> & <kbd>7</kbd>                                | Transform selected text to lower case (eg. `Hello, Word!` to `hello, word!`)                                                                                                                           |
 | <kbd>CapsLock</kbd> & <kbd>8</kbd>                                | Transform selected text to titled case (eg. `hello, word!` to `Hello, Word!`)                                                                                                                          |
 | <kbd>CapsLock</kbd> & <kbd>9</kbd>                                | Transform selected text to upper case (eg. `Hello, Word!` to `HELLO, WORD!`)                                                                                                                           |

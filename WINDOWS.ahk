@@ -239,24 +239,22 @@ runAtStartup(){
 togglePresentationMode(){
     ; Toggle presentation mode
     Run, presentationsettings.exe
-    Sleep, 500
-
+    WinWait ahk_exe presentationsettings.exe
     ControlGet, presentationMode, Checked, , Button1, Presentation Settings, , ,
 
     If (presentationMode == 1){
         ; presentationMode is on, turning it off
         Control, UnCheck , , Button1, Presentation Settings, , ,
 
-        TrayTip, %script_full_name%, Presentation mode has been toggled off, 5, 1
-        Menu, Tray, % "unCheck", Presentation mode {Ctrl+Alt+P} ; updating tray menu status
+        TrayTip, Presentation mode: off, Presentation mode has been toggled off, 5, 1
+        Menu, Tray, % "unCheck", Presentation mode {Win+Shift+P} ; updating tray menu status
 
     } Else {
         ; presentationMode is off, turning it on
         Control, Check , , Button1, Presentation Settings, , ,
-        Control, Check , , Button3, Presentation Settings, , ,
 
-        TrayTip, %script_full_name%, Presentation mode has been toggled on`, Your computer will stay awake indefinitely, 5, 1
-        Menu, Tray, % "check", Presentation mode {Ctrl+Alt+P} ; updating tray menu status
+        TrayTip, Presentation mode: on, Presentation mode has been toggled on`, Your computer will stay awake indefinitely, 5, 1
+        Menu, Tray, % "check", Presentation mode {Win+Shift+P} ; updating tray menu status
     }
     ; Closing Presentation Settings window
     Control, Check, , Button7, Presentation Settings, , ,
@@ -321,7 +319,7 @@ updateTrayMenu(){
     Menu, Tray, Add, Keyboard shortcuts {Ctrl+Shift+Alt+\}, viewKeyboardShortcuts
 
     ; adding toggle Presentation mode option
-    Menu, Tray, Add, Presentation mode {Ctrl+Alt+P}, togglePresentationMode
+    Menu, Tray, Add, Presentation mode {Win+Shift+P}, togglePresentationMode
 
     ; adding open file (script) location
     Menu, Tray, Add, Open file location, openFileLocation
@@ -434,7 +432,7 @@ Return
 ^+`::activate("SyncTrayzor.exe")
 
 ; Toggle presentation mode
-^!p::togglePresentationMode()
+#+p::togglePresentationMode()
 
 ; Change the case of selected text(s)
 CapsLock & 7::changeCaseTo("lower")
