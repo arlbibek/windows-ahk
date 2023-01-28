@@ -111,87 +111,73 @@ activate(program, action:="minimize", arguments:=""){
     }
 }
 
-get_selected(){
-    ; copy selected contents to the clipboard
-    ; return selected contents via clipboard (sends ctrl + c), but restores the previous contents of the clipboard
-
-    ClipSave := ClipboardAll ; saving the contents of the clipboard
-    Clipboard = ; clearing contents of Clipboard
-    if WinActive("ahk_group TerminalGroup"){
+get_selected() {
+    ; Save the current clipboard contents
+    ClipSave := ClipboardAll
+    clipboard := ""
+    ; Send the correct key combination based on the active window
+    if WinActive("ahk_group TerminalGroup")
         Send, ^+c
-    }
-    else {
+    else
         Send, ^c
-    }
+    ; Wait for the clipboard to be updated
     ClipWait, 1
-    copied = %Clipboard%
-    Clipboard := ClipSave ; restoring the contents of the clipboard
-    return %copied%
+    copied := clipboard
+    ; Restore the previous clipboard contents
+    clipboard := ClipSave
+    return copied
 }
 
-win_search(search_str){
-    ; Search Of The String Via Active Browser Or Default
-    ; Default Search Engine Is DuckDuckGo (& always will be)
-
-    ; only search if something has been selected
-    len_str := StrLen(search_str)
-    If (len_str == 0) {
-        ; resend the command if nothing is selected
+win_search(search_str) {
+    ; Removes all CR+LF's (? next line) and extra spaces
+    search_str := RegExReplace(search_str, "(\r|\n|\s{2,})")
+    ; Only search if something has been selected
+    If (StrLen(search_str) == 0) {
+        ; Resend the command if nothing is selected
         Send, #s
-    } else {
-        ; Removes all CR+LF's (? next line).
-        search_str := StrReplace(search_str, "`r`n")
-        if WinActive("ahk_group BrowserGroup") {
-            Send, ^t
-            SendRaw, %search_str%
-            Send, {Enter}
-        }
-        else {
-            ; TODO: Instead of if conditions add RegEx match to detect URL
-            if ((InStr(search_str, "http://") = 1) or (InStr(search_str, "https://") = 1) or (InStr(search_str, "www.") = 1))
-            {
-                Run % search_str
-            }
-            else {
-                search_str := StrReplace(search_str, A_Space, "+") ; Replaces all spaces with pluses.
-                ; TODO: Find a  way to escape special characters (such as  !*'();:@&=+$,/?#[]) in a variable.
-                Run, https://duckduckgo.com/?t=ffab&q=%search_str%&atb=v292-4&ia=web
-            }
-        }
+        return
+    }
+    ; Check if the active window is a browser
+    if WinActive("ahk_group BrowserGroup") {
+        Send, ^t
+        SendRaw, %search_str%
+        Send, {Enter}
+    }
+    ; Check if the search string is a URL
+    else if (RegExMatch(search_str, "^(https?:\/\/|www\.)"))
+        Run, % search_str
+    else {
+        ; Replace spaces with pluses and escape special characters
+        search_str := RegExReplace(search_str, " ", "+")
+        search_str := RegExReplace(search_str, "[!*'();:@&=+$,\/?#[\]\\]", "\\$1")
+        Run, https://duckduckgo.com/?t=ffab&q=%search_str%&atb=v292-4&ia=web
     }
 }
 
-exploreTo(path){
+exploreTo(path) {
     ; navigate to a path using ctrl + l in file explorer
-    Send, ^l^a
+    Send, ^l
     Sleep, 50
-    Send, %path%
+    SendInput, %path%
     Sleep, 50
     Send, {Enter}
 }
 
-changeCaseTo(case){
-    ; Change selected text to "lower", "titled" or "upper" case letters
+changeCaseTo(case) {
     selected_text := get_selected()
-    if (case == "lower"){
+    if (case = "lower")
         StringLower, selected_text, selected_text
-    }
-    else if (case == "titled") {
+    else if (case = "titled")
         StringUpper selected_text, selected_text, T
-    }
-    else if (case == "upper") {
+    else if (case = "upper")
         StringUpper, selected_text, selected_text
-    }
-    else {
-        MsgBox % "Wrong parameter value: " case "`nThe parameter should be either 'lower', 'titled' or 'upper'."
-    }
+    else
+        MsgBox % "Invalid parameter value: " case "`nThe parameter should be either 'lower', 'titled' or 'upper'."
     Sleep, 10
-    Send, {Text}%selected_text% ; The {Text} mode is similar to the Raw mode, except that no attempt is made to translate characters (other than `r, `n, `t and `b) to keycodes
-
-    ; attempting to reselect the previously selected text
+    Send, {Text}%selected_text%
     str_len := StrLen(selected_text)
     Send, +{left %str_len%}
-    Send, {CapsLock} ; resetting CapsLock previous  state
+    Send, {CapsLock}
 }
 
 ; For google docs/sheets
@@ -223,16 +209,15 @@ sheetWr(text){
     }
 }
 
-runAtStartup(){
-    ; Toggle run at startup for the current script
-    if FileExist(startup_shortcut) {
+runAtStartup() {
+    if (FileExist(startup_shortcut)) {
         FileDelete, % startup_shortcut
         Menu, Tray, unCheck, Run at startup
-        TrayTip, Startup shortcut removed, This script will not run when you turn on your computer, 5, 1
+        TrayTip, Startup shortcut removed, This script will not run when you turn on your computer, 5, 0
     } else {
         FileCreateShortcut, % a_scriptFullPath, % startup_shortcut
         Menu, Tray, check, Run at startup
-        TrayTip, Startup shortcut added, This script will now automatically run when your turn on your computer, 5, 1
+        TrayTip, Startup shortcut added, This script will now automatically run when your turn on your computer, 5, 0
     }
 }
 
@@ -246,27 +231,32 @@ togglePresentationMode(){
         ; presentationMode is on, turning it off
         Control, UnCheck , , Button1, Presentation Settings, , ,
 
-        TrayTip, Presentation mode: off, Presentation mode has been toggled off, 5, 1
+        TrayTip, Presentation mode: off, Presentation mode has been toggled off, 5, 0
         Menu, Tray, % "unCheck", Presentation mode {Win+Shift+P} ; updating tray menu status
 
     } Else {
         ; presentationMode is off, turning it on
         Control, Check , , Button1, Presentation Settings, , ,
 
-        TrayTip, Presentation mode: on, Presentation mode has been toggled on`, Your computer will stay awake indefinitely, 5, 1
+        TrayTip, Presentation mode: on, Presentation mode has been toggled on`, Your computer will stay awake indefinitely, 5, 0
         Menu, Tray, % "check", Presentation mode {Win+Shift+P} ; updating tray menu status
     }
     ; Closing Presentation Settings window
     Control, Check, , Button7, Presentation Settings, , ,
 }
 
-viewInGithub(){
-    ; view source code in github
+madeBy(){
+    ; visit authors website
+    Run, https://bibeka.com.np/
+}
+
+viewInGitHub(){
+    ; visit source code on github
     Run, https://github.com/arlbibek/windows-ahk
 }
 
 viewAHKDoc(){
-    ; view
+    ; view officila AHK documentation
     Run, https://www.autohotkey.com/docs/AutoHotkey.htm
 }
 
@@ -277,9 +267,9 @@ openFileLocation(){
 download(url, filename){
     UrlDownloadToFile, %url%, %filename%
     if ErrorLevel {
-        TrayTip, %script_full_name%, File %filename% couldn't be downloaded from %url%, 5, 1
+        TrayTip, %script_full_name%, File %filename% couldn't be downloaded from %url%, 5, 3
     } else {
-        TrayTip, %script_full_name%, File %filename% downloaded., 5, 1
+        TrayTip, %script_full_name%, File %filename% downloaded., 5, 0
     }
 }
 
@@ -327,10 +317,15 @@ updateTrayMenu(){
     Menu, Tray, Add ; create a separator line
 
     ; adding view on github option
-    Menu, Tray, Add, View in GitHub, viewInGithub
+    Menu, Tray, Add, View in GitHub, viewInGitHub
 
     ; adding see ahk documentation option
     Menu, Tray, Add, See AutoHotKey documentation, viewAHKDoc
+
+    Menu, Tray, Add ; create a separator line
+
+    ; adding view on github option
+    Menu, Tray, Add, Made with ❤️ by Bibek Aryal, madeBy
 
     ; puts original menu back
     Menu, Tray, Add
@@ -341,7 +336,7 @@ updateTrayMenu(){
 
 ; showing a tray notification that the script has started
 updateTrayMenu()
-TrayTip, %script_full_name%, %script_full_name% started, 5, 1
+TrayTip,%script_full_name% started,Open keyboard shortcuts with Ctrl + Shift + Alt + \ `n`nMade with ❤️ by Bibek Aryal., 5, 0
 
 ; == HOTKEYS ==
 
@@ -419,13 +414,11 @@ Return
 
 ; Other Hotkeys
 
-; Copy text without the new line (useful for copying text from pdf file)
 ^!c::
-    Clipboard=
     Send, ^c
     ClipWait, 3
-    Clipboard := StrReplace(Clipboard, "`r`n", " ") ; trim Next line
-    Clipboard := StrReplace(Clipboard, "- ", "") ; trim
+    Clipboard := StrReplace(Clipboard, "`r`n", " ")
+    Clipboard := StrReplace(Clipboard, "- ", "")
 Return
 
 ; Toggle presentation mode
@@ -439,58 +432,10 @@ CapsLock & 7::changeCaseTo("lower")
 CapsLock & 8::changeCaseTo("titled")
 CapsLock & 9::changeCaseTo("upper")
 
-; Easy Window Dragging (requires XP/2k/NT)
-; https://www.autohotkey.com
-; Normally, a window can only be dragged by clicking on its title bar.
-; This script extends that so that any point inside a window can be dragged.
-; To activate this mode, hold down CapsLock or the middle mouse button while
-; clicking, then drag the window to a new position.
-
-; Note: You can optionally release CapsLock or the middle mouse button after
-; pressing down the mouse button rather than holding it down the whole time.
-; This script requires v1.0.25+.
-
-CapsLock & LButton::
-CoordMode, Mouse ; Switch to screen/absolute coordinates.
-MouseGetPos, EWD_MouseStartX, EWD_MouseStartY, EWD_MouseWin
-WinGetPos, EWD_OriginalPosX, EWD_OriginalPosY,,, ahk_id %EWD_MouseWin%
-WinGet, EWD_WinState, MinMax, ahk_id %EWD_MouseWin%
-if EWD_WinState = 0 ; Only if the window isn't maximized
-    SetTimer, EWD_WatchMouse, 10 ; Track the mouse as the user drags it.
-return
-
-EWD_WatchMouse:
-    GetKeyState, EWD_LButtonState, LButton, P
-    if EWD_LButtonState = U ; Button has been released, so drag is complete.
-    {
-        SetTimer, EWD_WatchMouse, Off
-        return
-    }
-    GetKeyState, EWD_EscapeState, Escape, P
-    if EWD_EscapeState = D ; Escape has been pressed, so drag is cancelled.
-    {
-        SetTimer, EWD_WatchMouse, Off
-        WinMove, ahk_id %EWD_MouseWin%,, %EWD_OriginalPosX%, %EWD_OriginalPosY%
-        return
-    }
-    ; Otherwise, reposition the window to match the change in mouse coordinates
-    ; caused by the user having dragged the mouse:
-    CoordMode, Mouse
-    MouseGetPos, EWD_MouseX, EWD_MouseY
-    WinGetPos, EWD_WinX, EWD_WinY,,, ahk_id %EWD_MouseWin%
-    SetWinDelay, -1 ; Makes the below move faster/smoother.
-    WinMove, ahk_id %EWD_MouseWin%,, EWD_WinX + EWD_MouseX - EWD_MouseStartX, EWD_WinY + EWD_MouseY - EWD_MouseStartY
-    EWD_MouseStartX := EWD_MouseX ; Update for the next timer-call to this subroutine.
-    EWD_MouseStartY := EWD_MouseY
-return
-
-; Replace A_Space with underscore
 +Space::
     str := get_selected()
-    str := StrReplace(str, A_Space, "_")
+    str := StrReplace(str, " ", "_")
     SendRaw % str
-
-    ; attempting to reselect the previously selected text
     str_len := StrLen(str)
     Send, +{left %str_len%}
 Return
@@ -613,15 +558,15 @@ Return
     FormatTime, CurrentDateTime,, hh:mm tt
     SendInput, %CurrentDateTime%
 Return
-::/date:: ; date e.g. December 09, 2022
+::/date::
     FormatTime, CurrentDate,, MMMM dd, yyyy
     SendInput, %CurrentDate%
 Return
-::/daten:: ; date number e.g. 12/09/2022
+::/daten::
     FormatTime, CurrentDate,, MM/dd/yyyy
     SendInput, %CurrentDate%
 Return
-::/datet:: ; date text e.g. 22.12.09
+::/datet::
     FormatTime, CurrentDate,, yy.MM.dd
     SendInput, %CurrentDate%
 Return
