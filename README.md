@@ -6,8 +6,8 @@ A simple and intuitive AutoHotKey script for enhancing windows shortcuts, dedica
 
 Here are some of the list of features
 
-- [x] Quickly open/switch between apps
-- [x] Easy navigation in the file explorer
+- [x] Quickly open and switch between apps
+- [x] Effortless navigation in the file explorer
 - [x] Quick text search (via selection)
 - [x] Toggle presentation mode
 - [x] Quickly transform text case (e.g. `hello, word!` to `Hello, Word!`)
@@ -35,7 +35,7 @@ AutoHotkey is a free and open-source custom scripting language for Microsoft Win
 [ *Recommended* ]
 
 1. Download the `WINDOWS_AHK.exe` from one of the [releases](https://github.com/arlbibek/windows-ahk/releases).
-2. Run the `WINDOWS_AHK.exe` file. Done!
+2. Run the `WINDOWS_AHK.exe` file. Done! See [keyboard shortcuts](#keyboard-shortcuts).
 
 ### Option 2
 
@@ -43,9 +43,7 @@ AutoHotkey is a free and open-source custom scripting language for Microsoft Win
 
 1. First, download and install AutoHotKey ([/download](https://www.autohotkey.com/download "Go to autohotkey download page")).
 2. Then, download the `WINDOWS.ahk` file from one of the [releases](https://github.com/arlbibek/windows-ahk/releases) (or you may clone the repo).
-3. Run the `WINDOWS.ahk` file. Done!
-
-See [keyboard shortcuts](#keyboard-shortcuts).
+3. Run the `WINDOWS.ahk` file. Done! See [keyboard shortcuts](#keyboard-shortcuts).
 
 ---
 
@@ -54,14 +52,15 @@ See [keyboard shortcuts](#keyboard-shortcuts).
 
 ## Tray menu options
 
-| Option                       | Action                                                                                  | Key                                                                 |
-| ---------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Run at startup               | Enable/disable script to run automatically as startup (when you log on to you computer) |                                                                     |
-| Keyboard shortcut            | View keyboard shortcuts, opens a pdf file containing the list of keyboard shortcuts     | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>\\</kbd> |
-| Presentation Mode            | Toggle windows default presentation mode on/off                                         | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>                    |
-| Open file location           | Navigate to script's current directory                                                  |                                                                     |
-| View in GitHub               | View source code in GitHub                                                              |                                                                     |
-| See AutoHotKey documentation | Visit official AutoHotKey documentation via web                                         |                                                                     |
+| Option                       | Action                                                                                            | Key                                                                 |
+| ---------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| Run at startup               | Enable/disable script to run automatically as startup (when you log on to you computer)           |                                                                     |
+| Presentation Mode            | Toggle windows default presentation mode on/off                                                   | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>                    |
+| Keyboard shortcut            | View keyboard shortcuts, opens a pdf file containing the keyboard shortcuts and respective action | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>\\</kbd> |
+| Open file location           | Navigate to script's current directory                                                            |                                                                     |
+| View in GitHub               | View source code in GitHub                                                                        |                                                                     |
+| See AutoHotKey documentation | Visit official AutoHotKey documentation via web                                                   |                                                                     |
+| Suspend Hotkeys              | Disables or enables all hotkeys and hotstrings                                                    | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>S</kbd>  |
 
 > ![Tray menu options](assets/tray_menu.png)
 
@@ -73,15 +72,14 @@ See [keyboard shortcuts](#keyboard-shortcuts).
 
 > **Notes**
 >
-> - It is important to note that all the pre-existing that conflicts with the given hotkeys/shortcuts will be overridden.
-> - The tilde `~` at the beginning of certain key (eg. <kbd>~Esc</kbd>) means holding down the key.
-> - For those hotkeys that throw an error saying `Error. Failed attempt to launch program or document:` ... `Specifically: The system cannot find the file specified.`, _please consider adding the respective program (folder) to the [path of your system variables](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/ "See: Add to the PATH on Windows 10")_.
-> - Anything with this (🤵) emoji is a custom/specific shortcut that might not work or suit your needs.
+> - **Use <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>S</kbd> to quickly [suspend hotkeys](https://www.autohotkey.com/docs/v1/lib/Suspend.htm "Disable (or enable) all hotkeys and hotstrings.").** Note that any conflicting hotkeys will be overridden.
+> - The tilde (`~`) before a key (e.g. <kbd>~Esc</kbd>) indicates holding down the key.
+> - If a hotkey throws an error "`Error. Failed attempt to launch program or document,`..." ensure the program/folder is added to the [system variable path](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/ "See: Add to the PATH on Windows 10").
+> - Emoji (`🤵`) indicates a custom shortcut that may not be compatible or suitable for all users.
 
 ### Hotkey
 
-aka **shortcut keys** - easily trigger an action (such as launching a program or keyboard macro)
-[[ahk]](https://www.autohotkey.com/docs/Hotkeys.htm "See hotkey documentation").
+aka **shortcut keys** - easily trigger an action (such as launching a program or keyboard macro) [[ahk]](https://www.autohotkey.com/docs/Hotkeys.htm "See hotkey documentation").
 
 #### Global
 
@@ -183,7 +181,7 @@ Assuming today's date and time is `Sunday, October 10, 2021, 02:55 PM`
 | Abbreviation | Phrase                                                                             |
 | ------------ | ---------------------------------------------------------------------------------- |
 | `/paste`     | _Paste contents of clipboard_                                                      |
-| `/cud`       | _Full path of current user directory_ (eg. `/mnt/c/Users/bibek/`)                  |
+| `/cud`       | _Full path of current user directory (eg. `/mnt/c/Users/bibek/`)_                  |
 | `/nrd`       | npm run dev                                                                        |
 | `/gm`        | Good morning                                                                       |
 | `/ge`        | Good evening                                                                       |

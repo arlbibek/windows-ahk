@@ -47,6 +47,10 @@ global startup_shortcut := a_startup "\" script_full_name ".lnk"
 
 ; FUNCTIONS
 
+trayNotify(title, message, seconds = 5, options = 0) {
+    TrayTip, %title%, %message%, %seconds%, %options%
+}
+
 get_default_browser() {
     ; return ahk_exe name of the users default browser (e.g. firefox.exe)
     ; referenced from: https://www.autohotkey.com/board/topic/67330-how-to-open-default-web-browser/
@@ -72,10 +76,46 @@ get_default_browser() {
     Return BrowserClassEXE
 }
 
+; activate(program, action:="minimize", arguments:=""){
+;     ; Open/Switch/(Minimize/Cycle through) a program
+;     ; `program` is the name of the program (eg. firefox.exe),
+;     ; `action` is the action to perform when the program window already is in an active state, it should be either "minimize" or "cycle" (default is minimise)
+;     ahk_type := "ahk_exe"
+;     try {
+;         IfWinNotExist %ahk_type% %program%
+;             Run %program% %arguments%
+;     } catch e {
+;         err := e.extra
+;         FileNotFound := "The system cannot find the file specified."
+;         IfInString, err, %FileNotFound%
+;         {
+;             MsgBox, % e.extra "`n"e.message "`n`nNote: Please install and/or consider adding the respective program (folder) to the PATH of the System Variables. `n(This may need system restart to take effect)"
+;             return
+;         }
+;         else
+;             MsgBox, 16,, % e.extra "`n"e.message
+;     }
+;     if (action == "cycle"){
+;         program_name := StrSplit(program, ".")[1]
+;         group_name = %program_name%Group
+;         GroupAdd, %group_name%, %ahk_type% %program%
+;     }
+
+;     ahk_program = %ahk_type% %program%
+;     if WinActive(ahk_program) {
+;         If (action == "minimize"){
+;             WinMinimize, %ahk_type% %program% ; minimize
+;         } else if (action == "cycle"){
+;             GroupActivate, %group_name%, r ; cycle
+;         } else {
+;             MsgBox % "Wrong parameter value: " action "`nThe parameter 'action' should be either 'minimize' or 'cycle'."
+;         }
+;     } else {
+;         WinActivate, %ahk_type% %program%
+;     }
+; }
+
 activate(program, action:="minimize", arguments:=""){
-    ; Open/Switch/(Minimize/Cycle through) a program
-    ; `program` is the name of the program (eg. firefox.exe),
-    ; `action` is the action to perform when the program window already is in an active state, it should be either "minimize" or "cycle" (default is minimise)
     ahk_type := "ahk_exe"
     try {
         IfWinNotExist %ahk_type% %program%
@@ -83,28 +123,28 @@ activate(program, action:="minimize", arguments:=""){
     } catch e {
         err := e.extra
         FileNotFound := "The system cannot find the file specified."
-        IfInString, err, %FileNotFound%
+        if InStr(err, FileNotFound)
         {
-            MsgBox, % e.extra "`n"e.message "`n`nNote: Please install and/or consider adding the respective program (folder) to the PATH of the System Variables. `n(This may need system restart to take effect)"
+            MsgBox, % "Error: " e.extra "`n" e.message "`n`nNote: Please install and/or consider adding the respective program (folder) to the PATH of the System Variables. `n(This may need system restart to take effect)"
             return
         }
         else
-            MsgBox, 16,, % e.extra "`n"e.message
+            MsgBox, 16,, % "Error: " e.extra "`n" e.message
     }
     if (action == "cycle"){
         program_name := StrSplit(program, ".")[1]
         group_name = %program_name%Group
         GroupAdd, %group_name%, %ahk_type% %program%
     }
-
     ahk_program = %ahk_type% %program%
     if WinActive(ahk_program) {
-        If (action == "minimize"){
-            WinMinimize, %ahk_type% %program% ; minimize
+        if (action == "minimize"){
+            WinMinimize, %ahk_type% %program%
         } else if (action == "cycle"){
-            GroupActivate, %group_name%, r ; cycle
+            GroupActivate, %group_name%, r
         } else {
-            MsgBox % "Wrong parameter value: " action "`nThe parameter 'action' should be either 'minimize' or 'cycle'."
+            MsgBox % "Error: Wrong parameter value: " action "`nThe parameter 'action' should be either 'minimize' or 'cycle'."
+            return
         }
     } else {
         WinActivate, %ahk_type% %program%
@@ -212,13 +252,14 @@ sheetWr(text){
 runAtStartup() {
     if (FileExist(startup_shortcut)) {
         FileDelete, % startup_shortcut
-        Menu, Tray, unCheck, Run at startup
-        TrayTip, Startup shortcut removed, This script will not run when you turn on your computer, 5, 0
+        Menu, Tray, % "unCheck", Run at startup ; update the tray menu status on change
+        trayNotify("Startup shortcut removed", "This script will not run when you turn on your computer.")
     } else {
         FileCreateShortcut, % a_scriptFullPath, % startup_shortcut
-        Menu, Tray, check, Run at startup
-        TrayTip, Startup shortcut added, This script will now automatically run when your turn on your computer, 5, 0
+        Menu, Tray, % "check", Run at startup ; update the tray menu status on change
+        trayNotify("Startup shortcut added", "This script will now automatically run when your turn on your computer.")
     }
+
 }
 
 togglePresentationMode(){
@@ -230,18 +271,15 @@ togglePresentationMode(){
     If (presentationMode == 1){
         ; presentationMode is on, turning it off
         Control, UnCheck , , Button1, Presentation Settings, , ,
-
-        TrayTip, Presentation mode: off, Presentation mode has been toggled off, 5, 0
-        Menu, Tray, % "unCheck", Presentation mode {Win+Shift+P} ; updating tray menu status
+        Menu, Tray, % "unCheck", Presentation mode {Win+Shift+P}
+        trayNotify("Presentation mode: off", "Presentation mode has been toggled off.")
 
     } Else {
         ; presentationMode is off, turning it on
         Control, Check , , Button1, Presentation Settings, , ,
-
-        TrayTip, Presentation mode: on, Presentation mode has been toggled on`, Your computer will stay awake indefinitely, 5, 0
-        Menu, Tray, % "check", Presentation mode {Win+Shift+P} ; updating tray menu status
+        Menu, Tray, % "check", Presentation mode {Win+Shift+P}
+        trayNotify("Presentation mode: on", "Presentation mode has been toggled on, your computer will stay awake indefinitely.")
     }
-    ; Closing Presentation Settings window
     Control, Check, , Button7, Presentation Settings, , ,
 }
 
@@ -264,12 +302,12 @@ openFileLocation(){
     Run % A_ScriptDir
 }
 
-download(url, filename){
+download(url, filename) {
     UrlDownloadToFile, %url%, %filename%
-    if ErrorLevel {
-        TrayTip, %script_full_name%, File %filename% couldn't be downloaded from %url%, 5, 3
+    if (ErrorLevel != 0) {
+        trayNotify(script_full_name, "File '" . filename . "' couldn't be downloaded from " . url . ". Maybe the system is offline?")
     } else {
-        TrayTip, %script_full_name%, File %filename% downloaded., 5, 0
+        trayNotify(script_full_name, "File '" . filename . "' downloaded.")
     }
 }
 
@@ -280,14 +318,12 @@ viewKeyboardShortcuts(){
     While, True {
         if not FileExist(hotkey_pdf_path){
 
-            MsgBox, 4, File not found`, would like to download?, The %hotkey_pdf% file doesn't exist. `nThis pdf file contains detailed the list of keyboard shortcuts for %script_full_name%. `n`nWould you like to download and open the file? `nURL: %hotkey_pdf_url%
+            MsgBox, 4, File not found: would like to download?, The %hotkey_pdf% file doesn't exist. `nThis pdf file contains detailed the list of keyboard shortcuts for %script_full_name%. `n`nWould you like to download and open the file? `nURL: %hotkey_pdf_url%
 
             IfMsgBox, Yes
             download(hotkey_pdf_url, hotkey_pdf)
-
             else
                 Break
-
         } else {
             Run, %hotkey_pdf_path%
             Break
@@ -295,48 +331,32 @@ viewKeyboardShortcuts(){
     }
 }
 
-; For modifying tray menu
-updateTrayMenu(){
+addTrayMenuOption(label = "", command = "") {
+    if (label = "" && command = "") {
+        Menu, Tray, Add
+    } else {
+        Menu, Tray, Add, % label, % command
+    }
+}
 
-    ; removing original menu
+updateTrayMenu() {
     Menu, Tray, NoStandard
-
-    ; adding run at startup option
-    Menu, Tray, Add, Run at startup, runAtStartup
-    Menu, Tray, % fileExist(startup_shortcut) ? "check" : "unCheck", Run at startup
-
-    ; adding view keyboard shortcuts option
-    Menu, Tray, Add, Keyboard shortcuts {Ctrl+Shift+Alt+\}, viewKeyboardShortcuts
-
-    ; adding toggle Presentation mode option
-    Menu, Tray, Add, Presentation mode {Win+Shift+P}, togglePresentationMode
-
-    ; adding open file (script) location
-    Menu, Tray, Add, Open file location, openFileLocation
-
-    Menu, Tray, Add ; create a separator line
-
-    ; adding view on github option
-    Menu, Tray, Add, View in GitHub, viewInGitHub
-
-    ; adding see ahk documentation option
-    Menu, Tray, Add, See AutoHotKey documentation, viewAHKDoc
-
-    Menu, Tray, Add ; create a separator line
-
-    ; adding view on github option
-    Menu, Tray, Add, Made with ❤️ by Bibek Aryal, madeBy
-
-    ; puts original menu back
-    Menu, Tray, Add
+    addTrayMenuOption("Made with ❤️ by Bibek Aryal", "madeBy")
+    addTrayMenuOption()
+    addTrayMenuOption("Run at startup", "runAtStartup")
+    Menu, Tray, % fileExist(startup_shortcut) ? "check" : "unCheck", Run at startup ; update the tray menu status on startup
+    addTrayMenuOption("Presentation mode {Win+Shift+P}", "togglePresentationMode")
+    addTrayMenuOption("Keyboard shortcuts {Ctrl+Shift+Alt+\}", "viewKeyboardShortcuts")
+    addTrayMenuOption("Open file location", "openFileLocation")
+    addTrayMenuOption()
+    addTrayMenuOption("View in GitHub", "viewInGitHub")
+    addTrayMenuOption("See AutoHotKey documentation", "viewAHKDoc")
+    addTrayMenuOption()
     Menu, Tray, Standard
 }
 
-; ====================================
-
-; showing a tray notification that the script has started
 updateTrayMenu()
-TrayTip,%script_full_name% started,Open keyboard shortcuts with Ctrl + Shift + Alt + \ `n`nMade with ❤️ by Bibek Aryal., 5, 0
+trayNotify(script_full_name . " started", "Open keyboard shortcuts with {Ctrl + Shift + Alt + \}`n`nMade with ❤️ by Bibek Aryal.")
 
 ; == HOTKEYS ==
 
@@ -440,7 +460,8 @@ CapsLock & 9::changeCaseTo("upper")
     Send, +{left %str_len%}
 Return
 
-$Escape:: ; Long press (> 0.5 sec) on Esc closes window - but if you change your mind you can keep it pressed for 3 more seconds
+$Escape::
+    ; Long press (> 0.5 sec) on Esc closes window - but if you change your mind you can keep it pressed for 3 more seconds
     KeyWait, Escape, T0.5 ; Wait no more than 0.5 sec for key release (also suppress auto-repeat)
     If ErrorLevel ; timeout, so key is still down...
     {
@@ -460,12 +481,21 @@ $Escape:: ; Long press (> 0.5 sec) on Esc closes window - but if you change your
         ; Then do nothing...
         Return
     }
-
     Send {Esc}
 ; REFERENCED FROM: https://www.autohotkey.com/board/topic/80697-long-keypress-hotkeys-wo-modifiers/
 Return
 
 ^+!\::viewKeyboardShortcuts()
+^+!s::
+    Suspend
+    if (A_IsSuspended = 1){
+        trayNotify(script_full_name . " suspended", "All hotkeys will be suspended (paused). `n`nPress {Ctrl + Shift + Alt + S} or use the tray menu option to toggle back.")
+    } else {
+        trayNotify(script_full_name . " restored", "All hotkeys resumed (will work as intended). `n`nPress {Ctrl + Shift + Alt + S} to suspend.")
+    }
+Return
+
+Return
 
 ; Hotkeys within file explorers
 
@@ -538,57 +568,55 @@ return
 ;  Strike selected text
 !8::docSheetWr("!+5")
 
-; == HOT STRINGS ==
+; ; == HOT STRINGS ==
 
-; Current date and time
+; ; Current date and time
+FormatDateTime(format, datetime="") {
+    if (datetime = "") {
+        datetime := A_Now
+    }
+    FormatTime, CurrentDateTime, %datetime%, %format%
+    SendInput, %CurrentDateTime%
+    return
+}
 
+; Hotstrings
 ::/datetime::
-    FormatTime, CurrentDateTime,, dddd, MMMM dd, yyyy, HH:mm
-    SendInput, %CurrentDateTime%
+    FormatDateTime("dddd, MMMM dd, yyyy, HH:mm")
 Return
+
 ::/datetimett::
-    FormatTime, CurrentDateTime,, dddd, MMMM dd, yyyy hh:mm tt
-    SendInput, %CurrentDateTime%
+    FormatDateTime("dddd, MMMM dd, yyyy hh:mm tt")
 Return
 ::/time::
-    FormatTime, CurrentDateTime,, HH:mm
-    SendInput, %CurrentDateTime%
+    FormatDateTime("HH:mm")
 Return
 ::/timett::
-    FormatTime, CurrentDateTime,, hh:mm tt
-    SendInput, %CurrentDateTime%
+    FormatDateTime("hh:mm tt")
 Return
 ::/date::
-    FormatTime, CurrentDate,, MMMM dd, yyyy
-    SendInput, %CurrentDate%
+    FormatDateTime("MMMM dd, yyyy")
 Return
 ::/daten::
-    FormatTime, CurrentDate,, MM/dd/yyyy
-    SendInput, %CurrentDate%
+    FormatDateTime("MM/dd/yyyy")
 Return
 ::/datet::
-    FormatTime, CurrentDate,, yy.MM.dd
-    SendInput, %CurrentDate%
+    FormatDateTime("yy.MM.dd")
 Return
 ::/week::
-    FormatTime, CurrentDate,, dddd
-    SendInput, %CurrentDate%
+    FormatDateTime("dddd")
 Return
 ::/day::
-    FormatTime, CurrentDate,, dd
-    SendInput, %CurrentDate%
+    FormatDateTime("dd")
 Return
 ::/month::
-    FormatTime, CurrentDate,, MMMM
-    SendInput, %CurrentDate%
+    FormatDateTime("MMMM")
 Return
 ::/monthn::
-    FormatTime, CurrentDate,, MM
-    SendInput, %CurrentDate%
+    FormatDateTime("MM")
 Return
 ::/year::
-    FormatTime, CurrentDate,, yyyy
-    SendInput, %CurrentDate%
+    FormatDateTime("yyyy")
 Return
 
 ; Others
