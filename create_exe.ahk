@@ -2,7 +2,7 @@
 
 convert2exe(source) {
     ahk2exe = "C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe"
-    name := StrReplace(source, ".", "-")
+    name := StrReplace(source, ".", "_")
     StringUpper, name, name
     exe = %name%.exe
     ico = assets\shell32_16.ico
