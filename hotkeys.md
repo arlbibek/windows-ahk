@@ -4,10 +4,11 @@ See full documentation at [README.md](https://github.com/arlbibek/windows-ahk/bl
 
 ## Tray menu options
 
-| Key                             | Action                                                              |
-| ------------------------------- | ------------------------------------------------------------------- |
-| Open (this) Keyboard shortcut   | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>\\</kbd> |
-| Toggle Presentation Mode on/off | <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>P</kbd>                     |
+| Key                                                                 | Option                             |
+| ------------------------------------------------------------------- | ---------------------------------- |
+| <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>                    | Toggle Presentation Mode           |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>\\</kbd> | Open Keyboard shortcut (this file) |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>S</kbd>  | Suspend Hotkeys (disable/enable)   |
 
 ## Global hotkeys
 
@@ -21,6 +22,7 @@ See full documentation at [README.md](https://github.com/arlbibek/windows-ahk/bl
 | <kbd>F7</kbd>                                                     | Open/Switch/Minimize Microsoft Word                                                                                                                                                                    |
 | <kbd>F8</kbd>                                                     | Open/Switch/Minimize Microsoft Excel                                                                                                                                                                   |
 | <kbd>F10</kbd>                                                    | Open/Switch/Minimize WindowsTerminal                                                                                                                                                                   |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>\`</kbd>                | Open/Switch/Minimize Synctrayzor (Syncthing)                                                                                                                                                           |
 | <kbd>Shift</kbd> + <kbd>F10</kbd>                                 | Open WindowsTerminal (new window)                                                                                                                                                                      |
 | <kbd>Win</kbd> + <kbd>E</kbd>                                     | Open/Switch/Cycle through File Explorer                                                                                                                                                                |
 | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd>                  | Open File Explorer (new window)                                                                                                                                                                        |
@@ -29,14 +31,14 @@ See full documentation at [README.md](https://github.com/arlbibek/windows-ahk/bl
 | <kbd>Win</kbd> + <kbd>S</kbd>                                     | Search selected text via active browser (or the default browser)                                                                                                                                       |
 | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>                  | Search contents of clipboard via active browser (or the default browser)                                                                                                                               |
 | <kbd>Win</kbd> + <kbd>C</kbd>                                     | Center current window                                                                                                                                                                                  |
+| <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>                  | Toggle presentation mode on or off                                                                                                                                                                     |
 | <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>c</kbd>                   | Copy text without the new line (useful for copying text from a pdf file)                                                                                                                               |
-| <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>P</kbd>                   | Toggle presentation mode on or off                                                                                                                                                                     |
 | <kbd>CapsLock</kbd> & <kbd>7</kbd>                                | Transform selected text to lower case (eg. `Hello, Word!` to `hello, word!`)                                                                                                                           |
 | <kbd>CapsLock</kbd> & <kbd>8</kbd>                                | Transform selected text to titled case (eg. `hello, word!` to `Hello, Word!`)                                                                                                                          |
 | <kbd>CapsLock</kbd> & <kbd>9</kbd>                                | Transform selected text to upper case (eg. `Hello, Word!` to `HELLO, WORD!`)                                                                                                                           |
 | <kbd>CapsLock</kbd> & <kbd title="Left Mouse Button">LMouse</kbd> | Drag a window by click any point inside the window (rather than just the title bar) [[Easy Window Dragging]](https://www.autohotkey.com/docs/scripts/index.htm#EasyWindowDrag "Visit original source") |
 | <kbd>Shift</kbd> + <kbd>Space</kbd>                               | Replace Space(s) with Underscore(s) of selected text (eg. `Hello World` to `Hello_World`)                                                                                                              |
-| <kbd>~Esc</kbd>                                                   | Close current active window <br /> _Long press (> 0.5 sec) on Esc to close current active window - but if you change your mind you can keep it pressed for 3 more seconds_                             |
+| <kbd>~Esc</kbd>                                                   | Close current active window                                                                                                                                                                            |
 
 ## File Explorer
 
@@ -71,15 +73,6 @@ See full documentation at [README.md](https://github.com/arlbibek/windows-ahk/bl
 
 ## Hotstring
 
-Hotstrings are mainly used to expand abbreviations as you type them (auto-replace).
-
-```ahk
-; for example
-::wtf::Wow that's fantastic
-```
-
-Assuming today's date and time is `Sunday, October 10, 2021, 02:55 PM`
-
 | Abbreviation  | Phrase                                                                             |
 | ------------- | ---------------------------------------------------------------------------------- |
 | `/datetime`   | Sunday, October 10, 2021, 14:55                                                    |
@@ -88,13 +81,15 @@ Assuming today's date and time is `Sunday, October 10, 2021, 02:55 PM`
 | `/timett`     | 02:55 PM                                                                           |
 | `/date`       | October 10, 2021                                                                   |
 | `/daten`      | 10/10/2021                                                                         |
+| `/datet`      | 22.12.21                                                                           |
 | `/week`       | Sunday                                                                             |
 | `/day`        | 10                                                                                 |
 | `/month`      | October                                                                            |
 | `/monthn`     | 10                                                                                 |
 | `/year`       | 2021                                                                               |
+|               |                                                                                    |
 | `/paste`      | _Paste contents of clipboard_                                                      |
-| `/cud`        | _Full path of current user directory_ (eg. `/mnt/c/Users/bibek/`)                  |
+| `/cud`        | _Full path of current user directory (eg. `/mnt/c/Users/bibek/`)_                  |
 | `/nrd`        | npm run dev                                                                        |
 | `/gm`         | Good morning                                                                       |
 | `/ge`         | Good evening                                                                       |
@@ -106,10 +101,10 @@ Assuming today's date and time is `Sunday, October 10, 2021, 02:55 PM`
 | `/lorem`      | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod...         |
 | `/plankton`   | Plankton are the diverse collection of organisms found in water that are unable... |
 
+For more information visit: [github.com/arlbibek/windows-ahk](https://github.com/arlbibek/windows-ahk)
+
 ---
 
 <!-- Use https://md2pdf.netlify.app/ to convert markdown file to pdf -->
-
-[github.com/arlbibek/windows-ahk](https://github.com/arlbibek/windows-ahk)
 
 Made with ❤️ by [Bibek Aryal](https://bibeka.com.np/).

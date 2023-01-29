@@ -6,12 +6,12 @@ A simple and intuitive AutoHotKey script for enhancing windows shortcuts, dedica
 
 Here are some of the list of features
 
-- [x] Quickly open and switch between apps
-- [x] Effortless navigation in the file explorer
-- [x] Quick text search (via selection)
-- [x] Toggle presentation mode
-- [x] Quickly transform text case (e.g. `hello, word!` to `Hello, Word!`)
-- [x] Easy hotstrings to get current datetime (e.g. _enter `/date` to get current date eg. July 13, 2022_) and more
+- Quickly open and switch between apps
+- Effortless navigation in the file explorer
+- Quick text search (via selection)
+- Toggle presentation mode
+- Quickly transform text case (e.g. `hello, word!` to `Hello, Word!`)
+- Easy hotstrings to get current datetime (e.g. _enter `/date` to get current date eg. July 13, 2022_) and more
 
 ## About AutoHotKey
 
@@ -21,8 +21,6 @@ AutoHotkey is a free and open-source custom scripting language for Microsoft Win
 - Downloading page: [/download](https://www.autohotkey.com/download "Go to autohotkey download page")
 - Direct download: [/ahk-install.exe](https://www.autohotkey.com/download/ahk-install.exe "Directly download autohotkey")
 
-## Usages
-
 ```text
 +------------------------------------------+
 | CAUTION!                                 |
@@ -30,20 +28,24 @@ AutoHotkey is a free and open-source custom scripting language for Microsoft Win
 +------------------------------------------+
 ```
 
+## Usages
+
 ### Option 1
 
-[ *Recommended* ]
+[ _Recommended_ ]
 
-1. Download the `WINDOWS_AHK.exe` from one of the [releases](https://github.com/arlbibek/windows-ahk/releases).
-2. Run the `WINDOWS_AHK.exe` file. Done! See [keyboard shortcuts](#keyboard-shortcuts).
+1. Download the `WINDOWS_AHK.exe` from one of the [/releases](https://github.com/arlbibek/windows-ahk/releases).
+2. Run the `WINDOWS_AHK.exe` file.
 
 ### Option 2
 
-[ *If you have trust issues with .exe(s) and/or want to make some changes* ]
+[ _If you have trust issues with .exe(s) and/or want to make some changes_ ]
 
-1. First, download and install AutoHotKey ([/download](https://www.autohotkey.com/download "Go to autohotkey download page")).
-2. Then, download the `WINDOWS.ahk` file from one of the [releases](https://github.com/arlbibek/windows-ahk/releases) (or you may clone the repo).
-3. Run the `WINDOWS.ahk` file. Done! See [keyboard shortcuts](#keyboard-shortcuts).
+1. First, download and install AutoHotKey from [autohotkey.com/download](https://www.autohotkey.com/download)
+2. Then, download the `WINDOWS.ahk` file from one of the [/releases](https://github.com/arlbibek/windows-ahk/releases) (or you may clone the repo).
+3. Run the `WINDOWS.ahk` file.
+
+See [keyboard shortcuts](#keyboard-shortcuts).
 
 ---
 
@@ -61,8 +63,6 @@ AutoHotkey is a free and open-source custom scripting language for Microsoft Win
 | View in GitHub               | View source code in GitHub                                                                        |                                                                     |
 | See AutoHotKey documentation | Visit official AutoHotKey documentation via web                                                   |                                                                     |
 | Suspend Hotkeys              | Disables or enables all hotkeys and hotstrings                                                    | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>S</kbd>  |
-
-> ![Tray menu options](assets/tray_menu.png)
 
 ---
 
@@ -109,7 +109,7 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 | <kbd>CapsLock</kbd> & <kbd>9</kbd>                                | Transform selected text to upper case (eg. `Hello, Word!` to `HELLO, WORD!`)                                                                                                                           |
 | <kbd>CapsLock</kbd> & <kbd title="Left Mouse Button">LMouse</kbd> | Drag a window by click any point inside the window (rather than just the title bar) [[Easy Window Dragging]](https://www.autohotkey.com/docs/scripts/index.htm#EasyWindowDrag "Visit original source") |
 | <kbd>Shift</kbd> + <kbd>Space</kbd>                               | Replace Space(s) with Underscore(s) of selected text (eg. `Hello World` to `Hello_World`)                                                                                                              |
-| <kbd>~Esc</kbd>                                                   | Close current active window <br /> _Long press (> 0.5 sec) on Esc to close current active window - but if you change your mind you can keep it pressed for 3 more seconds_                             |
+| <kbd>~Esc</kbd>                                                   | Close current active window                                                                                                                                                                            |
 
 #### File Explorer
 
