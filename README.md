@@ -199,6 +199,10 @@ Assuming today's date and time is `Sunday, October 10, 2021, 02:55 PM`
 - [AutoHotkey Script Showcase](https://www.autohotkey.com/docs/scripts/index.htm "This showcase lists some scripts created by different authors which show what AutoHotkey might be capable of.") by autohotkey.
 - [Skrommel's One Hour Software](https://www.dcmembers.com/skrommel/downloads/)
 
+## Join us Discord!
+
+[![Join our Discord server!](https://invidget.switchblade.xyz/a2NyrV6PBY)](http://discord.gg/a2NyrV6PBY)
+
 ---
 
 Made with ❤️ by [Bibek Aryal](https://bibeka.com.np/).
