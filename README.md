@@ -203,6 +203,8 @@ Assuming today's date and time is `Sunday, October 10, 2021, 02:55 PM`
 
 [![Join our Discord server!](https://invidget.switchblade.xyz/a2NyrV6PBY)](http://discord.gg/a2NyrV6PBY)
 
+[discord.gg/a2NyrV6PBY](http://discord.gg/a2NyrV6PBY)
+
 ---
 
 Made with ❤️ by [Bibek Aryal](https://bibeka.com.np/).
