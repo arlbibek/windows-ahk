@@ -4,7 +4,10 @@
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir% ; Ensures a consistent starting directory.
-Menu, Tray, Icon, shell32.dll, 16 ; this changes the icon into a little laptop thing.
+
+; Menu, Tray, Icon, shell32.dll, 16 ; this changes the icon into a little laptop thing.
+; Create the tray menu with the custom icon
+Menu, Tray, Icon, %A_ScriptDir%\assets\windows-ahk.ico
 
 ; grouping explorers
 GroupAdd, ExplorerGroup, ahk_class CabinetWClass
@@ -25,6 +28,15 @@ GroupAdd, TerminalGroup, ahk_exe cmd.exe
 GroupAdd, TerminalGroup, ahk_exe debian.exe
 GroupAdd, TerminalGroup, ahk_exe kali.exe
 GroupAdd, TerminalGroup, ahk_exe ubuntu.exe
+
+; ; for dev only
+; #IfWinActive, ahk_exe code.exe
+;     ~^s::
+;         TrayTip, Reloading updated script, %A_ScriptName%, 1, 1
+;         Sleep, 1750
+;         Reload
+;     return
+; #IfWinActive
 
 ; variables
 ; directory paths
@@ -75,45 +87,6 @@ get_default_browser() {
 
     Return BrowserClassEXE
 }
-
-; activate(program, action:="minimize", arguments:=""){
-;     ; Open/Switch/(Minimize/Cycle through) a program
-;     ; `program` is the name of the program (eg. firefox.exe),
-;     ; `action` is the action to perform when the program window already is in an active state, it should be either "minimize" or "cycle" (default is minimise)
-;     ahk_type := "ahk_exe"
-;     try {
-;         IfWinNotExist %ahk_type% %program%
-;             Run %program% %arguments%
-;     } catch e {
-;         err := e.extra
-;         FileNotFound := "The system cannot find the file specified."
-;         IfInString, err, %FileNotFound%
-;         {
-;             MsgBox, % e.extra "`n"e.message "`n`nNote: Please install and/or consider adding the respective program (folder) to the PATH of the System Variables. `n(This may need system restart to take effect)"
-;             return
-;         }
-;         else
-;             MsgBox, 16,, % e.extra "`n"e.message
-;     }
-;     if (action == "cycle"){
-;         program_name := StrSplit(program, ".")[1]
-;         group_name = %program_name%Group
-;         GroupAdd, %group_name%, %ahk_type% %program%
-;     }
-
-;     ahk_program = %ahk_type% %program%
-;     if WinActive(ahk_program) {
-;         If (action == "minimize"){
-;             WinMinimize, %ahk_type% %program% ; minimize
-;         } else if (action == "cycle"){
-;             GroupActivate, %group_name%, r ; cycle
-;         } else {
-;             MsgBox % "Wrong parameter value: " action "`nThe parameter 'action' should be either 'minimize' or 'cycle'."
-;         }
-;     } else {
-;         WinActivate, %ahk_type% %program%
-;     }
-; }
 
 activate(program, action:="minimize", arguments:=""){
     ahk_type := "ahk_exe"
@@ -321,9 +294,9 @@ viewKeyboardShortcuts(){
             MsgBox, 4, File not found: would like to download?, The %hotkey_pdf% file doesn't exist. `nThis pdf file contains detailed the list of keyboard shortcuts for %script_full_name%. `n`nWould you like to download and open the file? `nURL: %hotkey_pdf_url%
 
             IfMsgBox, Yes
-            download(hotkey_pdf_url, hotkey_pdf)
-            else
-                Break
+                download(hotkey_pdf_url, hotkey_pdf)
+else
+    Break
         } else {
             Run, %hotkey_pdf_path%
             Break

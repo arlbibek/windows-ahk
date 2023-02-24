@@ -2,6 +2,8 @@
 
 A simple and intuitive AutoHotKey script for enhancing windows shortcuts, dedicated to improving users’ workflow.
 
+<img src="assets/windows-ahk.png" width="200" />
+
 ## Features
 
 Here are some of the list of features
@@ -85,19 +87,19 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 
 | Key                                                               | Action                                                                                                                                                                                                 |
 | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| <kbd>F1</kbd>                                                     | Open/Switch/Cycle through default browser (eg. Firefox)                                                                                                                                                |
+| <kbd>F1</kbd>                                                     | Open/Switch/Cycle through default browser (eg. [Firefox](https://www.mozilla.org/en-US/firefox/new/))                                                                                                  |
 | <kbd>Shift</kbd> + <kbd>F1</kbd>                                  | Open default browser (new window)                                                                                                                                                                      |
-| <kbd>F3</kbd>                                                     | Open/Switch/Minimize Spotify                                                                                                                                                                           |
-| <kbd>F4</kbd>                                                     | Open/Switch/Cycle through VS Code                                                                                                                                                                      |
-| <kbd>F6</kbd>                                                     | Open/Switch/Minimize SumatraPDF                                                                                                                                                                        |
+| <kbd>F3</kbd>                                                     | Open/Switch/Minimize [Spotify](https://www.spotify.com/)                                                                                                                                               |
+| <kbd>F4</kbd>                                                     | Open/Switch/Cycle through [VS Code](https://code.visualstudio.com/)                                                                                                                                    |
+| <kbd>F6</kbd>                                                     | Open/Switch/Minimize [SumatraPDF](https://www.sumatrapdfreader.org/)                                                                                                                                   |
 | <kbd>F7</kbd>                                                     | Open/Switch/Minimize Microsoft Word                                                                                                                                                                    |
 | <kbd>F8</kbd>                                                     | Open/Switch/Minimize Microsoft Excel                                                                                                                                                                   |
-| <kbd>F10</kbd>                                                    | Open/Switch/Minimize WindowsTerminal                                                                                                                                                                   |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>\`</kbd>                | Open/Switch/Minimize Synctrayzor (Syncthing)                                                                                                                                                           |
+| <kbd>F10</kbd>                                                    | Open/Switch/Minimize [WindowsTerminal](https://aka.ms/terminal)                                                                                                                                        |
 | <kbd>Shift</kbd> + <kbd>F10</kbd>                                 | Open WindowsTerminal (new window)                                                                                                                                                                      |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>\`</kbd>                | Open/Switch/Minimize [Synctrayzor (Syncthing)](https://syncthing.net/)                                                                                                                                 |
 | <kbd>Win</kbd> + <kbd>E</kbd>                                     | Open/Switch/Cycle through File Explorer                                                                                                                                                                |
 | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd>                  | Open File Explorer (new window)                                                                                                                                                                        |
-| <kbd>Win</kbd> + <kbd>N</kbd>                                     | Open/Switch/Cycle through Notepad                                                                                                                                                                      |
+| <kbd>Win</kbd> + <kbd>N</kbd>                                     | Open/Switch/Cycle through [Notepad](https://apps.microsoft.com/store/detail/windows-notepad/9MSMLRH6LZF3)                                                                                              |
 | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd>                  | Open Notepad (new window)                                                                                                                                                                              |
 | <kbd>Win</kbd> + <kbd>S</kbd>                                     | Search selected text via active browser (or the default browser)                                                                                                                                       |
 | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>                  | Search contents of clipboard via active browser (or the default browser)                                                                                                                               |
@@ -133,7 +135,7 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 
 #### Google Docs/Sheets
 
-> Note that the following commands will (only) work within google docs or sheets window of a browser).
+> Note that the following commands will (only) work within google [docs](https://docs.google.com/) or [sheets](https://docs.google.com/spreadsheets/) window of a browser).
 
 | Key                                              | Action                                          |
 | ------------------------------------------------ | ----------------------------------------------- |

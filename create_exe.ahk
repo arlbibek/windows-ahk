@@ -5,7 +5,7 @@ convert2exe(source) {
     name := StrReplace(source, ".", "_")
     StringUpper, name, name
     exe = %name%.exe
-    ico = assets\shell32_16.ico
+    ico = assets\windows-ahk.ico
 
     Run, %ahk2exe% /in %A_ScriptDir%\%source% /out %A_ScriptDir%\%exe% /icon %A_ScriptDir%\%ico%
 
