@@ -5,9 +5,8 @@
 SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir% ; Ensures a consistent starting directory.
 
-; Menu, Tray, Icon, shell32.dll, 16 ; this changes the icon into a little laptop thing.
 ; Create the tray menu with the custom icon
-Menu, Tray, Icon, %A_ScriptDir%\assets\windows-ahk.ico
+Menu, Tray, Icon, shell32.dll, 16 ; this changes the icon into a little laptop thing.
 
 ; grouping explorers
 GroupAdd, ExplorerGroup, ahk_class CabinetWClass
@@ -28,15 +27,6 @@ GroupAdd, TerminalGroup, ahk_exe cmd.exe
 GroupAdd, TerminalGroup, ahk_exe debian.exe
 GroupAdd, TerminalGroup, ahk_exe kali.exe
 GroupAdd, TerminalGroup, ahk_exe ubuntu.exe
-
-; ; for dev only
-; #IfWinActive, ahk_exe code.exe
-;     ~^s::
-;         TrayTip, Reloading updated script, %A_ScriptName%, 1, 1
-;         Sleep, 1750
-;         Reload
-;     return
-; #IfWinActive
 
 ; variables
 ; directory paths
@@ -294,9 +284,9 @@ viewKeyboardShortcuts(){
             MsgBox, 4, File not found: would like to download?, The %hotkey_pdf% file doesn't exist. `nThis pdf file contains detailed the list of keyboard shortcuts for %script_full_name%. `n`nWould you like to download and open the file? `nURL: %hotkey_pdf_url%
 
             IfMsgBox, Yes
-                download(hotkey_pdf_url, hotkey_pdf)
-else
-    Break
+            download(hotkey_pdf_url, hotkey_pdf)
+            else
+                Break
         } else {
             Run, %hotkey_pdf_path%
             Break
@@ -455,7 +445,7 @@ $Escape::
         Return
     }
     Send {Esc}
-; REFERENCED FROM: https://www.autohotkey.com/board/topic/80697-long-keypress-hotkeys-wo-modifiers/
+    ; REFERENCED FROM: https://www.autohotkey.com/board/topic/80697-long-keypress-hotkeys-wo-modifiers/
 Return
 
 ^+!\::viewKeyboardShortcuts()
@@ -550,7 +540,7 @@ FormatDateTime(format, datetime="") {
     }
     FormatTime, CurrentDateTime, %datetime%, %format%
     SendInput, %CurrentDateTime%
-    return
+return
 }
 
 ; Hotstrings
