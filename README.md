@@ -41,6 +41,12 @@ AutoHotkey is a free and open-source custom scripting language for Microsoft Win
 
 ### Option 2
 
+<details>
+<summary>
+AutoHotKey v1 only.</summary>
+Please note that this script is designed to work exclusively with AutoHotKey v1. While I am in the process of upgrading it with some improvements, please be aware that the current version is only compatible with v1. However, if you're using `WINDOWS_AHK.exe`, it should work just fine.
+</details>
+
 [ _If you have trust issues with .exe(s) and/or want to make some changes_ ]
 
 1. First, download and install AutoHotKey from [autohotkey.com/download](https://www.autohotkey.com/download)
@@ -201,7 +207,7 @@ Assuming today's date and time is `Sunday, October 10, 2021, 02:55 PM`
 - [AutoHotkey Script Showcase](https://www.autohotkey.com/docs/scripts/index.htm "This showcase lists some scripts created by different authors which show what AutoHotkey might be capable of.") by autohotkey.
 - [Skrommel's One Hour Software](https://www.dcmembers.com/skrommel/downloads/)
 
-## Join us on Discord!
+## Join us on Discord
 
 [![Join our Discord server!](https://invidget.switchblade.xyz/a2NyrV6PBY)](http://discord.gg/a2NyrV6PBY)
 
