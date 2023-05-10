@@ -28,6 +28,13 @@ GroupAdd, TerminalGroup, ahk_exe debian.exe
 GroupAdd, TerminalGroup, ahk_exe kali.exe
 GroupAdd, TerminalGroup, ahk_exe ubuntu.exe
 
+; grouping Micorsoft 365 apps
+GroupAdd, MS365, ahk_exe winword.exe
+GroupAdd, MS365, ahk_exe powerpnt.exe
+GroupAdd, MS365, ahk_exe onenote.exe
+groupadd, MS365, ahk_exe outlook.exe
+groupadd, ms365, ahk_exe excel.exe
+
 ; variables
 ; directory paths
 userdir := "C:\Users\" . A_UserName . "\"
@@ -360,7 +367,6 @@ F10::
     Else
         activate("powershell.exe", "minimize", " -NoExit -Command ""Set-Location -Path " . userdir . "; Write-Host '';""" ) ; Launching Windows Terminal in the current user directory
 Return
-
 +F10::Run % "powershell.exe -NoExit -Command ""Set-Location -Path " . userdir . "; Write-Host '';"""
 
 ; F11 is Full Screen
@@ -464,9 +470,13 @@ Return
     }
 Return
 
+; paste as plain test in Microsoft apps
+#IfWinActive, ahk_group MS365
+^+v::
+    Clipboard := Clipboard
+    Send, ^v
 Return
-
-; Hotkeys within file explorers
+Return
 
 ; navigating within the file explorer
 #IfWinActive ahk_group ExplorerGroup
