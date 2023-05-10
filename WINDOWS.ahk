@@ -353,9 +353,15 @@ F8::activate("excel.exe")
 ; F9 is
 ; F9::
 
-; F10 is WindowsTerminal
-F10::activate("WindowsTerminal.exe", "minimize", "-d " . userdir) ; Launching windows terminal on current users directory
-+F10::Run % "WindowsTerminal.exe -d " . userdir
+; ; F10 is powershell
+F10::
+    IfWinActive, ahk_group ExplorerGroup
+        exploreTo("powershell")
+    Else
+        activate("powershell.exe", "minimize", " -NoExit -Command ""Set-Location -Path " . userdir . "; Write-Host '';""" ) ; Launching Windows Terminal in the current user directory
+Return
+
++F10::Run % "powershell.exe -NoExit -Command ""Set-Location -Path " . userdir . "; Write-Host '';"""
 
 ; F11 is Full Screen
 ; F11::
@@ -478,7 +484,7 @@ Return
 
 ; opening programs via file explorer
 #IfWinActive ahk_class CabinetWClass
-    ^+t::exploreTo("wt") ; windows terminal
+    ^+t::exploreTo("powershell") ; powershell
     ^+\::exploreTo("code .") ; VS code in current directory
 #IfWinActive
 
