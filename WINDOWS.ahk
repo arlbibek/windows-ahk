@@ -473,8 +473,8 @@ Return
 ; paste as plain test in Microsoft apps
 #IfWinActive, ahk_group MS365
 ^+v::
-    Clipboard := Clipboard
-    Send, ^v
+    Send, {AppsKey}
+    Send, t
 Return
 Return
 
