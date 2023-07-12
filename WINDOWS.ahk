@@ -366,9 +366,11 @@ F6::manageProgramWindows("SumatraPDF.exe")
 
 ; F7 to Microsoft
 F7::manageProgramWindows("winword.exe")
++F7::Run,"winword.exe"
 
 ; F8 to Microsoft Excel
 F8::manageProgramWindows("excel.exe")
++F8::Run, "excel.exe"
 
 ; F9 is
 ; F9::
