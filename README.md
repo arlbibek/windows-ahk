@@ -93,20 +93,20 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 
 | Key                                                               | Action                                                                                                                                                                                                 |
 | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| <kbd>F1</kbd>                                                     | Open/Switch/Cycle through default browser (eg. [Firefox](https://www.mozilla.org/en-US/firefox/new/))                                                                                                  |
+| <kbd>F1</kbd>                                                     | Open/Switch through default browser (eg. [Firefox](https://www.mozilla.org/en-US/firefox/new/))                                                                                                        |
 | <kbd>Shift</kbd> + <kbd>F1</kbd>                                  | Open default browser (new window)                                                                                                                                                                      |
-| <kbd>F3</kbd>                                                     | Open/Switch/Minimize [Spotify](https://www.spotify.com/)                                                                                                                                               |
-| <kbd>F4</kbd>                                                     | Open/Switch/Cycle through [VS Code](https://code.visualstudio.com/)                                                                                                                                    |
-| <kbd>F6</kbd>                                                     | Open/Switch/Minimize [SumatraPDF](https://www.sumatrapdfreader.org/)                                                                                                                                   |
-| <kbd>F7</kbd>                                                     | Open/Switch/Minimize Microsoft Word                                                                                                                                                                    |
-| <kbd>F8</kbd>                                                     | Open/Switch/Minimize Microsoft Excel                                                                                                                                                                   |
-| <kbd>F10</kbd>                                                    | Open/Switch/Minimize PowerShell (powershell will open in pwd if File Explorer in Active)                                                                                                               |
+| <kbd>F3</kbd>                                                     | Open/Switch [Spotify](https://www.spotify.com/)                                                                                                                                                        |
+| <kbd>F4</kbd>                                                     | Open/Switch through [VS Code](https://code.visualstudio.com/)                                                                                                                                          |
+| <kbd>F6</kbd>                                                     | Open/Switch [SumatraPDF](https://www.sumatrapdfreader.org/)                                                                                                                                            |
+| <kbd>F7</kbd>                                                     | Open/Switch Microsoft Word                                                                                                                                                                             |
+| <kbd>F8</kbd>                                                     | Open/Switch Microsoft Excel                                                                                                                                                                            |
+| <kbd>F10</kbd>                                                    | Open/Switch PowerShell (powershell will open in pwd if File Explorer in Active)                                                                                                                        |
 | <kbd>Shift</kbd> + <kbd>F10</kbd>                                 | Open PowerShell (new window)                                                                                                                                                                           |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>\`</kbd>                | Open/Switch/Minimize [Synctrayzor (Syncthing)](https://syncthing.net/)                                                                                                                                 |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>\`</kbd>                | Open/Switch [Synctrayzor (Syncthing)](https://syncthing.net/)                                                                                                                                          |
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd>                 | Paste as plain text in Microsoft 365 Apps (Word, Excel, OneNote, PowerPoint & outlook)                                                                                                                 |
-| <kbd>Win</kbd> + <kbd>E</kbd>                                     | Open/Switch/Cycle through File Explorer                                                                                                                                                                |
+| <kbd>Win</kbd> + <kbd>E</kbd>                                     | Open/Switch through File Explorer                                                                                                                                                                      |
 | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd>                  | Open File Explorer (new window)                                                                                                                                                                        |
-| <kbd>Win</kbd> + <kbd>N</kbd>                                     | Open/Switch/Cycle through [Notepad](https://apps.microsoft.com/store/detail/windows-notepad/9MSMLRH6LZF3)                                                                                              |
+| <kbd>Win</kbd> + <kbd>N</kbd>                                     | Open/Switch through [Notepad](https://apps.microsoft.com/store/detail/windows-notepad/9MSMLRH6LZF3)                                                                                                    |
 | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd>                  | Open Notepad (new window)                                                                                                                                                                              |
 | <kbd>Win</kbd> + <kbd>S</kbd>                                     | Search selected text via active browser (or the default browser)                                                                                                                                       |
 | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>                  | Search contents of clipboard via active browser (or the default browser)                                                                                                                               |
@@ -124,21 +124,21 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 
 > This works for all the explorer-based "save" and "load" boxes as well.
 
-| Key                                                | Action                                                 |
-| -------------------------------------------------- | ------------------------------------------------------ |
-| <kbd>Win</kbd> + <kbd>E</kbd>                      | Run/Switch/Cycle through all the active File Explorers |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>U</kbd>  | Navigate to Current user directory 👤                  |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd>  | Navigate to This Pc 💻                                 |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>H</kbd>  | Navigate to the Desktop (H for Home 😅)                |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd>  | Navigate to the Documents directory 📄                 |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd>  | Navigate to the Downloads directory 📥                 |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd>  | Navigate to the Music directory 🎵                     |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>  | Navigate to the Pictures directory 🖼                   |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd>  | Navigate to the Videos directory 📼                    |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>A</kbd>  | 🤵 Navigate to arlbibek directory                      |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>  | 🤵 Navigate to Screenshot directory                    |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>T</kbd>  | Open Windows Terminal in current working directory     |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>\\</kbd> | Open VS Code in current working directory              |
+| Key                                                | Action                                             |
+| -------------------------------------------------- | -------------------------------------------------- |
+| <kbd>Win</kbd> + <kbd>E</kbd>                      | Run/Switch through all the active File Explorers   |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>U</kbd>  | Navigate to Current user directory 👤              |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd>  | Navigate to This Pc 💻                             |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>H</kbd>  | Navigate to the Desktop (H for Home 😅)            |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd>  | Navigate to the Documents directory 📄             |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd>  | Navigate to the Downloads directory 📥             |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd>  | Navigate to the Music directory 🎵                 |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>  | Navigate to the Pictures directory 🖼               |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd>  | Navigate to the Videos directory 📼                |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>A</kbd>  | 🤵 Navigate to arlbibek directory                  |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>  | 🤵 Navigate to Screenshot directory                |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>T</kbd>  | Open Windows Terminal in current working directory |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>\\</kbd> | Open VS Code in current working directory          |
 
 #### Google Docs/Sheets
 

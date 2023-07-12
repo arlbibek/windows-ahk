@@ -85,7 +85,23 @@ get_default_browser() {
     Return BrowserClassEXE
 }
 
-activate(program, action:="minimize", arguments:=""){
+manageProgramWindows(program, arguments:=""){
+    /*
+    Function: manageProgramWindows
+
+    Description:
+    Activates, minimizes, or cycles through windows associated with the specified program.
+    If no instances of the program are found, it will activate it (start).
+    If only a single instance of the program is existing (and active), it will be minimized.
+    If multiple instances of the program are existing, it will cycle through them recursively.
+
+    Parameters:
+    - program (string): The program name or executable to manage its windows (e.g. firefox.com).
+    - arguments (string): Optional command-line arguments to be passed when launching the program.
+
+    Returns: None
+    */
+
     ahk_type := "ahk_exe"
     try {
         IfWinNotExist %ahk_type% %program%
@@ -101,20 +117,17 @@ activate(program, action:="minimize", arguments:=""){
         else
             MsgBox, 16,, % "Error: " e.extra "`n" e.message
     }
-    if (action == "cycle"){
-        program_name := StrSplit(program, ".")[1]
-        group_name = %program_name%Group
-        GroupAdd, %group_name%, %ahk_type% %program%
-    }
+    WinGet, winGroupCount, List, %ahk_type% %program%
+    program_name := StrSplit(program, ".")[1]
+    group_name = %program_name%Group
+    GroupAdd, %group_name%, %ahk_type% %program%
+
     ahk_program = %ahk_type% %program%
     if WinActive(ahk_program) {
-        if (action == "minimize"){
-            WinMinimize, %ahk_type% %program%
-        } else if (action == "cycle"){
+        if (winGroupCount > 1){
             GroupActivate, %group_name%, r
-        } else {
-            MsgBox % "Error: Wrong parameter value: " action "`nThe parameter 'action' should be either 'minimize' or 'cycle'."
-            return
+        } else if (winGroupCount == 1) {
+            WinMinimize, %ahk_type% %program%
         }
     } else {
         WinActivate, %ahk_type% %program%
@@ -333,29 +346,29 @@ trayNotify(script_full_name . " started", "Open keyboard shortcuts with {Ctrl + 
 ; Remapping function keys
 
 ; F1 to Firefox
-F1::activate(get_default_browser(), "cycle")
+F1::manageProgramWindows(get_default_browser())
 +F1::Run % get_default_browser()
 
 ; F2 is Rename
 ; F2::
 
 ; F3 to Spotify
-F3::activate("spotify.exe")
+F3::manageProgramWindows("spotify.exe")
 
 ; F4 to VS Code
-F4::activate("code.exe", "cycle")
+F4::manageProgramWindows("code.exe")
 
 ; F5 is Refresh
 ; F5::
 
 ; F6 is SumatraPDF
-F6::activate("SumatraPDF.exe")
+F6::manageProgramWindows("SumatraPDF.exe")
 
 ; F7 to Microsoft
-F7::activate("winword.exe")
+F7::manageProgramWindows("winword.exe")
 
 ; F8 to Microsoft Excel
-F8::activate("excel.exe")
+F8::manageProgramWindows("excel.exe")
 
 ; F9 is
 ; F9::
@@ -365,7 +378,7 @@ F10::
     IfWinActive, ahk_group ExplorerGroup
         exploreTo("powershell")
     Else
-        activate("powershell.exe", "minimize", " -NoExit -Command ""Set-Location -Path " . userdir . "; Write-Host '';""" ) ; Launching Windows Terminal in the current user directory
+        manageProgramWindows("powershell.exe", " -NoExit -Command ""Set-Location -Path " . userdir . "; Write-Host '';""" ) ; Launching Windows Terminal in the current user directory
 Return
 +F10::Run % "powershell.exe -NoExit -Command ""Set-Location -Path " . userdir . "; Write-Host '';"""
 
@@ -391,7 +404,7 @@ return
 #+e::Run, explorer.exe
 
 ; notepad
-#n::activate("notepad.exe", "cycle")
+#n::manageProgramWindows("notepad.exe")
 +#n::Run, notepad.exe
 
 ; search selected text/clipboard on the web
@@ -417,7 +430,7 @@ Return
 Return
 
 ; Toggle presentation mode
-^+`::activate("SyncTrayzor.exe")
+^+`::manageProgramWindows("SyncTrayzor.exe")
 
 ; Toggle presentation mode
 #+p::togglePresentationMode()
