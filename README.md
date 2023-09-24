@@ -56,7 +56,7 @@ THESE SCRIPTS TEND TO BE VERY ADDICTIVE.
 
 ## ⌨️ Keyboard Shortcuts
 
-Explore the available keyboard shortcuts in [keyboardshortcuts.md](https://github.com/arlbibek/windows-ahk/blob/master/keyboardshortcuts.md) or download the [keyboardshortcuts.pdf](https://github.com/arlbibek/windows-ahk/blob/master/keyboardshortcuts.pdf).
+Explore the available keyboard shortcuts in [keyboardshortcuts.md](https://github.com/arlbibek/windows-ahk/blob/master/keyboardshortcuts.md) or download the [keyboardshortcuts.pdf](https://raw.githubusercontent.com/arlbibek/windows-ahk/master/keyboardshortcuts.pdf).
 
 ## 🔗 Additional Resources
 

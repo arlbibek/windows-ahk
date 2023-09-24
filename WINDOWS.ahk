@@ -37,8 +37,8 @@ global startupShortcut := A_Startup "\" A_ScriptName ".lnk"
 global startMenuShortcut := A_StartMenu "\Programs\" A_ScriptName ".lnk"
 
 ; Define the URL and keyboardShortcut file/path
-global keyboardShortcutUrl := "https://raw.githubusercontent.com/arlbibek/windows-ahk/master/keyboardshortcuts.pdf"
 global keyboardShortcutFilename := "keyboardshortcuts.pdf"
+global keyboardShortcutUrl := "https://raw.githubusercontent.com/arlbibek/windows-ahk/master/" keyboardShortcutFilename
 global keyboardShortcutPath := A_ScriptDir "\" keyboardShortcutFilename
 
 ; Define menu item text
