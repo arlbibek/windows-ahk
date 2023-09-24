@@ -1,627 +1,616 @@
-﻿#SingleInstance Force ; Skips the dialog box and replaces the old instance automatically.
-#NoEnv ; Recommended for performance and compatibility with future AutoHotkey releases.
-#Persistent ; Prevent the script from exiting automatically.
-; #Warn  ; Enable warnings to assist with detecting common errors.
-SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
-SetWorkingDir %A_ScriptDir% ; Ensures a consistent starting directory.
+﻿#Requires AutoHotkey v2.0
+#SingleInstance Force
+Persistent(true)
 
-; Create the tray menu with the custom icon
-Menu, Tray, Icon, shell32.dll, 16 ; this changes the icon into a little laptop thing.
 
 ; grouping explorers
-GroupAdd, ExplorerGroup, ahk_class CabinetWClass
-GroupAdd, ExplorerGroup, ahk_class #32770 ; This is for all the Explorer-based "save" and "load" boxes, from any program!
+GroupAdd("explorerGroup", "ahk_class CabinetWClass")
+GroupAdd("explorerGroup", "ahk_class #32770") ; This is for all the Explorer-based "save" and "load" boxes, from any program!
 
 ; grouping browsers
-GroupAdd, BrowserGroup, ahk_exe firefox.exe
-GroupAdd, BrowserGroup, ahk_exe chrome.exe
-GroupAdd, BrowserGroup, ahk_exe brave.exe
-GroupAdd, BrowserGroup, ahk_exe msedge.exe
-GroupAdd, BrowserGroup, ahk_exe opera.exe
-GroupAdd, BrowserGroup, ahk_exe iexplore.exe
+GroupAdd("browserGroup", "ahk_exe firefox.exe")
+GroupAdd("browserGroup", "ahk_exe chrome.exe")
+GroupAdd("browserGroup", "ahk_exe brave.exe")
+GroupAdd("browserGroup", "ahk_exe msedge.exe")
+GroupAdd("browserGroup", "ahk_exe opera.exe")
+GroupAdd("browserGroup", "ahk_exe iexplore.exe")
 
 ; grouping terminals (WSLs as well)
-GroupAdd, TerminalGroup, ahk_exe WindowsTerminal.exe
-GroupAdd, TerminalGroup, ahk_exe powershell.exe
-GroupAdd, TerminalGroup, ahk_exe cmd.exe
-GroupAdd, TerminalGroup, ahk_exe debian.exe
-GroupAdd, TerminalGroup, ahk_exe kali.exe
-GroupAdd, TerminalGroup, ahk_exe ubuntu.exe
+GroupAdd("terminalGroup", "ahk_exe WindowsTerminal.exe")
+GroupAdd("terminalGroup", "ahk_exe powershell.exe")
+GroupAdd("terminalGroup", "ahk_exe cmd.exe")
+GroupAdd("terminalGroup", "ahk_exe debian.exe")
+GroupAdd("terminalGroup", "ahk_exe kali.exe")
+GroupAdd("terminalGroup", "ahk_exe ubuntu.exe")
 
 ; grouping Micorsoft 365 apps
-GroupAdd, MS365, ahk_exe winword.exe
-GroupAdd, MS365, ahk_exe powerpnt.exe
-GroupAdd, MS365, ahk_exe onenote.exe
-groupadd, MS365, ahk_exe outlook.exe
-groupadd, ms365, ahk_exe excel.exe
+GroupAdd("ms365Group", "ahk_exe winword.exe")
+GroupAdd("ms365Group", "ahk_exe powerpnt.exe")
+GroupAdd("ms365Group", "ahk_exe onenote.exe")
+groupadd("ms365Group", "ahk_exe outlook.exe")
+groupadd("ms365Group", "ahk_exe excel.exe")
 
-; variables
-; directory paths
-userdir := "C:\Users\" . A_UserName . "\"
-pc := "This PC"
-desktop := userdir . "Desktop\"
-documents := userdir . "Documents\"
-downloads := userdir . "Downloads\"
-music := userdir . "Music\"
-pictures := userdir . "Pictures\"
-videos := userdir . "Videos\"
-c := "C:\"
-arlbibek := documents . "arlbibek\"
-screenshot := userdir . "Documents\ShareX\Screenshots\"
 
-; script name and startup path
-splitPath, a_scriptFullPath, , , script_ext, script_name
-global script_full_name := script_name "." script_ext
-global startup_shortcut := a_startup "\" script_full_name ".lnk"
+; Define the path to the script's startup shortcut
+global startupShortcut := A_Startup "\" A_ScriptName ".lnk"
+; Define the path to the script's Start Menu shortcut
+global startMenuShortcut := A_StartMenu "\Programs\" A_ScriptName ".lnk"
 
-; FUNCTIONS
+; Define the URL and keyboardShortcut file/path
+global keyboardShortcutUrl := "https://raw.githubusercontent.com/arlbibek/windows-ahk/master/keyboardshortcuts.pdf"
+global keyboardShortcutFilename := "keyboardshortcuts.pdf"
+global keyboardShortcutPath := A_ScriptDir "\" keyboardShortcutFilename
 
-trayNotify(title, message, seconds = 5, options = 0) {
-    TrayTip, %title%, %message%, %seconds%, %options%
-}
+; Define menu item text
+global txtStartup := "Run at startup"
+global txtStartMenu := "Start menu entry"
+global txtPresentationMode := "Presentation mode {Win+Shift+P}"
+global txtKeyboardShortcut := "Keyboard shortcuts {Ctrl+Shift+Alt+\}"
 
-get_default_browser() {
-    ; return ahk_exe name of the users default browser (e.g. firefox.exe)
-    ; referenced from: https://www.autohotkey.com/board/topic/67330-how-to-open-default-web-browser/
+; file explorer directory path
+global userdir := "C:\Users\" A_UserName "\"
+global pc := "This PC"
+global desktop := userdir "Desktop\"
+global documents := userdir "Documents\"
+global downloads := userdir "Downloads\"
+global music := userdir "Music\"
+global pictures := userdir "Pictures\"
+global videos := userdir "Videos\"
+global c := "C:\"
 
-    ; Find the Registry key name for the default browser
-    RegRead, BrowserKeyName, HKEY_CURRENT_USER, Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.html\UserChoice, Progid
+; INITIALIZE TRAY MENU
+TraySetIcon("shell32.dll", 16) ; this changes the icon into a little laptop thing.
+tray := A_TrayMenu
+tray.delete() ; Delete existing items from the tray menu
 
-    ; Find the executable command associated with the above Registry key
-    RegRead, BrowserFullCommand, HKEY_CLASSES_ROOT, %BrowserKeyName%\shell\open\command
+; == FUNCTIONS ====================>
 
-    ; The above RegRead will return the path and executable name of the browser contained within quotes and optional parameters
-    ; We only want the text contained inside the first set of quotes which is the path and executable
-    ; Find the ending quote position (we know the beginning quote is in position 0 so start searching at position 1)
-    StringGetPos, pos, BrowserFullCommand, ",,1
+getDefaultBrowser() {
+    ; Function: getDefaultBrowser
+    ; Description: Returns the path of the user's default browser's executable (e.g., C:\Program Files\Google\Chrome\Application\chrome.exe).
+    ; Returns: (string) The path of the default browser executable.
 
-    ; Decrement the found position by one to work correctly with the StringMid function
-    pos := --pos
+    ; Retrieve the ProgID associated with the default browser for HTML files
+    browserProgID := RegRead("HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.html\UserChoice", "ProgID")
 
-    ; Extract and return the path and executable of the browser
-    StringMid, BrowserPathandEXE, BrowserFullCommand, 2, %pos%
-    splitPath, BrowserPathandEXE, BrowserClassEXE, , script_ext, script_name
+    ; Retrieve the executable command associated with the ProgID
+    browserFullCommand := RegRead("HKCR\" . browserProgID . "\shell\open\command")
 
-    Return BrowserClassEXE
-}
+    ; Define the regular expression pattern to match the path within double quotes
+    pattern := '"(.*\.exe)"'
 
-manageProgramWindows(program, arguments:=""){
-    /*
-    Function: manageProgramWindows
-
-    Description:
-    Activates, minimizes, or cycles through windows associated with the specified program.
-    If no instances of the program are found, it will activate it (start).
-    If only a single instance of the program is existing (and active), it will be minimized.
-    If multiple instances of the program are existing, it will cycle through them recursively.
-
-    Parameters:
-    - program (string): The program name or executable to manage its windows (e.g. firefox.com).
-    - arguments (string): Optional command-line arguments to be passed when launching the program.
-
-    Returns: None
-    */
-
-    ahk_type := "ahk_exe"
-    try {
-        IfWinNotExist %ahk_type% %program%
-            Run %program% %arguments%
-    } catch e {
-        err := e.extra
-        FileNotFound := "The system cannot find the file specified."
-        if InStr(err, FileNotFound)
-        {
-            MsgBox, % "Error: " e.extra "`n" e.message "`n`nNote: Please install and/or consider adding the respective program (folder) to the PATH of the System Variables. `n(This may need system restart to take effect)"
-            return
-        }
-        else
-            MsgBox, 16,, % "Error: " e.extra "`n" e.message
-    }
-    WinGet, winGroupCount, List, %ahk_type% %program%
-    program_name := StrSplit(program, ".")[1]
-    group_name = %program_name%Group
-    GroupAdd, %group_name%, %ahk_type% %program%
-
-    ahk_program = %ahk_type% %program%
-    if WinActive(ahk_program) {
-        if (winGroupCount > 1){
-            GroupActivate, %group_name%, r
-        } else if (winGroupCount == 1) {
-            WinMinimize, %ahk_type% %program%
-        }
+    ; Use RegExMatch to extract the path
+    if RegExMatch(browserFullCommand, pattern, &pathMatch) {
+        ; The extracted path will be in pathMatch[1]
+        defaultBrowserPath := pathMatch[1]
+        return defaultBrowserPath
     } else {
-        WinActivate, %ahk_type% %program%
+        ; Return an empty string if no match is found
+        return ""
     }
 }
 
-get_selected() {
-    ; Save the current clipboard contents
-    ClipSave := ClipboardAll
-    clipboard := ""
-    ; Send the correct key combination based on the active window
-    if WinActive("ahk_group TerminalGroup")
-        Send, ^+c
-    else
-        Send, ^c
-    ; Wait for the clipboard to be updated
-    ClipWait, 1
-    copied := clipboard
-    ; Restore the previous clipboard contents
-    clipboard := ClipSave
-    return copied
-}
 
-win_search(search_str) {
-    ; Removes all CR+LF's (? next line) and extra spaces
-    search_str := RegExReplace(search_str, "(\r|\n|\s{2,})")
-    ; Only search if something has been selected
-    If (StrLen(search_str) == 0) {
-        ; Resend the command if nothing is selected
-        Send, #s
+manageProgramWindows(programPath, ahkType := "ahk_exe", programExe := "") {
+    ; Function: manageProgramWindows
+    ; Description: Manage windows (active, cycle or minimize) of a specified program.
+    ; Parameters:
+    ; - programPath: The path or name of the program to manage windows for.
+    ; - ahkType: (Optional) The type of AHK identifier (default: "ahk_exe").
+    ; - programExe: (Optional) The program executable path (if different from programPath).
+
+    ; Define the AHK type and program for use in Win functions
+    ahkProgram := ahkType . " " . programPath
+
+    ; TODO: IMPROVE: Check if the program path is empty and return if it is
+    if StrLen(programPath) < 1 {
+        MsgBox(A_ThisHotkey)
         return
     }
-    ; Check if the active window is a browser
-    if WinActive("ahk_group BrowserGroup") {
-        Send, ^t
-        SendRaw, %search_str%
-        Send, {Enter}
-    }
-    ; Check if the search string is a URL
-    else if (RegExMatch(search_str, "^(https?:\/\/|www\.)"))
-        Run, % search_str
-    else {
-        ; Replace spaces with pluses and escape special characters
-        search_str := RegExReplace(search_str, " ", "+")
-        search_str := RegExReplace(search_str, "[!*'();:@&=+$,\/?#[\]\\]", "\\$1")
-        Run, https://duckduckgo.com/?t=ffab&q=%search_str%&atb=v292-4&ia=web
-    }
-}
 
-exploreTo(path) {
-    ; navigate to a path using ctrl + l in file explorer
-    Send, ^l
-    Sleep, 50
-    SendInput, %path%
-    Sleep, 50
-    Send, {Enter}
-}
-
-changeCaseTo(case) {
-    selected_text := get_selected()
-    if (case = "lower")
-        StringLower, selected_text, selected_text
-    else if (case = "titled")
-        StringUpper selected_text, selected_text, T
-    else if (case = "upper")
-        StringUpper, selected_text, selected_text
-    else
-        MsgBox % "Invalid parameter value: " case "`nThe parameter should be either 'lower', 'titled' or 'upper'."
-    Sleep, 10
-    Send, {Text}%selected_text%
-    str_len := StrLen(selected_text)
-    Send, +{left %str_len%}
-    Send, {CapsLock}
-}
-
-; For google docs/sheets
-docSheetWr(text){
-    ; for google docs/sheets only
-    gdoc := " - Google Docs"
-    gsheet := " - Google Sheets"
-    WinGetActiveTitle, ActiveTitle
-    if InStr(ActiveTitle, gdoc, True) || InStr(ActiveTitle, gsheet, True) {
-        Send, %text%
-    }
-}
-
-docWr(text){
-    ; for google docs
-    gdoc := " - Google Docs"
-    WinGetActiveTitle, ActiveTitle
-    if InStr(ActiveTitle, gdoc, True) {
-        Send, %text%
-    }
-}
-
-sheetWr(text){
-    ; for google sheets
-    gsheet := " - Google Sheets"
-    WinGetActiveTitle, ActiveTitle
-    if InStr(ActiveTitle, gsheet, True) {
-        Send, %text%
-    }
-}
-
-runAtStartup() {
-    if (FileExist(startup_shortcut)) {
-        FileDelete, % startup_shortcut
-        Menu, Tray, % "unCheck", Run at startup ; update the tray menu status on change
-        trayNotify("Startup shortcut removed", "This script will not run when you turn on your computer.")
-    } else {
-        FileCreateShortcut, % a_scriptFullPath, % startup_shortcut
-        Menu, Tray, % "check", Run at startup ; update the tray menu status on change
-        trayNotify("Startup shortcut added", "This script will now automatically run when your turn on your computer.")
-    }
-
-}
-
-togglePresentationMode(){
-    ; Toggle presentation mode
-    Run, presentationsettings.exe
-    WinWait ahk_exe presentationsettings.exe
-    ControlGet, presentationMode, Checked, , Button1, Presentation Settings, , ,
-
-    If (presentationMode == 1){
-        ; presentationMode is on, turning it off
-        Control, UnCheck , , Button1, Presentation Settings, , ,
-        Menu, Tray, % "unCheck", Presentation mode {Win+Shift+P}
-        trayNotify("Presentation mode: off", "Presentation mode has been toggled off.")
-
-    } Else {
-        ; presentationMode is off, turning it on
-        Control, Check , , Button1, Presentation Settings, , ,
-        Menu, Tray, % "check", Presentation mode {Win+Shift+P}
-        trayNotify("Presentation mode: on", "Presentation mode has been toggled on, your computer will stay awake indefinitely.")
-    }
-    Control, Check, , Button7, Presentation Settings, , ,
-}
-
-madeBy(){
-    ; visit authors website
-    Run, https://bibeka.com.np/
-}
-
-viewInGitHub(){
-    ; visit source code on github
-    Run, https://github.com/arlbibek/windows-ahk
-}
-
-viewAHKDoc(){
-    ; view officila AHK documentation
-    Run, https://www.autohotkey.com/docs/AutoHotkey.htm
-}
-
-openFileLocation(){
-    Run % A_ScriptDir
-}
-
-download(url, filename) {
-    UrlDownloadToFile, %url%, %filename%
-    if (ErrorLevel != 0) {
-        trayNotify(script_full_name, "File '" . filename . "' couldn't be downloaded from " . url . ". Maybe the system is offline?")
-    } else {
-        trayNotify(script_full_name, "File '" . filename . "' downloaded.")
-    }
-}
-
-viewKeyboardShortcuts(){
-    hotkey_pdf_url = https://github.com/arlbibek/windows-ahk/raw/master/hotkeys.pdf
-    hotkey_pdf = hotkeys.pdf
-    hotkey_pdf_path = %A_ScriptDir%\%hotkey_pdf%
-    While, True {
-        if not FileExist(hotkey_pdf_path){
-
-            MsgBox, 4, File not found: would like to download?, The %hotkey_pdf% file doesn't exist. `nThis pdf file contains detailed the list of keyboard shortcuts for %script_full_name%. `n`nWould you like to download and open the file? `nURL: %hotkey_pdf_url%
-
-            IfMsgBox, Yes
-            download(hotkey_pdf_url, hotkey_pdf)
-            else
-                Break
+    ; Check if any windows of the specified program exist
+    if not WinExist(ahkProgram) {
+        ; If no windows exist, run the program to start it
+        if StrLen(programExe) > 1 {
+            Run(programExe)
         } else {
-            Run, %hotkey_pdf_path%
-            Break
+            Run(programPath)
+        }
+    } else {
+        ; Check if the program's window is currently active
+        if WinActive(ahkProgram) {
+            ; Get the count of windows with the specified program
+            winCount := WinGetCount(ahkProgram)
+            if (winCount > 1) {
+                ; If multiple windows exist, activate the bottom one to cycle through
+                WinActivateBottom(ahkProgram)
+            } else {
+                ; If only one window exists, minimize it
+                WinMinimize(ahkProgram)
+            }
+        } else {
+            ; If the program's window is not active, activate it
+            WinActivate(ahkProgram)
         }
     }
 }
 
-addTrayMenuOption(label = "", command = "") {
-    if (label = "" && command = "") {
-        Menu, Tray, Add
+
+getSelectedText() {
+    ; Function: getSelectedText
+    ; Description: Copies the selected text to the clipboard and returns it.
+    ; Returns: (string) The selected text.
+
+    ; Save the current clipboard contents
+    savedClipboard := A_Clipboard
+    A_Clipboard := ""  ; Clear the clipboard
+
+    ; Send the appropriate key combination based on the active window
+    if WinActive("ahk_group terminalGroup") {
+        Send("^+c")  ; Copy selected text in terminalGroup
     } else {
-        Menu, Tray, Add, % label, % command
+        Send("^c")   ; Copy selected text in other windows
+    }
+
+    ; ; Wait for the clipboard to be updated
+    ClipWait(3)
+    copiedText := A_Clipboard
+
+    ; ; Restore the previous clipboard contents
+    Clipboard := savedClipboard
+
+    return copiedText
+}
+
+
+performWebSearch(searchStr, cmd := "#s") {
+    ; Function: performWebSearch
+    ; Description: Searches for a query or URL in a web browser or opens a DuckDuckGo search.
+    ; Parameters:
+    ;   - searchStr (string): The search query or URL to search for.
+    ;   - cmd (string): The command to resend if nothing is selected.
+
+    ; Remove all CR+LF's and extra spaces from the search string
+    searchStr := RegExReplace(searchStr, "(\r|\n|\s{2,})")
+
+    ; Only search if something has been selected
+    if (StrLen(searchStr) == 0) {
+        ; Resend the command if nothing is selected
+        Send(cmd)
+        return
+    }
+
+    ; Check if the active window is a browser
+    if WinActive("ahk_group browserGroup") {
+        Send("^t")        ; Open a new tab
+        SendText(searchStr)   ; Type the search string
+        Send("{Enter}")   ; Press Enter to initiate the search
+    }
+    ; Check if the search string is a URL
+    else if (RegExMatch(searchStr, "^(https?:\/\/|www\.)")) {
+        Run(searchStr)    ; Open the URL in the default web browser
+    }
+    else {
+        ; Replace spaces with pluses and escape special characters for a DuckDuckGo search
+        searchStr := StrReplace(searchStr, " ", "+")  ; Replace spaces with plus signs
+        searchStr := RegExReplace(searchStr, "([&|<>])", "\$1")  ; Escape special characters
+
+        ; Run a DuckDuckGo search with the modified search string
+        Run("https://duckduckgo.com/?q=" . searchStr . "&ia=answer")
     }
 }
 
-updateTrayMenu() {
-    Menu, Tray, NoStandard
-    addTrayMenuOption("Made with ❤️ by Bibek Aryal", "madeBy")
-    addTrayMenuOption()
-    addTrayMenuOption("Run at startup", "runAtStartup")
-    Menu, Tray, % fileExist(startup_shortcut) ? "check" : "unCheck", Run at startup ; update the tray menu status on startup
-    addTrayMenuOption("Presentation mode {Win+Shift+P}", "togglePresentationMode")
-    addTrayMenuOption("Keyboard shortcuts {Ctrl+Shift+Alt+\}", "viewKeyboardShortcuts")
-    addTrayMenuOption("Open file location", "openFileLocation")
-    addTrayMenuOption()
-    addTrayMenuOption("View in GitHub", "viewInGitHub")
-    addTrayMenuOption("See AutoHotKey documentation", "viewAHKDoc")
-    addTrayMenuOption()
-    Menu, Tray, Standard
+
+exploreTo(path) {
+    ; Function: exploreTo
+    ; Description: Navigates to a specific path in File Explorer using keyboard shortcuts.
+    ; Parameters:
+    ;   - path (string): The path to navigate to.
+
+    ; Use Ctrl+L to focus the address bar in File Explorer
+    Send("^l")
+    Sleep(50)
+
+    ; Type the provided path and press Enter
+    SendText(path)
+    Sleep(50)
+    Send("{Enter}")
 }
 
-updateTrayMenu()
-trayNotify(script_full_name . " started", "Open keyboard shortcuts with {Ctrl + Shift + Alt + \}`n`nMade with ❤️ by Bibek Aryal.")
+
+changeCase(text, txt_case, re_select := False) {
+    ; Function: changeCase
+    ; Description: Changes the case of a string and types it.
+    ; Parameters:
+    ;   - text (string): The input string.
+    ;   - txt_case (string): The desired case ("lower," "titled," or "upper").
+    ;   - re_select (boolean, optional): Whether to re-select the text after typing.
+
+    ; Validate the case parameter
+    switch (txt_case) {
+        case "lower":
+            cased_text := StrLower(text)
+        case "titled":
+            cased_text := StrTitle(text)
+        case "upper":
+            cased_text := StrUpper(text)
+        default:
+            MsgBox("Invalid parameter value: " txt_case "`nThe parameter should be either 'lower', 'titled', or 'upper'.")
+            return
+    }
+
+    ; Type the Cased text
+    SendText(cased_text)
+
+    ; Attempt to Re-select the text if requested
+    if (re_select) {
+        Send("+{left " . StrLen(RegExReplace(text, "(\n)")) . "}")
+    }
+}
+
+
+toggleStartupShortcut(*) {
+    ; Function: toggleStartupShortcut
+    ; Description: Toggles the script's startup shortcut in the Windows Startup folder.
+
+    ; Check if the startup shortcut already exists
+    if FileExist(startupShortcut) {
+        ; If it exists, delete the shortcut
+        FileDelete(startupShortcut)
+
+        ; Display a TrayTip indicating the result
+        if not FileExist(startupShortcut) {
+            tray.unCheck(txtStartup)
+            TrayTip("Startup shortcut removed", "This script won't start automatically", "0x1")
+        } else {
+            TrayTip("Startup shortcut removal failed", "Something went wrong", "0x3")
+        }
+    } else {
+        ; If it doesn't exist, create the shortcut
+        FileCreateShortcut(A_ScriptFullPath, startupShortcut)
+
+        ; Display a TrayTip indicating the result
+        if FileExist(startupShortcut) {
+            tray.check(txtStartup)
+            TrayTip("Startup shortcut added", "This script will run at startup", "0x1")
+        } else {
+            TrayTip("Startup shortcut creation failed", "Something went wrong", "0x3")
+        }
+    }
+}
+
+
+toggleStartMenuShortcut(*) {
+    ; Function: toggleStartMenuShortcut
+    ; Description: Toggles the script's Start Menu shortcut.
+
+    ; Check if the Start Menu shortcut already exists
+    if FileExist(startMenuShortcut) {
+        ; If it exists, delete the shortcut
+        FileDelete(startMenuShortcut)
+
+        ; Display a TrayTip indicating the result
+        if not FileExist(startMenuShortcut) {
+            tray.unCheck(txtStartMenu)
+            TrayTip("Start menu shortcut removed", "The script won't be shown in the Start Menu", "0x1")
+        } else {
+            TrayTip("Start menu shortcut removal failed", "Something went wrong", "0x3")
+        }
+    } else {
+        ; If it doesn't exist, create the shortcut
+        FileCreateShortcut(A_ScriptFullPath, startMenuShortcut)
+
+        ; Display a TrayTip indicating the result
+        if FileExist(startMenuShortcut) {
+            tray.check(txtStartMenu)
+            TrayTip("Start Menu shortcut added", "The script will be shown in the Start Menu", "0x1")
+        } else {
+            TrayTip("Start menu shortcut creation failed", "Something went wrong", "0x3")
+        }
+    }
+}
+
+
+togglePresentationMode(*) {
+    ; Function: togglePresentationMode
+    ; Description: Toggles presentation mode on or off.
+
+    ; Define the program name and AHK executable specifier
+    program := "presentationsettings.exe"
+    ahk_program := "ahk_exe " . program
+
+    ; Run the presentation settings program
+    Run(program)
+
+    ; Wait for the program to open
+    WinWait(ahk_program)
+
+    ; Get the current presentation mode status
+    presentationStatus := ControlGetChecked("Button1", ahk_program)
+
+    ; Toggle presentation mode based on the current status
+    if (presentationStatus == 1) {
+        ; Presentation mode is on, turning it off
+        ControlSetChecked(0, "Button1", ahk_program)
+        ControlSetChecked(1, "Button7", ahk_program) ; check OK
+        tray.UnCheck(txtPresentationMode)
+        TrayTip("Presentation mode has been toggled off.", "Presentation mode: Off", "0x1")
+    } else {
+        ; Presentation mode is off, turning it on
+        ControlSetChecked(1, "Button1", ahk_program)
+        ControlSetChecked(1, "Button3", ahk_program) ; check "Turn off screen saver" if not checked
+        ControlSetChecked(1, "Button7", ahk_program) ; check OK
+        tray.check(txtPresentationMode)
+        TrayTip("Presentation mode has been toggled on. Your computer will stay awake indefinitely.", "Presentation mode: On", "0x1")
+    }
+}
+
+
+visitAuthorWebsite(*) {
+    ; Opens the author's website.
+    Run("https://bibeka.com.np/")
+}
+
+viewGitHubSource(*) {
+    ; Opens the script's source code on GitHub.
+    Run("https://github.com/arlbibek/windows-ahk/")
+}
+
+viewAHKDocumentation(*) {
+    ; Opens the official AutoHotkey v2 documentation.
+    Run("https://www.autohotkey.com/docs/v2/")
+}
+
+openScriptLocation(*) {
+    ; Opens the directory where the current script is located.
+    Run(A_ScriptDir)
+}
+
+viewKeyboardShortcuts(*) {
+    ; Function: viewKeyboardShortcuts
+    ; Description: Opens a PDF file containing keyboard shortcuts, or offers to download it if not found.
+
+    ; Check if the PDF file exists locally
+    While True {
+        if FileExist(keyboardShortcutPath) {
+            ; If it exists, open the PDF file
+            Run(keyboardShortcutPath)
+            tray.check(txtKeyboardShortcut)
+            break
+        } else {
+            ; If it doesn't exist, prompt the user to download it
+            response := MsgBox("The '" keyboardShortcutFilename "' file couldn't be located. `nThis PDF file contains a detailed list of keyboard shortcuts for '" A_ScriptName "'.`n`nWould you like to download and open the file?`nURL: " keyboardShortcutUrl, "File not found: Would you like to download?", "0x4")
+
+            if response == "Yes" {
+                ; Attempt to download the PDF file
+                try {
+                    TrayTip("URL: " keyboardShortcutUrl, "Downloading: " keyboardShortcutFilename)
+                    Download(keyboardShortcutUrl, keyboardShortcutFilename)
+                } catch Error as err {
+                    TrayTip("The '" keyboardShortcutFilename "' couldn't be downloaded. Are you offline? Please try again.", "Download failed. Error: " err.message)
+                    break
+                }
+            } else {
+                break
+            }
+        }
+    }
+}
+
+
+; == WINDOWS-AHK ==========>
+
+; notify user
+TrayTip("Open keyboard shortcuts with {Ctrl + Shift + Alt + \}`n`nMade with ❤️ by Bibek Aryal.", A_ScriptName " started",)
+
+
+; == CUSTOMIZE TRAY MENU OPTIONS ==
+
+tray.Add("Made with ❤️ by Bibek Aryal.", visitAuthorWebsite)
+tray.Add()
+
+; Add the "Run at startup" menu item to the tray menu
+; Check or uncheck the menu item based on the existence of the startup shortcut
+tray.Add(txtStartup, toggleStartupShortcut)
+if FileExist(startupShortcut) {
+    tray.check(txtStartup)
+} else {
+    tray.unCheck(txtStartup)
+}
+
+; Add the "Start menu shortcut" menu item to the tray menu
+; Check or uncheck the menu item based on the existence of the Start Menu shortcut
+tray.Add(txtStartMenu, toggleStartMenuShortcut)
+if FileExist(startMenuShortcut) {
+    tray.check(txtStartMenu)
+} else {
+    tray.unCheck(txtStartMenu)
+}
+
+; Add other tray menu items
+tray.Add(txtPresentationMode, togglePresentationMode)
+
+; Add the "Keyboard shortcuts" menu item to the tray menu
+; Check or uncheck the menu item based on the existence of the startup shortcut
+tray.Add(txtKeyboardShortcut, viewKeyboardShortcuts)
+if FileExist(keyboardShortcutPath) {
+    tray.check(txtKeyboardShortcut)
+} else {
+    tray.unCheck(txtKeyboardShortcut)
+}
+tray.Add("Open file location", openScriptLocation)
+tray.Add("View in GitHub 🌐", viewGitHubSource)
+tray.Add("See AutoHotKey documentation 🌐", viewAHKDocumentation)
+tray.Add()
+tray.AddStandard()
+
 
 ; == HOTKEYS ==
 
-; Remapping function keys
+pf3 := "C:\Users\bibek\AppData\Roaming\Spotify\Spotify.exe"
+pf4 := "C:\Users\bibek\AppData\Local\Programs\Microsoft VS Code\Code.exe"
+pf6 := "C:\Program Files\SumatraPDF\SumatraPDF.exe"
+pf7 := "C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE"
+pf8 := "C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE"
+pf10 := "powershell.exe"
 
-; F1 to Firefox
-F1::manageProgramWindows(get_default_browser())
-+F1::Run % get_default_browser()
 
-; F2 is Rename
-; F2::
+; == Function Kes
 
-; F3 to Spotify
-F3::manageProgramWindows("spotify.exe")
+F1:: manageProgramWindows(getDefaultBrowser())
++F1:: Run(getDefaultBrowser())
+; F2:: ; is rename
+F3:: manageProgramWindows(pf3) ; spotify
+F4:: manageProgramWindows(pf4) ; vs code
+F6:: manageProgramWindows(pf6) ; sumatraPDF
+F7:: manageProgramWindows(pf7) ; ms word
++F7:: Run(pf7) ; ms word
+F8:: manageProgramWindows(pf8) ; ms excel
++F8:: Run(pf8) ; ms excel
+; F9:: ;
+F10:: manageProgramWindows(pf10)
++F10:: Run(pf10)
+; F11:: ;
+F12:: Send("!{Tab}")
 
-; F4 to VS Code
-F4::manageProgramWindows("code.exe")
+; == Windows + {Keys}
 
-; F5 is Refresh
-; F5::
+; File Explorer
+#e:: manageProgramWindows("CabinetWClass", "ahk_class", "explorer.exe")
+#+e:: Run("explorer.exe")
 
-; F6 is SumatraPDF
-F6::manageProgramWindows("SumatraPDF.exe")
+; Notepad
+#n:: manageProgramWindows("Notepad.exe")
+#+n:: Run("Notepad.exe")
 
-; F7 to Microsoft
-F7::manageProgramWindows("winword.exe")
-+F7::Run,"winword.exe"
+; Search via web
+#s:: performWebSearch(getSelectedText())
+#+s:: performWebSearch(A_Clipboard, "#+s")
 
-; F8 to Microsoft Excel
-F8::manageProgramWindows("excel.exe")
-+F8::Run, "excel.exe"
+; toggle presentation mode
+#+p:: togglePresentationMode()
 
-; F9 is
-; F9::
+; == Capslock + {Keys}
 
-; ; F10 is powershell
-F10::
-    IfWinActive, ahk_group ExplorerGroup
-        exploreTo("powershell")
-    Else
-        manageProgramWindows("powershell.exe", " -NoExit -Command ""Set-Location -Path " . userdir . "; Write-Host '';""" ) ; Launching Windows Terminal in the current user directory
-Return
-+F10::Run % "powershell.exe -NoExit -Command ""Set-Location -Path " . userdir . "; Write-Host '';"""
+CapsLock & 7:: changeCase(getSelectedText(), "lower", true)
+CapsLock & 8:: changeCase(getSelectedText(), "titled", true)
+CapsLock & 9:: changeCase(getSelectedText(), "upper", true)
 
-; F11 is Full Screen
-; F11::
+; == Ctrl + Shift + {Keys} ==
 
-; F12 is
-; F12::
+#HotIf WinActive("ahk_group ms365Group")
+^+v:: Send("{AppsKey}t") ; paste as plaintext in MS 365 apps
+#HotIf
+^+c:: { ;  Copy text without new lines (useful for copying text from a PDF file)
+    Send("^c") ; Copy the selected text
+    ClipWait(3) ; Wait for up to 3 seconds for the clipboard to contain data
+    A_Clipboard := StrReplace(A_Clipboard, "`r`n", " ") ; Replace carriage returns and line feeds with spaces
+    A_Clipboard := StrReplace(A_Clipboard, "- ", "") ; Remove hyphens
+}
+^+`:: manageProgramWindows("C:\Program Files\SyncTrayzor\SyncTrayzor.exe") ; open syncthing
 
-; Windows hotkeys
 
-; file explorer
-#e::
-    IfWinNotExist, ahk_class CabinetWClass
-        Run, explorer.exe
-    GroupAdd, ActiveExplorers, ahk_class CabinetWClass
-    if WinActive("ahk_exe explorer.exe"){
-        GroupActivate, ActiveExplorers, r
-    }
-    else
-        WinActivate ahk_class CabinetWClass
-return
-#+e::Run, explorer.exe
+; == Ctrl + Shift + Alt + {Keys} ==
 
-; notepad
-#n::manageProgramWindows("notepad.exe")
-+#n::Run, notepad.exe
-
-; search selected text/clipboard on the web
-#s::win_search(get_selected())
-+#s::win_search(Clipboard)
-
-;  center window
-#c::
-    WinGetTitle, ActiveWindowTitle, A
-    WinGetPos,,, Width, Height, %ActiveWindowTitle%
-    TargetX := (A_ScreenWidth / 2) - (Width / 2)
-    TargetY := (A_ScreenHeight / 2) - (Height / 2)
-    WinMove, %ActiveWindowTitle%,, %TargetX%, %TargetY%
-Return
-
-; Other Hotkeys
-
-^!c::
-    Send, ^c
-    ClipWait, 3
-    Clipboard := StrReplace(Clipboard, "`r`n", " ")
-    Clipboard := StrReplace(Clipboard, "- ", "")
-Return
-
-; Toggle presentation mode
-^+`::manageProgramWindows("SyncTrayzor.exe")
-
-; Toggle presentation mode
-#+p::togglePresentationMode()
-
-; Change the case of selected text(s)
-CapsLock & 7::changeCaseTo("lower")
-CapsLock & 8::changeCaseTo("titled")
-CapsLock & 9::changeCaseTo("upper")
-
-+Space::
-    str := get_selected()
-    str := StrReplace(str, " ", "_")
-    SendRaw % str
-    str_len := StrLen(str)
-    Send, +{left %str_len%}
-Return
-
-$Escape::
-    ; Long press (> 0.5 sec) on Esc closes window - but if you change your mind you can keep it pressed for 3 more seconds
-    KeyWait, Escape, T0.5 ; Wait no more than 0.5 sec for key release (also suppress auto-repeat)
-    If ErrorLevel ; timeout, so key is still down...
-    {
-        SoundPlay *64 ; Play an asterisk
-        WinGet, X, ProcessName, A
-        SplashTextOn,,150,,`nRelease button to close %x%`n`nKeep pressing it to NOT close window...
-        KeyWait, Escape, T3 ; Wait no more than 3 more sec for key to be released
-        SplashTextOff
-        If !ErrorLevel ; No timeout, so key was released
-        {
-            PostMessage, 0x112, 0xF060,,, A ; ...so close window
-            Return
-        }
-        ; Otherwise,
-        SoundPlay *64
-        KeyWait, Escape ; Wait for button to be released
-        ; Then do nothing...
-        Return
-    }
-    Send {Esc}
-    ; REFERENCED FROM: https://www.autohotkey.com/board/topic/80697-long-keypress-hotkeys-wo-modifiers/
-Return
-
-^+!\::viewKeyboardShortcuts()
-^+!s::
+^+!\:: viewKeyboardShortcuts() ; paste as plaintext in MS 365 apps
+^+!s:: {
     Suspend
-    if (A_IsSuspended = 1){
-        trayNotify(script_full_name . " suspended", "All hotkeys will be suspended (paused). `n`nPress {Ctrl + Shift + Alt + S} or use the tray menu option to toggle back.")
+    if (A_IsSuspended = 1) {
+        TrayTip("All hotkeys will be suspended (paused). `n`nPress {Ctrl + Shift + Alt + S} or use the tray menu option to toggle back.", A_ScriptName " suspended", "0x1")
     } else {
-        trayNotify(script_full_name . " restored", "All hotkeys resumed (will work as intended). `n`nPress {Ctrl + Shift + Alt + S} to suspend.")
+        TrayTip("All hotkeys resumed (will work as intended). `n`nPress {Ctrl + Shift + Alt + S} to suspend.", A_ScriptName " restored", "0x1")
     }
-Return
+}
+; == Other keys
 
-; paste as plain test in Microsoft apps
-#IfWinActive, ahk_group MS365
-^+v::
-    Send, {AppsKey}
-    Send, t
-Return
-Return
+; Replace space(s) with underscore(s) in the selected text (e.g., `Hello World` to `Hello_World`)
++Space:: {
+    text := getSelectedText() ; Get the currently selected text
+    formattedText := StrReplace(text, " ", "_") ; Replace spaces with underscores in the selected text
+    SendText(formattedText) ; Send the formatted text
+    Send("+{left " . StrLen(RegExReplace(text, "(\n)")) . "}") ; Attempt to re-select the selected text
+}
 
-; navigating within the file explorer
-#IfWinActive ahk_group ExplorerGroup
-    ^+u::exploreTo(userdir)
-    ^+e::exploreTo(pc)
-    ^+h::exploreTo(desktop)
-    ^+d::exploreTo(documents)
-    ^+j::exploreTo(downloads)
-    ^+m::exploreTo(music)
-    ^+p::exploreTo(pictures)
-    ^+v::exploreTo(videos)
-    ^+a::exploreTo(arlbibek)
-    ^+s::exploreTo(screenshot)
-#IfWinActive
+; == File Explorer
 
-; opening programs via file explorer
-#IfWinActive ahk_class CabinetWClass
-    ^+t::exploreTo("powershell") ; powershell
-    ^+\::exploreTo("code .") ; VS code in current directory
-#IfWinActive
+#HotIf WinActive("ahk_group explorerGroup")
+^+u:: exploreTo(userdir)
+^+e:: exploreTo(pc)
+^+h:: exploreTo(desktop) ; h for home
+^+d:: exploreTo(documents)
+^+j:: exploreTo(downloads)
+^+m:: exploreTo(music)
+^+p:: exploreTo(pictures)
+^+v:: exploreTo(videos)
 
-; Hotkeys within google docs and sheets
+^+t:: exploreTo("powershell")
+; ^+\:: TODO: open vs code
+#HotIf
 
-^Insert::docSheetWr("^!m") ; open comment box
+; TODO: Close the active window if esc is consecutvely pressed 3 timer                                                                                                                                |
+; Esc:: ;
 
-; Move the current sheet/docs to trash
-^Delete::
-    docSheetWr("!/Move to trash")
-    Sleep, 200
-    docSheetWr("{Enter}")
-return
-
-; Highlight selected text/shell
-!1::
-    docSheetWr("!/Highlight color: yellow")
-    Sleep, 200
-    docSheetWr("{Enter}")
-return
-
-; Remove Highlight for selected text/shell(s)
-!+1::
-    docSheetWr("!/Highlight color: none")
-    Sleep, 200
-    docSheetWr("{Enter}")
-return
-
-; Wrap selected shell (Sheets only)
-!2::
-    sheetWr("!/Wrap text{Down 2}{Enter}")
-    Sleep, 200
-    sheetWr("{Enter}")
-return
-
-; Trim whitespace (Sheets only)
-!3::
-    sheetWr("!/Trim whitespace")
-    Sleep, 200
-    docSheetWr("{Enter}")
-return
-
-; Spell check
-!4::
-    docSheetWr("!/Spell check")
-    Sleep, 200
-    docSheetWr("{Enter}")
-return
-
-;  Strike selected text
-!8::docSheetWr("!+5")
-
-; ; == HOT STRINGS ==
+; == HOTSTRINGS ==
 
 ; ; Current date and time
-FormatDateTime(format, datetime="") {
+sendFormattedDt(format, datetime := "") {
     if (datetime = "") {
         datetime := A_Now
     }
-    FormatTime, CurrentDateTime, %datetime%, %format%
-    SendInput, %CurrentDateTime%
-return
+    SendText(FormatTime(datetime, format))
+    return
 }
 
-; Hotstrings
-::/datetime::
-    FormatDateTime("dddd, MMMM dd, yyyy, HH:mm")
-Return
+; == Hotstrings ==========>
 
-::/datetimett::
-    FormatDateTime("dddd, MMMM dd, yyyy hh:mm tt")
-Return
-::/time::
-    FormatDateTime("HH:mm")
-Return
-::/timett::
-    FormatDateTime("hh:mm tt")
-Return
-::/date::
-    FormatDateTime("MMMM dd, yyyy")
-Return
-::/daten::
-    FormatDateTime("MM/dd/yyyy")
-Return
-::/datet::
-    FormatDateTime("yy.MM.dd")
-Return
-::/week::
-    FormatDateTime("dddd")
-Return
-::/day::
-    FormatDateTime("dd")
-Return
-::/month::
-    FormatDateTime("MMMM")
-Return
-::/monthn::
-    FormatDateTime("MM")
-Return
-::/year::
-    FormatDateTime("yyyy")
-Return
+; == Date and time
 
-; Others
+::/datetime:: {
+    sendFormattedDt("dddd, MMMM dd, yyyy, HH:mm") ; Sunday, September 24, 2023, 16:31
+}
+::/datetimet:: {
+    sendFormattedDt("dddd, MMMM dd, yyyy hh:mm tt") ; Sunday, September 24, 2023 04:31 PM
+}
+::/time:: {
+    sendFormattedDt("HH:mm") ; 16:31
+}
+::/timet:: {
+    sendFormattedDt("hh:mm tt") ; 04:31 PM
+}
+::/date:: {
+    sendFormattedDt("MMMM dd, yyyy") ; September 24, 2023
+}
+::/daten:: {
+    sendFormattedDt("MM/dd/yyyy") ; 09/24/2023
+}
+::/datet:: {
+    sendFormattedDt("yyyy.MM.dd") ; 2023.09.24
+}
+::/week:: {
+    sendFormattedDt("dddd") ; Sunday
+}
+::/day:: {
+    sendFormattedDt("dd") ; 24
+}
+::/month:: {
+    sendFormattedDt("MMMM") ; September
+}
+::/monthn:: {
+    sendFormattedDt("MM") ; 09
+}
+::/year:: {
+    sendFormattedDt("yyyy") ; 2023
+}
+
+; == Others
+
 ::wtf::Wow that's fantastic
-::/paste::
-    Send % Clipboard
-Return
-::/cud::
-    ; useful for WSLs
-    SendInput, /mnt/c/Users/%A_UserName%/
-Return
+::/paste:: {
+    SendInput(A_Clipboard)
+}
+::/cud:: {
+    SendText("/mnt/c/Users/" A_UserName)
+}
 ::/nrd::npm run dev
 ::/gm::Good morning
 ::/ge::Good evening
@@ -633,4 +622,6 @@ Return
 ::/lorem::Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 ::/plankton::Plankton are the diverse collection of organisms found in water that are unable to propel themselves against a current. The individual organisms constituting plankton are called plankters. In the ocean, they provide a crucial source of food to many small and large aquatic organisms, such as bivalves, fish and whales.
 
-; Made with ❤️ by Bibek Aryal.
+; ---
+; Made with ❤️ by Bibek Aryal
+;
