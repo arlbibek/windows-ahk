@@ -2,7 +2,6 @@
 #SingleInstance Force
 Persistent(true)
 
-
 ; grouping explorers
 GroupAdd("explorerGroup", "ahk_class CabinetWClass")
 GroupAdd("explorerGroup", "ahk_class #32770") ; This is for all the Explorer-based "save" and "load" boxes, from any program!
@@ -447,11 +446,11 @@ tray.AddStandard()
 
 ; == HOTKEYS ==
 
-pf3 := "C:\Users\bibek\AppData\Roaming\Spotify\Spotify.exe"
-pf4 := "C:\Users\bibek\AppData\Local\Programs\Microsoft VS Code\Code.exe"
+pf3 := "C:\Users\" A_UserName "\AppData\Roaming\Spotify\Spotify.exe"
+pf4 := "C:\Users\" A_UserName "\AppData\Local\Programs\Microsoft VS Code\Code.exe"
 pf6 := "C:\Program Files\SumatraPDF\SumatraPDF.exe"
-pf7 := "C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE"
-pf8 := "C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE"
+pf7 := "winword.exe"
+pf8 := "excel.exe"
 pf10 := "powershell.exe"
 
 
@@ -471,7 +470,7 @@ F8:: manageProgramWindows(pf8) ; ms excel
 F10:: manageProgramWindows(pf10)
 +F10:: Run(pf10)
 ; F11:: ;
-F12:: Send("!{Tab}")
+F12:: Send("!{Tab}") ; witch back and forth between most recent two window
 
 ; == Windows + {Keys}
 
