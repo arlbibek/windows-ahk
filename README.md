@@ -1,4 +1,4 @@
-# Windows AHK Script - windows-ahk
+# Windows AHK Script
 
 A simple and intuitive AutoHotKey script designed to enhance Windows shortcuts and improve your workflow.
 
