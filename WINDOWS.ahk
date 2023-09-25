@@ -58,7 +58,11 @@ global videos := userdir "Videos\"
 global c := "C:\"
 
 ; INITIALIZE TRAY MENU
-TraySetIcon("shell32.dll", 16) ; this changes the icon into a little laptop thing.
+global trayIconPath := A_ScriptDir "\assets\windows-ahk.ico"
+if FileExist(trayIconPath) {
+    TraySetIcon(trayIconPath)
+}
+
 tray := A_TrayMenu
 tray.delete() ; Delete existing items from the tray menu
 
