@@ -63,6 +63,7 @@ Explore the available keyboard shortcuts in [keyboardshortcuts.md](https://githu
 - [AutoHotKey Documentation](https://www.autohotkey.com/docs/AutoHotkey.htm)
 - [AutoHotkey Script Showcase](https://www.autohotkey.com/docs/scripts/index.htm) – Discover scripts created by different authors that showcase AutoHotkey's capabilities.
 - [Skrommel's One Hour Software](https://www.dcmembers.com/skrommel/downloads/) – More useful scripts and utilities.
+- [md2pdf](https://github.com/realdennis/md2pdf) by @realdennis - Offline markdown to pdf, choose -> edit -> transform 🥂 
 
 ## 💬 Join us on Discord
 
