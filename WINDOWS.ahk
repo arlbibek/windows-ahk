@@ -116,8 +116,12 @@ manageProgramWindows(programPath, ahkType := "ahk_exe", programExe := "") {
         ; If no windows exist, run the program to start it
         if StrLen(programExe) > 1 {
             Run(programExe)
+            WinWait("ahk_exe " programExe)
+            WinActivate("ahk_exe " programExe)
         } else {
             Run(programPath)
+            WinWait(ahkProgram)
+            WinActivate(ahkProgram)
         }
     } else {
         ; Check if the program's window is currently active
@@ -186,7 +190,7 @@ performWebSearch(searchStr, cmd := "#s") {
     ; Check if the active window is a browser
     if WinActive("ahk_group browserGroup") {
         Send("^t")        ; Open a new tab
-        SendText(searchStr)   ; Type the search string
+        SendText(searchStr)   ; Type the search stringfkalsjlksdjffjasdlkjf
         Send("{Enter}")   ; Press Enter to initiate the search
     }
     ; Check if the search string is a URL
@@ -455,6 +459,7 @@ pf4 := "C:\Users\" A_UserName "\AppData\Local\Programs\Microsoft VS Code\Code.ex
 pf6 := "C:\Program Files\SumatraPDF\SumatraPDF.exe"
 pf7 := "winword.exe"
 pf8 := "excel.exe"
+pf9 := "C:\Users\" A_UserName "\AppData\Local\Obsidian\Obsidian.exe"
 pf10 := "powershell.exe"
 
 
@@ -470,7 +475,7 @@ F7:: manageProgramWindows(pf7) ; ms word
 +F7:: Run(pf7) ; ms word
 F8:: manageProgramWindows(pf8) ; ms excel
 +F8:: Run(pf8) ; ms excel
-; F9:: ;
+F9:: manageProgramWindows(pf9)
 F10:: manageProgramWindows(pf10)
 +F10:: Run(pf10)
 ; F11:: ;
