@@ -58,12 +58,16 @@ THESE SCRIPTS TEND TO BE VERY ADDICTIVE.
 
 Explore the available keyboard shortcuts in [keyboardshortcuts.md](https://github.com/arlbibek/windows-ahk/blob/master/keyboardshortcuts.md) or download the [keyboardshortcuts.pdf](https://raw.githubusercontent.com/arlbibek/windows-ahk/master/keyboardshortcuts.pdf).
 
+[<img src="./assets/keyboardshortcuts.gif" width="500"/>](https://raw.githubusercontent.com/arlbibek/windows-ahk/master/keyboardshortcuts.pdf)
+
 ## 🔗 Additional Resources
 
-- [AutoHotKey Documentation](https://www.autohotkey.com/docs/AutoHotkey.htm)
-- [AutoHotkey Script Showcase](https://www.autohotkey.com/docs/scripts/index.htm) – Discover scripts created by different authors that showcase AutoHotkey's capabilities.
-- [Skrommel's One Hour Software](https://www.dcmembers.com/skrommel/downloads/) – More useful scripts and utilities.
-- [md2pdf](https://github.com/realdennis/md2pdf) by @realdennis - Offline markdown to pdf, choose -> edit -> transform 🥂 
+- 🔍 [AutoHotKey Documentation](https://www.autohotkey.com/docs/v2/)
+- 📜 [AutoHotkey Script Showcase](https://www.autohotkey.com/docs/scripts/index.htm) – Discover scripts created by different authors that showcase AutoHotkey's capabilities.
+- 🛠️ [Skrommel's One Hour Software](https://www.dcmembers.com/skrommel/downloads/) – More useful scripts and utilities.
+- 📄 [md2pdf](https://github.com/realdennis/md2pdf) by [@realdennis](https://github.com/realdennis/) - Offline markdown to PDF converter.
+
+This PDF is generated using [md2pdf.netlify.app](https://md2pdf.netlify.app/) from [github.com/realdennis/md2pdf](https://github.com/realdennis/md2pdf).
 
 ## 💬 Join us on Discord
 

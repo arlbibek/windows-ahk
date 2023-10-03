@@ -8,7 +8,6 @@
     <td style="vertical-align: top;">
       <p>This document lists the keyboard shortcuts for the <a href="https://github.com/arlbibek/windows-ahk">windows-ahk</a>, a simple and intuitive AutoHotKey script for improving your workflow.</p>
       <p>For setup instructions, please refer to the <a href="https://github.com/arlbibek/windows-ahk#readme">README.md</a> on GitHub.</p>
-      <p><a href="https://github.com/arlbibek/windows-ahk">github.com/arlbibek/windows-ahk</a></p>
       <p>Made with ❤️ by <a href="https://bibeka.com.np/">Bibek Aryal</a>.</p>
     </td>
   </tr>
