@@ -8,6 +8,7 @@ GroupAdd("explorerGroup", "ahk_class #32770") ; This is for all the Explorer-bas
 
 ; grouping browsers
 GroupAdd("browserGroup", "ahk_exe firefox.exe")
+GroupAdd("browserGroup", "ahk_exe duckduckgo.exe")
 GroupAdd("browserGroup", "ahk_exe chrome.exe")
 GroupAdd("browserGroup", "ahk_exe brave.exe")
 GroupAdd("browserGroup", "ahk_exe msedge.exe")
@@ -29,23 +30,6 @@ GroupAdd("ms365Group", "ahk_exe onenote.exe")
 groupadd("ms365Group", "ahk_exe outlook.exe")
 groupadd("ms365Group", "ahk_exe excel.exe")
 
-
-; Define the path to the script's startup shortcut
-global startupShortcut := A_Startup "\" A_ScriptName ".lnk"
-; Define the path to the script's Start Menu shortcut
-global startMenuShortcut := A_StartMenu "\Programs\" A_ScriptName ".lnk"
-
-; Define the URL and keyboardShortcut file/path
-global keyboardShortcutFilename := "keyboardshortcuts.pdf"
-global keyboardShortcutUrl := "https://raw.githubusercontent.com/arlbibek/windows-ahk/master/" keyboardShortcutFilename
-global keyboardShortcutPath := A_ScriptDir "\" keyboardShortcutFilename
-
-; Define menu item text
-global txtStartup := "Run at startup"
-global txtStartMenu := "Start menu entry"
-global txtPresentationMode := "Presentation mode {Win+Shift+P}"
-global txtKeyboardShortcut := "Keyboard shortcuts {Ctrl+Shift+Alt+\}"
-
 ; file explorer directory path
 global userdir := "C:\Users\" A_UserName "\"
 global pc := "This PC"
@@ -57,14 +41,284 @@ global pictures := userdir "Pictures\"
 global videos := userdir "Videos\"
 global c := "C:\"
 
-; INITIALIZE TRAY MENU
+; Define the path to the script's Start Up and Start Menu shortcut
+global startupShortcut := A_Startup "\" A_ScriptName ".lnk"
+global startMenuShortcut := A_StartMenu "\Programs\" A_ScriptName ".lnk"
+
+; Define the URL and keyboardShortcut file/path
+global keyboardShortcutFilename := "keyboardshortcuts.pdf"
+global keyboardShortcutUrl := "https://raw.githubusercontent.com/arlbibek/windows-ahk/master/" . keyboardShortcutFilename
+global keyboardShortcutPath := A_ScriptDir . "\" . keyboardShortcutFilename
+
+; Define path to script configfile
+global config_dir := A_AppData . "\windows-ahk"
+global config_file := "config.ini"
+global config_path := config_dir . "\" . config_file
+
+
+; Define path to script assets directoryconfigfile
+global assets_dir := A_ScriptDir . "\assets\"
 global trayIconPath := A_ScriptDir "\assets\windows-ahk.ico"
+
+; INITIALIZE TRAY MENU
+
+; Define menu item text
+global txt_aurthor := "Made with ❤️ by Bibek Aryal."
+global txt_startup := "Run at startup"
+global txt_startmenu := "Start menu entry"
+global txt_presentationmode := "Presentation mode {Win+Shift+P}"
+global txt_keyboardshortcut := "Keyboard shortcuts {Ctrl+Shift+Alt+\}"
+global txt_locatefile := "Open file location"
+global txt_launchconfig := "Launch configuratoi window"
+global txt_github := "View in GitHub ↗️"
+global txt_ahkdoc := "See AutoHotKey documentation ↗️"
+
 if FileExist(trayIconPath) {
     TraySetIcon(trayIconPath)
 }
 
 tray := A_TrayMenu
 tray.delete() ; Delete existing items from the tray menu
+
+; CALL BACK FUNCTIONS
+
+visitAuthorWebsite(*) {
+    ; Opens the author's website.
+    Run("https://bibeka.com.np/")
+}
+
+toggleStartupShortcut(*) {
+    ; Function: toggleStartupShortcut
+    ; Description: Toggles the script's startup shortcut in the Windows Startup folder.
+
+    ; Check if the startup shortcut already exists
+    if FileExist(startupShortcut) {
+        ; If it exists, delete the shortcut
+        FileDelete(startupShortcut)
+
+        ; Display a TrayTip indicating the result
+        if not FileExist(startupShortcut) {
+            tray.unCheck(txt_startup)
+            TrayTip("Startup shortcut removed", "This script won't start automatically", "Iconi Mute")
+        } else {
+            TrayTip("Startup shortcut removal failed", "Something went wrong", "Iconx")
+        }
+    } else {
+        ; If it doesn't exist, create the shortcut
+        FileCreateShortcut(A_ScriptFullPath, startupShortcut)
+
+        ; Display a TrayTip indicating the result
+        if FileExist(startupShortcut) {
+            tray.check(txt_startup)
+            TrayTip("Startup shortcut added", "This script will run at startup", "Iconi Mute")
+        } else {
+            TrayTip("Startup shortcut creation failed", "Something went wrong", "Iconx")
+        }
+    }
+}
+
+
+toggleStartMenuShortcut(*) {
+    ; Function: toggleStartMenuShortcut
+    ; Description: Toggles the script's Start Menu shortcut.
+
+    ; Check if the Start Menu shortcut already exists
+    if FileExist(startMenuShortcut) {
+        ; If it exists, delete the shortcut
+        FileDelete(startMenuShortcut)
+
+        ; Display a TrayTip indicating the result
+        if not FileExist(startMenuShortcut) {
+            tray.unCheck(txt_startmenu)
+            TrayTip("Start menu shortcut removed", "The script won't be shown in the Start Menu", "Iconx Mute")
+        } else {
+            TrayTip("Start menu shortcut removal failed", "Something went wrong", "Iconx")
+        }
+    } else {
+        ; If it doesn't exist, create the shortcut
+        FileCreateShortcut(A_ScriptFullPath, startMenuShortcut)
+
+        ; Display a TrayTip indicating the result
+        if FileExist(startMenuShortcut) {
+            tray.check(txt_startmenu)
+            TrayTip("Start Menu shortcut added", "The script will be shown in the Start Menu", "Iconx Mute")
+        } else {
+            TrayTip("Start menu shortcut creation failed", "Something went wrong", "Iconx")
+        }
+    }
+}
+
+
+togglePresentationMode(*) {
+    ; Function: togglePresentationMode
+    ; Description: Toggles presentation mode on or off.
+
+    ; Define the program name and AHK executable specifier
+    program := "presentationsettings.exe"
+    ahk_program := "ahk_exe " . program
+
+    ; Run the presentation settings program
+    Run(program)
+
+    ; Wait for the program to open
+    WinWait(ahk_program)
+
+    ; Get the current presentation mode status
+    presentationStatus := ControlGetChecked("Button1", ahk_program)
+
+    ; Toggle presentation mode based on the current status
+    if (presentationStatus == 1) {
+        ; Presentation mode is on, turning it off
+        ControlSetChecked(0, "Button1", ahk_program)
+        ControlSetChecked(1, "Button7", ahk_program) ; check OK
+        tray.UnCheck(txt_presentationmode)
+        TrayTip("Presentation mode has been toggled off.", "Presentation mode: Off", "Iconi Mute")
+    } else {
+        ; Presentation mode is off, turning it on
+        ControlSetChecked(1, "Button1", ahk_program)
+        ControlSetChecked(1, "Button3", ahk_program) ; check "Turn off screen saver" if not checked
+        ControlSetChecked(1, "Button7", ahk_program) ; check OK
+        tray.check(txt_presentationmode)
+        TrayTip("Presentation mode has been toggled on. Your computer will stay awake indefinitely.", "Presentation mode: On", "Iconi Mute")
+    }
+}
+
+viewKeyboardShortcuts(*) {
+    ; Function: viewKeyboardShortcuts
+    ; Description: Opens a PDF file containing keyboard shortcuts, or offers to download it if not found.
+
+    ; Check if the PDF file exists locally
+    While True {
+        if FileExist(keyboardShortcutPath) {
+            ; If it exists, open the PDF file
+            Run(keyboardShortcutPath)
+            tray.check(txt_keyboardshortcut)
+            break
+        } else {
+            ; If it doesn't exist, prompt the user to download it
+            response := MsgBox("The '" keyboardShortcutFilename "' file couldn't be located. `nThis PDF file contains a detailed list of keyboard shortcuts for '" A_ScriptName "'.`n`nWould you like to download and open the file?`nURL: " keyboardShortcutUrl, "File not found: Would you like to download?", "0x4")
+
+            if response == "Yes" {
+                ; Attempt to download the PDF file
+                try {
+                    TrayTip("URL: " keyboardShortcutUrl, "Downloading: " keyboardShortcutFilename, "Iconi Mute")
+                    Download(keyboardShortcutUrl, keyboardShortcutFilename)
+                } catch Error as err {
+                    TrayTip("The '" keyboardShortcutFilename "' couldn't be downloaded. Are you offline? Please try again.", "Download failed. Error: " err.message, "Iconx")
+                    break
+                }
+            } else {
+                break
+            }
+        }
+    }
+}
+
+openScriptLocation(*) {
+    ; Opens the directory where the current script is located.
+    Run(A_ScriptDir)
+}
+
+launchConfigUI(*) {
+    configUI.show()
+}
+
+openConfigFile(*) {
+    ; Opens the directory where the current script is located.
+    Run(config_path)
+}
+
+openConfigFileDir(*) {
+    ; Opens the directory where the current script is located.
+    Run(config_dir)
+}
+
+loadDefaultConfig(*) {
+
+    if not FileExist(config_path) {
+        ; Ensure the directory exists before writing the file
+        if not FileExist(config_dir) {
+            DirCreate(config_dir)
+            TrayTip("Default configuration file created.", , "0x4 Mute")
+        }
+
+        default_apps := [
+            "default_browser", ; f1
+            "", ; f2
+            "C:\Users\" A_UserName "\AppData\Roaming\Spotify\Spotify.exe", ; f3
+            "C:\Users\" A_UserName "\AppData\Local\Programs\Microsoft VS Code\Code.exe", ; f4
+            "", ; f5
+            "C:\Program Files\SumatraPDF\SumatraPDF.exe", ; f6
+            "winword.exe", ; f7
+            "excel.exe", ; f8
+            "C:\Users\" A_UserName "\AppData\Local\Obsidian\Obsidian.exe", ; f9
+            "powershell.exe", ; f10
+            "", ; f11
+            "" ; f12
+        ]
+
+        FileAppend("; == WINDOWS-AHK CONFIGURATION ===========================================`n;`n", config_path)
+        FileAppend("; This file provides different configurations for the windows-ahk script. `n;`n", config_path)
+        FileAppend("; For more info visit: https://github.com/arlbibek/windows-ahk/           `n", config_path)
+        FileAppend("; ------------------------------------------------------------------------`n`n", config_path)
+
+        section_window_ahk := "WINDOWS-AHK"
+        IniWrite("", config_path, section_window_ahk)
+        IniWrite("true", config_path, section_window_ahk, "first_launch")
+        IniWrite("true", config_path, section_window_ahk, "splash_screen")
+        FileAppend("`n`n", config_path)
+
+        FileAppend("; == FUNCTION KEYS CONFIGURATION >>`n", config_path)
+        FileAppend("; Configure actions for function keys (e.g., F1, F2, ...)`n", config_path)
+        FileAppend("; Go aheade and update the path for each function key as needed`n", config_path)
+        FileAppend("; App options for function key: `n", config_path)
+        FileAppend("; default_browser, all_browsers `n", config_path)
+        FileAppend("`n", config_path)
+
+        section_function_keys := "FUNCTION KEYS"
+        IniWrite("", config_path, section_function_keys) ; wtite section name
+        ; Write default keys, values
+        Loop default_apps.Length ; Loop through the array
+        {
+            key := "f" A_Index
+            IniWrite(default_apps[A_Index], config_path, section_function_keys, key)
+        }
+        FileAppend("`n`n", config_path)
+
+
+        TrayTip("Configuration file resotred with default configuration. , Configuration restored.")
+    }
+
+}
+
+restoreDefaultConfig(*) {
+    ; default config
+
+    if MsgBox("Configuration file will be restored back to default? `n`nContinue?", A_ScriptName . " - Restore configuration", "0x1") {
+        if FileExist(config_path) {
+            FileDelete(config_path)
+        }
+        loadDefaultConfig()
+    }
+}
+
+launchSplashScreen(*) {
+    splashUI.Show()
+}
+
+reloadScript(*) {
+    Reload
+}
+
+viewGitHubSource(*) {
+    ; Opens the script's source code on GitHub.
+    Run("https://github.com/arlbibek/windows-ahk/")
+}
+
+viewAHKDocumentation(*) {
+    ; Opens the official AutoHotkey v2 documentation.
+    Run("https://www.autohotkey.com/docs/v2/")
+}
 
 ; == FUNCTIONS ====================>
 
@@ -105,14 +359,13 @@ manageProgramWindows(programPath, ahkType := "ahk_exe", programExe := "") {
     ; Define the AHK type and program for use in Win functions
     ahkProgram := ahkType . " " . programPath
 
-    ; TODO: IMPROVE: Check if the program path is empty and return if it is
-    if StrLen(programPath) < 1 {
-        MsgBox(A_ThisHotkey)
-        return
-    }
+    if StrLen(programPath) < 1 || StrLower(programPath) == StrLower(A_ThisHotkey) {
+        ; Check if the program path is empty and return if it is
+        ; hot_key := StrLower(A_ThisHotkey)
+        Hotkey(A_ThisHotkey, "Off")
 
-    ; Check if any windows of the specified program exist
-    if not WinExist(ahkProgram) {
+    } else if not WinExist(ahkProgram) {
+        ; Check if any windows of the specified program exist
         ; If no windows exist, run the program to start it
         if StrLen(programExe) > 1 {
             Run(programExe)
@@ -164,7 +417,7 @@ getSelectedText() {
     copiedText := A_Clipboard
 
     ; ; Restore the previous clipboard contents
-    Clipboard := savedClipboard
+    A_Clipboard := savedClipboard
 
     return copiedText
 }
@@ -187,17 +440,15 @@ performWebSearch(searchStr, cmd := "#s") {
         return
     }
 
-    ; Check if the active window is a browser
     if WinActive("ahk_group browserGroup") {
+        ; Check if the active window is a browser
         Send("^t")        ; Open a new tab
         SendText(searchStr)   ; Type the search stringfkalsjlksdjffjasdlkjf
         Send("{Enter}")   ; Press Enter to initiate the search
-    }
-    ; Check if the search string is a URL
-    else if (RegExMatch(searchStr, "^(https?:\/\/|www\.)")) {
+    } else if (RegExMatch(searchStr, "^(https?:\/\/|www\.)")) {
+        ; Check if the search string is a URL
         Run(searchStr)    ; Open the URL in the default web browser
-    }
-    else {
+    } else {
         ; Replace spaces with pluses and escape special characters for a DuckDuckGo search
         searchStr := StrReplace(searchStr, " ", "+")  ; Replace spaces with plus signs
         searchStr := RegExReplace(searchStr, "([&|<>])", "\$1")  ; Escape special characters
@@ -206,24 +457,6 @@ performWebSearch(searchStr, cmd := "#s") {
         Run("https://duckduckgo.com/?q=" . searchStr . "&ia=answer")
     }
 }
-
-
-exploreTo(path) {
-    ; Function: exploreTo
-    ; Description: Navigates to a specific path in File Explorer using keyboard shortcuts.
-    ; Parameters:
-    ;   - path (string): The path to navigate to.
-
-    ; Use Ctrl+L to focus the address bar in File Explorer
-    Send("^l")
-    Sleep(50)
-
-    ; Type the provided path and press Enter
-    SendText(path)
-    Sleep(50)
-    Send("{Enter}")
-}
-
 
 changeCase(text, txt_case, re_select := False) {
     ; Function: changeCase
@@ -255,231 +488,187 @@ changeCase(text, txt_case, re_select := False) {
     }
 }
 
+exploreTo(path) {
+    ; Function: exploreTo
+    ; Description: Navigates to a specific path in File Explorer using keyboard shortcuts.
+    ; Parameters:
+    ;   - path (string): The path to navigate to.
 
-toggleStartupShortcut(*) {
-    ; Function: toggleStartupShortcut
-    ; Description: Toggles the script's startup shortcut in the Windows Startup folder.
+    ; Use Ctrl+L to focus the address bar in File Explorer
+    Send("^l")
+    Sleep(50)
 
-    ; Check if the startup shortcut already exists
-    if FileExist(startupShortcut) {
-        ; If it exists, delete the shortcut
-        FileDelete(startupShortcut)
+    ; Type the provided path and press Enter
+    SendText(path)
+    Sleep(50)
+    Send("{Enter}")
+}
 
-        ; Display a TrayTip indicating the result
-        if not FileExist(startupShortcut) {
-            tray.unCheck(txtStartup)
-            TrayTip("Startup shortcut removed", "This script won't start automatically", "0x1")
+
+; Manages program windows based on the provided path for function keys.
+; path {string} - The path indicating the desired action or program window(s) to manage.
+manageFunctionKey(path) {
+    ; Switch statement to handle different paths
+    if (StrLower(path) == "default_browser") {
+        ; Manage windows for the default browser
+        manageProgramWindows(getDefaultBrowser())
+    } else if (StrLower(path) == "all_browsers") {
+        ; Manage windows for all browsers
+        if WinExist("ahk_group browserGroup") {
+            manageProgramWindows("browserGroup", "ahk_group")
         } else {
-            TrayTip("Startup shortcut removal failed", "Something went wrong", "0x3")
+            ; If not for the browser exists start the default browser
+            manageProgramWindows(getDefaultBrowser())
         }
     } else {
-        ; If it doesn't exist, create the shortcut
-        FileCreateShortcut(A_ScriptFullPath, startupShortcut)
-
-        ; Display a TrayTip indicating the result
-        if FileExist(startupShortcut) {
-            tray.check(txtStartup)
-            TrayTip("Startup shortcut added", "This script will run at startup", "0x1")
-        } else {
-            TrayTip("Startup shortcut creation failed", "Something went wrong", "0x3")
-        }
+        ; If the path doesn't match predefined conditions, attempt to manage windows based on the provided path
+        manageProgramWindows(path)
     }
 }
 
 
-toggleStartMenuShortcut(*) {
-    ; Function: toggleStartMenuShortcut
-    ; Description: Toggles the script's Start Menu shortcut.
+; CONFIGURATION FILE
 
-    ; Check if the Start Menu shortcut already exists
-    if FileExist(startMenuShortcut) {
-        ; If it exists, delete the shortcut
-        FileDelete(startMenuShortcut)
-
-        ; Display a TrayTip indicating the result
-        if not FileExist(startMenuShortcut) {
-            tray.unCheck(txtStartMenu)
-            TrayTip("Start menu shortcut removed", "The script won't be shown in the Start Menu", "0x1")
-        } else {
-            TrayTip("Start menu shortcut removal failed", "Something went wrong", "0x3")
-        }
-    } else {
-        ; If it doesn't exist, create the shortcut
-        FileCreateShortcut(A_ScriptFullPath, startMenuShortcut)
-
-        ; Display a TrayTip indicating the result
-        if FileExist(startMenuShortcut) {
-            tray.check(txtStartMenu)
-            TrayTip("Start Menu shortcut added", "The script will be shown in the Start Menu", "0x1")
-        } else {
-            TrayTip("Start menu shortcut creation failed", "Something went wrong", "0x3")
-        }
-    }
+splashUI := Gui("MinimizeBox", "Welcome! - " . A_ScriptName)
+img_app := A_ScriptDir . "\assets\windows-ahk.png"
+if FileExist(img_app) {
+    splashUI.AddPicture("w85 h-1", img_app)
 }
+splashUI.Add("Text", "w250 h50 y5 x115", A_ScriptName).SetFont("s12")
+splashUI.Add("Text", "w300 h50 y30 x115 Wrap", "A simple and intuitive AutoHotKey script designed to enhance Windows shortcuts and improve your workflow. ")
+splashUI.Add("Button", "w85 y65 x115", "View on GitHub ↗️").OnEvent("Click", viewGitHubSource)
+splashUI.Add("Button", "w105 y65 x205", "Keyboard Shortcuts").OnEvent("Click", viewKeyboardShortcuts)
+splashUI.Add("Button", "w100 y65 x315 Default", "Launch config window").OnEvent("Click", launchConfigUI)
 
 
-togglePresentationMode(*) {
-    ; Function: togglePresentationMode
-    ; Description: Toggles presentation mode on or off.
-
-    ; Define the program name and AHK executable specifier
-    program := "presentationsettings.exe"
-    ahk_program := "ahk_exe " . program
-
-    ; Run the presentation settings program
-    Run(program)
-
-    ; Wait for the program to open
-    WinWait(ahk_program)
-
-    ; Get the current presentation mode status
-    presentationStatus := ControlGetChecked("Button1", ahk_program)
-
-    ; Toggle presentation mode based on the current status
-    if (presentationStatus == 1) {
-        ; Presentation mode is on, turning it off
-        ControlSetChecked(0, "Button1", ahk_program)
-        ControlSetChecked(1, "Button7", ahk_program) ; check OK
-        tray.UnCheck(txtPresentationMode)
-        TrayTip("Presentation mode has been toggled off.", "Presentation mode: Off", "0x1")
-    } else {
-        ; Presentation mode is off, turning it on
-        ControlSetChecked(1, "Button1", ahk_program)
-        ControlSetChecked(1, "Button3", ahk_program) ; check "Turn off screen saver" if not checked
-        ControlSetChecked(1, "Button7", ahk_program) ; check OK
-        tray.check(txtPresentationMode)
-        TrayTip("Presentation mode has been toggled on. Your computer will stay awake indefinitely.", "Presentation mode: On", "0x1")
-    }
+configUI := Gui("MinimizeBox", A_ScriptName . " - Preferences")
+if FileExist(img_app) {
+    configUI.AddPicture("w70 h-1 y5 x5", img_app)
 }
-
-
-visitAuthorWebsite(*) {
-    ; Opens the author's website.
-    Run("https://bibeka.com.np/")
-}
-
-viewGitHubSource(*) {
-    ; Opens the script's source code on GitHub.
-    Run("https://github.com/arlbibek/windows-ahk/")
-}
-
-viewAHKDocumentation(*) {
-    ; Opens the official AutoHotkey v2 documentation.
-    Run("https://www.autohotkey.com/docs/v2/")
-}
-
-openScriptLocation(*) {
-    ; Opens the directory where the current script is located.
-    Run(A_ScriptDir)
-}
-
-viewKeyboardShortcuts(*) {
-    ; Function: viewKeyboardShortcuts
-    ; Description: Opens a PDF file containing keyboard shortcuts, or offers to download it if not found.
-
-    ; Check if the PDF file exists locally
-    While True {
-        if FileExist(keyboardShortcutPath) {
-            ; If it exists, open the PDF file
-            Run(keyboardShortcutPath)
-            tray.check(txtKeyboardShortcut)
-            break
-        } else {
-            ; If it doesn't exist, prompt the user to download it
-            response := MsgBox("The '" keyboardShortcutFilename "' file couldn't be located. `nThis PDF file contains a detailed list of keyboard shortcuts for '" A_ScriptName "'.`n`nWould you like to download and open the file?`nURL: " keyboardShortcutUrl, "File not found: Would you like to download?", "0x4")
-
-            if response == "Yes" {
-                ; Attempt to download the PDF file
-                try {
-                    TrayTip("URL: " keyboardShortcutUrl, "Downloading: " keyboardShortcutFilename)
-                    Download(keyboardShortcutUrl, keyboardShortcutFilename)
-                } catch Error as err {
-                    TrayTip("The '" keyboardShortcutFilename "' couldn't be downloaded. Are you offline? Please try again.", "Download failed. Error: " err.message)
-                    break
-                }
-            } else {
-                break
-            }
-        }
-    }
-}
-
-
-; == WINDOWS-AHK ==========>
-
-; notify user
-TrayTip("Open keyboard shortcuts with {Ctrl + Shift + Alt + \}`n`nMade with ❤️ by Bibek Aryal.", A_ScriptName " started",)
+configUI.Add("Text", "w200 h50 y5 x100 ", "Manage/edit configuratioins").SetFont("s10")
+configUI.Add("Button", "w200 y25 x100 ", "&Edit configuration file").OnEvent("Click", openConfigFile)
+configUI.Add("Button", "w200 y50 x100", "&Open configuration file location").OnEvent("Click", openConfigFileDir)
+configUI.Add("Button", "w200 y75 x100", "&Restore default configuration").OnEvent("Click", restoreDefaultConfig)
+configUI.Add("Button", "w90 y75 x5", "&Learn more ↗️").OnEvent("Click", viewGitHubSource)
+configUI.Add("Button", "w295 y100 x5 Default ", "Reload script with new configuration").OnEvent("Click", reloadScript)
 
 
 ; == CUSTOMIZE TRAY MENU OPTIONS ==
 
-tray.Add("Made with ❤️ by Bibek Aryal.", visitAuthorWebsite)
+A_IconTip := A_ScriptName . "`nRight click for more options. "
+tray.Add(txt_aurthor, visitAuthorWebsite)
 tray.Add()
 
 ; Add the "Run at startup" menu item to the tray menu
 ; Check or uncheck the menu item based on the existence of the startup shortcut
-tray.Add(txtStartup, toggleStartupShortcut)
+tray.Add(txt_startup, toggleStartupShortcut)
 if FileExist(startupShortcut) {
-    tray.check(txtStartup)
+    tray.check(txt_startup)
 } else {
-    tray.unCheck(txtStartup)
+    tray.unCheck(txt_startup)
 }
 
 ; Add the "Start menu shortcut" menu item to the tray menu
 ; Check or uncheck the menu item based on the existence of the Start Menu shortcut
-tray.Add(txtStartMenu, toggleStartMenuShortcut)
+tray.Add(txt_startmenu, toggleStartMenuShortcut)
 if FileExist(startMenuShortcut) {
-    tray.check(txtStartMenu)
+    tray.check(txt_startmenu)
 } else {
-    tray.unCheck(txtStartMenu)
+    tray.unCheck(txt_startmenu)
 }
 
 ; Add other tray menu items
-tray.Add(txtPresentationMode, togglePresentationMode)
+tray.Add(txt_presentationmode, togglePresentationMode)
 
 ; Add the "Keyboard shortcuts" menu item to the tray menu
 ; Check or uncheck the menu item based on the existence of the startup shortcut
-tray.Add(txtKeyboardShortcut, viewKeyboardShortcuts)
+tray.Add(txt_keyboardshortcut, viewKeyboardShortcuts, "Radio")
 if FileExist(keyboardShortcutPath) {
-    tray.check(txtKeyboardShortcut)
+    tray.check(txt_keyboardshortcut)
 } else {
-    tray.unCheck(txtKeyboardShortcut)
+    tray.unCheck(txt_keyboardshortcut)
 }
-tray.Add("Open file location", openScriptLocation)
-tray.Add("View in GitHub 🌐", viewGitHubSource)
-tray.Add("See AutoHotKey documentation 🌐", viewAHKDocumentation)
+
+tray.Add(txt_locatefile, openScriptLocation)
+tray.SetIcon(txt_locatefile, "shell32.dll", 4)
+
+tray.Add(txt_launchconfig, launchConfigUI)
+tray.SetIcon(txt_launchconfig, "shell32.dll", 70)
+
+
+tray.Add(txt_github, viewGitHubSource)
+tray.SetIcon(txt_github, "shell32.dll", 14)
+
+tray.Add(txt_ahkdoc, viewAHKDocumentation)
+tray.SetIcon(txt_ahkdoc, "shell32.dll", 15)
 tray.Add()
 tray.AddStandard()
 
 
+toggleSplashScreen(*) {
+    splash_screen := IniRead(config_path, "WINDOWS-AHK", "splash_screen")
+    if StrLower(splash_screen) == "true" {
+        IniWrite("false", config_path, "WINDOWS-AHK", "splash_screen")
+    } else {
+        IniWrite("true", config_path, "WINDOWS-AHK", "splash_screen")
+    }
+}
+
+
+; == START: WINDOWS-AHK ==========>
+
+loadDefaultConfig()
+
+first_launch := IniRead(config_path, "WINDOWS-AHK", "first_launch")
+splash_screen := IniRead(config_path, "WINDOWS-AHK", "splash_screen")
+
+; notify
+TrayTip("Open keyboard shortcuts with {Ctrl + Shift + Alt + \}`n`n" . txt_aurthor, A_ScriptName " started", "Mute")
+
+
+if StrLower(splash_screen) == "true" {
+    launchSplashScreen()
+}
+if StrLower(first_launch) == "true" {
+    IniWrite("false", config_path, "WINDOWS-AHK", "first_launch")
+    IniWrite("false", config_path, "WINDOWS-AHK", "splash_screen")
+}
+
 ; == HOTKEYS ==
 
-pf3 := "C:\Users\" A_UserName "\AppData\Roaming\Spotify\Spotify.exe"
-pf4 := "C:\Users\" A_UserName "\AppData\Local\Programs\Microsoft VS Code\Code.exe"
-pf6 := "C:\Program Files\SumatraPDF\SumatraPDF.exe"
-pf7 := "winword.exe"
-pf8 := "excel.exe"
-pf9 := "C:\Users\" A_UserName "\AppData\Local\Obsidian\Obsidian.exe"
-pf10 := "powershell.exe"
+; == FUNCTION KEYS
+; // loaded from config file
+
+; Declare variables to store function key values
+f1 := f2 := f3 := f4 := f5 := f6 := f7 := f8 := f9 := f10 := f11 := f12 := ""
+
+; Function keys
+for index, key in ["f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12"] {
+    ; Read value from the config file
+    value := IniRead(config_path, "FUNCTION KEYS", key)
+
+    ; Assign value to the corresponding variable
+    if value == "" {
+        %key% := key
+    } else {
+        %key% := value
+    }
+}
 
 
-; == Function Kes
+F1:: manageFunctionKey(f1)
+F2:: manageFunctionKey(f2)
+F3:: manageFunctionKey(f3)
+F4:: manageFunctionKey(f4)
+F5:: manageFunctionKey(f5)
+F6:: manageFunctionKey(f6)
+F7:: manageFunctionKey(f7)
+F8:: manageFunctionKey(f8)
+F9:: manageFunctionKey(f9)
+F10:: manageFunctionKey(f10)
+F11:: manageFunctionKey(f11)
+F12:: manageFunctionKey(f12)
 
-F1:: manageProgramWindows(getDefaultBrowser())
-+F1:: Run(getDefaultBrowser())
-; F2:: ; is rename
-F3:: manageProgramWindows(pf3) ; spotify
-F4:: manageProgramWindows(pf4) ; vs code
-F6:: manageProgramWindows(pf6) ; sumatraPDF
-F7:: manageProgramWindows(pf7) ; ms word
-+F7:: Run(pf7) ; ms word
-F8:: manageProgramWindows(pf8) ; ms excel
-+F8:: Run(pf8) ; ms excel
-F9:: manageProgramWindows(pf9)
-F10:: manageProgramWindows(pf10)
-+F10:: Run(pf10)
-; F11:: ;
-F12:: Send("!{Tab}") ; witch back and forth between most recent two window
 
 ; == Windows + {Keys}
 
@@ -507,9 +696,13 @@ CapsLock & 9:: changeCase(getSelectedText(), "upper", true)
 ; == Ctrl + Shift + {Keys} ==
 
 #HotIf WinActive("ahk_group ms365Group")
-^+v:: Send("{AppsKey}t") ; paste as plaintext in MS 365 apps
+^+v:: { ; paste as plaintext in MS 365 apps
+    Send("{AppsKey}")
+    Send("T")
+}
 #HotIf
-^+c:: { ;  Copy text without new lines (useful for copying text from a PDF file)
+
+^+c:: { ;  Copy text ithout new lines (useful for copying text from a PDF file)
     Send("^c") ; Copy the selected text
     ClipWait(3) ; Wait for up to 3 seconds for the clipboard to contain data
     A_Clipboard := StrReplace(A_Clipboard, "`r`n", " ") ; Replace carriage returns and line feeds with spaces
@@ -519,14 +712,14 @@ CapsLock & 9:: changeCase(getSelectedText(), "upper", true)
 
 
 ; == Ctrl + Shift + Alt + {Keys} ==
+^+!k:: viewKeyboardShortcuts() ; open keyboard shortcuts
 
-^+!\:: viewKeyboardShortcuts() ; paste as plaintext in MS 365 apps
 ^+!s:: {
     Suspend
     if (A_IsSuspended = 1) {
-        TrayTip("All hotkeys will be suspended (paused). `n`nPress {Ctrl + Shift + Alt + S} or use the tray menu option to toggle back.", A_ScriptName " suspended", "0x1")
+        TrayTip("All hotkeys will be suspended (paused). `n`nPress {Ctrl + Shift + Alt + S} or use the tray menu option to toggle back.", A_ScriptName " suspended", "Iconi Mute")
     } else {
-        TrayTip("All hotkeys resumed (will work as intended). `n`nPress {Ctrl + Shift + Alt + S} to suspend.", A_ScriptName " restored", "0x1")
+        TrayTip("All hotkeys resumed (will work as intended). `n`nPress {Ctrl + Shift + Alt + S} to suspend.", A_ScriptName " restored", "Iconi Mute")
     }
 }
 ; == Other keys
