@@ -21,15 +21,15 @@ Here are some of the features that windows offers:
 - Transform text case with ease (e.g., from `hello, world!` to `Hello, World!`).
 - Convenient hotstrings for retrieving the current date and time (e.g., type `/date` to get the current date, e.g., July 13, 2022) and more.
 
-<details>
-<summary><i>Learn more about <b>AutoHotKey</b></i></summary>
-
+<details style="border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin-bottom: 10px;">
+  <summary style="font-weight: bold; cursor: pointer; outline: none;">
+    Learn more about AutoHotKey
+  </summary>
 AutoHotkey is a free and open-source scripting language for Windows, originally designed to create custom keyboard shortcuts, automate tasks, and perform fast macro-creation. It empowers users of all skill levels to automate repetitive tasks in Windows applications.
 
 - Official Website: [autohotkey.com](https://www.autohotkey.com)
 - Download AutoHotkey: [autohotkey.com/download](https://www.autohotkey.com/download)
 - Direct Download: [autohotkey.com/download/ahk-install.exe](https://www.autohotkey.com/download/ahk-install.exe)
-
 </details>
 
 ## 📖 Usage
@@ -58,7 +58,11 @@ THESE SCRIPTS TEND TO BE VERY ADDICTIVE.
 
 Explore the available keyboard shortcuts in [keyboardshortcuts.md](https://github.com/arlbibek/windows-ahk/blob/master/keyboardshortcuts.md) or download the [keyboardshortcuts.pdf](https://raw.githubusercontent.com/arlbibek/windows-ahk/master/keyboardshortcuts.pdf).
 
-[<img src="./assets/keyboardshortcuts.gif" width="500"/>](https://raw.githubusercontent.com/arlbibek/windows-ahk/master/keyboardshortcuts.pdf)
+<p>
+  <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>\</kbd>
+</p>
+
+<!-- [<img src="./assets/keyboardshortcuts.gif" width="500"/>](https://raw.githubusercontent.com/arlbibek/windows-ahk/master/keyboardshortcuts.pdf) -->
 
 ## 🔗 Additional Resources
 
@@ -79,7 +83,7 @@ at [discord.gg/a2NyrV6PBY](http://discord.gg/a2NyrV6PBY) to connect with other W
 
 Copyright © Bibek Aryal. All rights reserved.
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/arlbibek/windows-ahk/blob/master/LICENSE) file for details.
+This project is licensed under the **GNU GPLv3** - see the [LICENSE](https://github.com/arlbibek/windows-ahk/blob/master/LICENSE) file for details.
 
 ---
 
