@@ -10,6 +10,7 @@ GroupAdd("explorerGroup", "ahk_class #32770") ; This is for all the Explorer-bas
 GroupAdd("browserGroup", "ahk_exe firefox.exe")
 GroupAdd("browserGroup", "ahk_exe duckduckgo.exe")
 GroupAdd("browserGroup", "ahk_exe chrome.exe")
+GroupAdd("browserGroup", "ahk_exe arc.exe")
 GroupAdd("browserGroup", "ahk_exe brave.exe")
 GroupAdd("browserGroup", "ahk_exe msedge.exe")
 GroupAdd("browserGroup", "ahk_exe opera.exe")
