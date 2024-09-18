@@ -43,7 +43,7 @@ THESE SCRIPTS TEND TO BE VERY ADDICTIVE.
 
 ✅ _Recommended_
 
-1. Download the [`WINDOWS_AHK.exe`] from the latest [releases](https://github.com/arlbibek/windows-ahk/releases).
+1. Download the `WINDOWS_AHK.exe` from the latest [releases](https://github.com/arlbibek/windows-ahk/releases).
 2. Run the `WINDOWS_AHK.exe` file. Done!
 
 ### Option 2
