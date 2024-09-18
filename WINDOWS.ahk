@@ -524,7 +524,7 @@ exploreTo(path) {
 
     ; Use Ctrl+L to focus the address bar in File Explorer
     Send("^l")
-    Sleep(50)
+    Sleep(100)
 
     ; Type the provided path and press Enter
     SendText(path)
@@ -785,7 +785,7 @@ CapsLock & 9:: changeCase(getSelectedText(), "upper", true)
 ^+p:: exploreTo(pictures)
 ^+v:: exploreTo(videos)
 
-^+t:: exploreTo("powershell")
+^+t:: exploreTo("powershell.exe")
 ; ^+\:: TODO: open vs code
 #HotIf
 
