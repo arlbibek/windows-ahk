@@ -32,6 +32,15 @@ aka **shortcut keys** - easily trigger an action (such as launching a program or
 
 ### Global hotkeys
 
+> **Note:** You can customize the hotkeys (for function keys only) by editing the configuration file.
+>
+> > To do this:
+>
+> 1. Right-click on the window-ahk logo icon in the system tray.
+> 2. Select **Launch configuration window**.
+> 3. A new window will open. In this window, click **Open configuration file** or **Open configuration file location**.
+> 4. Edit the configuration file as needed, ensuring that you follow the required formatting.
+
 | Key Combination                                                     | Action                                                                                                                                                      |
 | ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | <kbd>F1</kbd>                                                       | Open or switch to default browser (e.g., [Firefox](https://www.mozilla.org/en-US/firefox/new/)) (Use <kbd>Shift</kbd> + <kbd>F1</kbd> to open a new window) |
