@@ -444,7 +444,9 @@ performWebSearch(searchStr, cmd := "#s") {
     if WinActive("ahk_group browserGroup") {
         ; Check if the active window is a browser
         Send("^t")        ; Open a new tab
-        SendText(searchStr)   ; Type the search stringfkalsjlksdjffjasdlkjf
+        Sleep(300)
+        SendText(searchStr)   ; Type the search string
+        Sleep(200)
         Send("{Enter}")   ; Press Enter to initiate the search
     } else if (RegExMatch(searchStr, "^(https?:\/\/|www\.)")) {
         ; Check if the search string is a URL
@@ -536,10 +538,10 @@ if FileExist(img_app) {
     splashUI.AddPicture("w85 h-1", img_app)
 }
 splashUI.Add("Text", "w250 h50 y5 x115", A_ScriptName).SetFont("s12")
-splashUI.Add("Text", "w300 h50 y30 x115 Wrap", "A simple and intuitive AutoHotKey script designed to enhance Windows shortcuts and improve your workflow. ")
-splashUI.Add("Button", "w85 y65 x115", "View on GitHub ↗️").OnEvent("Click", viewGitHubSource)
-splashUI.Add("Button", "w105 y65 x205", "Keyboard Shortcuts").OnEvent("Click", viewKeyboardShortcuts)
-splashUI.Add("Button", "w100 y65 x315 Default", "Launch config window").OnEvent("Click", launchConfigUI)
+splashUI.Add("Text", "w350 h50 y30 x115 Wrap", "A simple and intuitive AutoHotKey script designed to enhance Windows shortcuts and improve your workflow. ")
+splashUI.Add("Button", "w100 y65 x115", "View on GitHub ↗️").OnEvent("Click", viewGitHubSource)
+splashUI.Add("Button", "w125 y65 x215", "Keyboard Shortcuts 📄").OnEvent("Click", viewKeyboardShortcuts)
+splashUI.Add("Button", "w150 y65 x340 Default", "Launch config window 🔧").OnEvent("Click", launchConfigUI)
 
 
 configUI := Gui("MinimizeBox", A_ScriptName . " - Preferences")
