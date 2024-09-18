@@ -271,9 +271,12 @@ loadDefaultConfig(*) {
 
         FileAppend("; == FUNCTION KEYS CONFIGURATION >>`n", config_path)
         FileAppend("; Configure actions for function keys (e.g., F1, F2, ...)`n", config_path)
-        FileAppend("; Go aheade and update the path for each function key as needed`n", config_path)
+        FileAppend("; Go aheade and update the path for each function key as needed`n`n", config_path)
         FileAppend("; App options for function key: `n", config_path)
-        FileAppend("; default_browser, all_browsers, browser_tabs `n", config_path)
+        FileAppend(";   default_browser # launch / switch to / minimize the default browser `n", config_path)
+        FileAppend(";   all_browsers    # launch default browser / switch between all active browser `n", config_path)
+        FileAppend(";   browser_tabs    # switch between multiple browser tabs `n", config_path)
+        FileAppend(";   switch_window   # quickly switch between active windows (sends {ALT} + {TAB}) `n", config_path)
         FileAppend("`n", config_path)
 
         section_function_keys := "FUNCTION KEYS"
@@ -529,11 +532,17 @@ manageFunctionKey(path) {
         } else {
             manageProgramWindows(getDefaultBrowser())
         }
-    }
-    else {
+    } else if (StrLower(path) == "switch_window") {
+        sendAltTab()
+    } else {
         ; If the path doesn't match predefined conditions, attempt to manage windows based on the provided path
         manageProgramWindows(path)
     }
+}
+
+sendAltTab() {
+    ; sends alt + tab to switch window
+    Send("{Alt Down}{Tab}{Alt UP}")
 }
 
 
