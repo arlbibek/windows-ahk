@@ -273,7 +273,7 @@ loadDefaultConfig(*) {
         FileAppend("; Configure actions for function keys (e.g., F1, F2, ...)`n", config_path)
         FileAppend("; Go aheade and update the path for each function key as needed`n", config_path)
         FileAppend("; App options for function key: `n", config_path)
-        FileAppend("; default_browser, all_browsers `n", config_path)
+        FileAppend("; default_browser, all_browsers, browser_tabs `n", config_path)
         FileAppend("`n", config_path)
 
         section_function_keys := "FUNCTION KEYS"
@@ -523,7 +523,14 @@ manageFunctionKey(path) {
             ; If not for the browser exists start the default browser
             manageProgramWindows(getDefaultBrowser())
         }
-    } else {
+    } else if (StrLower(path) == "browser_tabs") {
+        if WinActive("ahk_group browserGroup") {
+            Send("^{Tab}")
+        } else {
+            manageProgramWindows(getDefaultBrowser())
+        }
+    }
+    else {
         ; If the path doesn't match predefined conditions, attempt to manage windows based on the provided path
         manageProgramWindows(path)
     }
