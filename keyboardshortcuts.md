@@ -101,37 +101,32 @@ Hotstrings are mainly used to expand abbreviations as you type them (auto-replac
 
 Assuming today's date and time is `Sunday, September 24, 2023 04:31 PM`
 
-| Abbreviation | Phrase                              |
-| ------------ | ----------------------------------- |
-| `/datetime`  | Sunday, September 24, 2023, 16:31   |
-| `/datetimet` | Sunday, September 24, 2023 04:31 PM |
-| `/time`      | 16:31                               |
-| `/timet`     | 04:31 PM                            |
-| `/date`      | September 24, 2023                  |
-| `/daten`     | 09/24/2023                          |
-| `/datet`     | 2023.09.24                          |
-| `/week`      | Sunday                              |
-| `/day`       | 24                                  |
-| `/month`     | September                           |
-| `/monthn`    | 09                                  |
-| `/year`      | 2023                                |
+| Abbreviation | Phrase                            |
+| ------------ | --------------------------------- |
+| `/datetime`  | Sunday, September 24, 2023, 16:31 |
+| `/time`      | 16:31                             |
+| `/date`      | September 24, 2023                |
+| `/week`      | Sunday                            |
+| `/day`       | 24                                |
+| `/month`     | September                         |
+| `/mth`       | 09                                |
+| `/year`      | 2023                              |
 
 #### Others
 
-| Abbreviation | Phrase                                                                             |
-| ------------ | ---------------------------------------------------------------------------------- |
-| `/paste`     | _Paste contents of clipboard_                                                      |
-| `/cud`       | _Full path of current user directory (eg. `/mnt/c/Users/bibek/`)_                  |
-| `/nrd`       | npm run dev                                                                        |
-| `/gm`        | Good morning                                                                       |
-| `/ge`        | Good evening                                                                       |
-| `/gn`        | Good night                                                                         |
-| `/ty`        | Thank you                                                                          |
-| `/tyvm`      | Thank you very much                                                                |
-| `/wc`        | Welcome                                                                            |
-| `/mp`        | My pleasure                                                                        |
-| `/lorem`     | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod...         |
-| `/plankton`  | Plankton are the diverse collection of organisms found in water that are unable... |
+| Abbreviation | Phrase                                                                                                                                                                                                                                                                         |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `/paste`     | _Paste contents of clipboard_                                                                                                                                                                                                                                                  |
+| `/cud`       | _Full path of current user directory (eg. `/mnt/c/Users/bibek/`)_                                                                                                                                                                                                              |
+| `/gm`        | Good morning                                                                                                                                                                                                                                                                   |
+| `/ge`        | Good evening                                                                                                                                                                                                                                                                   |
+| `/gn`        | Good night                                                                                                                                                                                                                                                                     |
+| `/ty`        | Thank you very much                                                                                                                                                                                                                                                            |
+| `/wc`        | Welcome                                                                                                                                                                                                                                                                        |
+| `/mp`        | My pleasure                                                                                                                                                                                                                                                                    |
+| `/lorem`     | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod...                                                                                                                                                                                                     |
+| `/plankton`  | Plankton are the diverse collection of organisms found in water that are unable...                                                                                                                                                                                             |
+| `/dear`      | Writes a email template with delight ful end greetings based on the time of the day <br /> e.g., <br />Dear Mr/Ms. <br /> Good evening, I hope that this email finds you well. <br /> <br /> ...<br /> <br /> Hope today is the start of something amazing for you. Thank you. |
 
 ---
 
