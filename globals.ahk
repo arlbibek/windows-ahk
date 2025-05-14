@@ -49,8 +49,8 @@ global start_menu_shortcut := A_StartMenu "\Programs\" A_ScriptName ".lnk"
 
 ; Keyboard shortcut PDF paths
 keyboard_shortcut_filename := "keyboardshortcuts.pdf"
-global keyboard_shortcut_url := "https://raw.githubusercontent.com/arlbibek/windows-ahk/master/assets/" . keyboard_shortcut_filename
-global keyboard_shortcut_path := A_ScriptDir . "\assets\" . keyboard_shortcut_filename
+global keyboard_shortcut_url := "https://raw.githubusercontent.com/arlbibek/windows-ahk/master/" . keyboard_shortcut_filename
+global keyboard_shortcut_path := A_ScriptDir . keyboard_shortcut_filename
 
 ; Script configuration file paths
 global config_dir := A_AppData . "\windows-ahk"
