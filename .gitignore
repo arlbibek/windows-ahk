@@ -1,9 +1,7 @@
 # Added by Bibek Aryal
+
 debug.log
 .vscode
-/SP*
 *test*
 *.exe
-/data.ini
-/changes.md
-/WINWORD.ahk
+*.ini

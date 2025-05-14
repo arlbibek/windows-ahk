@@ -1,32 +1,25 @@
-#Requires AutoHotkey v2.0
+﻿#Requires AutoHotkey v2.0
 
-; == HOTSTRINGS ==
+#Include globals.ahk
 
-getGreeting() {
-    greetings := [
-        "Have a delightful day ahead! ",
-        "Wishing you a wonderful day. ",
-        "May your day be filled with joy. ",
-        "Have an amazing day. ",
-        "Hope you have a fantastic day! ",
-        "Wishing you a great day ahead. ",
-        "Enjoy your day to the fullest. ",
-        "Wishing you a day full of positivity and success. ",
-        "Hope today brings you closer to your goals. ",
-        "Wishing you a day filled with pleasant surprises. ",
-        "Have a productive and cheerful day! ",
-        "May your day be full of accomplishments and smiles. ",
-        "May your day be filled with inspiration and success. ",
-        "Hope today is the start of something amazing for you. ",
-        "Wishing you a stress-free and joyful day! ",
-        "Have a peaceful and fulfilling day ahead. ",
-    ]
-    greetingIndex := Random(1, greetings.Length)
-    return greetings[greetingIndex]
+get_hotstrings(filename, section := hotstrings_section) {
+    ; Reads hotstrings from an INI file and registers them dynamically
+    ; Get all keys in the section
+    try {
+        keys_values := IniRead(filename, section)
+        for key_value in StrSplit(keys_values, "`n") {
+            key := StrSplit(key_value, "=", , 2)[1]
+            value := StrSplit(key_value, "=", , 2)[2]
+            HotString("::" . key, value)
+        }
+    } catch as e {
+        MsgBox(e.Message . "`n Specifically, section: " . section, , "OK Icon!")
+        return
+    }
 }
 
-; ; Current date and time
-sendFormattedDt(format, datetime := "") {
+send_formatted_dt(format, datetime := "") {
+    ; Sends the current (or given) date/time using a specific format
     if (datetime = "") {
         datetime := A_Now
     }
@@ -34,94 +27,96 @@ sendFormattedDt(format, datetime := "") {
     return
 }
 
-; == Date and time
+get_well_wishes(filename, section := well_wishes_section) {
+    ; Reads greeting values from an INI section and returns them as a list
+    greetings := []  ; Initialize empty array
 
-::/datetime:: {
-    sendFormattedDt("dddd, MMMM dd, yyyy, HH:mm") ; Sunday, September 24, 2023, 16:31
-}
-::/dt:: {
-    sendFormattedDt("dddd, MMMM dd, yyyy, HH:mm") ; Sunday, September 24, 2023, 16:31
-}
-::/time:: {
-    sendFormattedDt("HH:mm") ; 16:31
-}
-::/date:: {
-    sendFormattedDt("MMMM dd, yyyy") ; September 24, 2023
-}
-::/week:: {
-    sendFormattedDt("dddd") ; Sunday
-}
-::/day:: {
-    sendFormattedDt("dd") ; 24
-}
-::/month:: {
-    sendFormattedDt("MMMM") ; September
-}
-::/mth:: {
-    sendFormattedDt("MM") ; 09
-}
-::/year:: {
-    sendFormattedDt("yyyy") ; 2023
+    try {
+        keys_values := IniRead(filename, section)
+        for key_value in StrSplit(keys_values, "`n") {
+            parts := StrSplit(key_value, "=", , 2)
+            if parts.Length < 2
+                continue
+
+            key := Trim(parts[1])
+            value := Trim(parts[2])
+            greetings.Push(value)  ; Add value to the list
+            ; Optional: MsgBox for debug
+            ; MsgBox("Key: " . key . "`nValue: " . value, , "OK Icon!")
+        }
+    } catch as e {
+        MsgBox(e.Message . "`n Specifically, section: " . section, , "OK Icon!")
+        return []
+    }
+
+    return greetings
 }
 
-; == Others
-
-::wtf::Wow that's fantastic
-::/paste:: {
-    SendInput(A_Clipboard)
+get_random_item(list) {
+    ; Returns a random item from a given list
+    try {
+        index := Random(1, list.Length)
+        return list[index]
+    } catch as e {
+        return e.Message
+    }
 }
-::/cud:: {
-    SendText("/mnt/c/Users/" A_UserName)
-}
-::/gm::Good morning
-::/ge::Good evening
-::/gn::Good night
-::/ty::Thank you very much
-::/wc::Welcome
-::/mp::My pleasure
-::/lorem::Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-::/plankton::Plankton are the diverse collection of organisms found in water that are unable to propel themselves against a current. The individual organisms constituting plankton are called plankters. In the ocean, they provide a crucial source of food to many small and large aquatic organisms, such as bivalves, fish and whales.
 
-; work
-
-::/dear:: {
+; Composes and sends a greeting message with dynamic time-based and random components
+get_greeting(well_wish) {
     ; Get the current hour
     currentHour := A_Hour
 
     ; Determine the time-based greeting
     if (currentHour < 12) {
-        timeOfDayGreeting := "Good morning,"
+        greeting := "Good morning, "
+        end_text := ""
     } else if (currentHour < 18) {
-        timeOfDayGreeting := "Good afternoon,"
-    } else {
-        timeOfDayGreeting := "Good evening,"
+        greeting := "Good afternoon, "
+        end_text := ""
+    } else if (currentHour >= 21 || currentHour < 6) {
+        greeting := ""
+        end_text := "Good night. "
+    }
+    else {
+        greeting := "Good evening, "
+        end_text := ""
     }
 
     ; Send the date and time-based greeting
-    Send("Dear Mr/Ms. `n`n" timeOfDayGreeting " I hope that this email finds you well. `n`n")
-    Send("...`n`n")
-
-    ; Send the selected greeting
-    SendText(getGreeting() "Thank you. ")
+    return "Dear Respected Sir/Ma'am, `n`n" . greeting . "I hope that this email finds you well. `n`n ...`n`n" . well_wish . " Thank you. " . end_text
 }
 
-::/si::Shikhar Insurance
-::/sicl::Shikhar Insurance Company Limited
-::/siaddr:: {
-    SendInput("Shikhar Biz Centre, Thapathali, Kathmandu, Nepal")
-}
-:*:/sicl.com::Shikhar Insurance
-:*:@shi::@shikharinsurce.com
+; == HOTSTRINGS ==
 
-:*:/pfa:: Please find the attachment.
-:*:/mail::bibek.aryal@shikharinsurance.com
-:*:/iso::Information Security Officer
-:*:/ph::9860277634
-:*:/addr:: {
-    SendInput("Tarakeshowr 05, Kathmandu, Nepal")
+; Load hotstrings from the config file
+get_hotstrings(config_path)
+
+
+; hotstring to paste clipboard content
+::/paste:: {
+    SendText(A_Clipboard)
 }
-; names
-:*:/ba::Bibek Aryal
-:*:/rmm::Ramin Man Maharjan
-:*:/dpp::Dip Prakash Panday
-:*:/srb::Suraj Rajbahak
+
+; Hotstrings for date and time formatting
+
+::/datetime:: {
+    send_formatted_dt("dddd, MMMM dd, yyyy, HH:mm") ; Tuesday, April 29, 2025, 16:10
+}
+::/dt:: {
+    send_formatted_dt("dddd, MMMM dd, yyyy, HH:mm") ; Tuesday, April 29, 2025, 16:10
+}
+
+::/date:: {
+    send_formatted_dt("MMMM dd, yyyy") ; April 29, 2025
+}
+
+::/time:: {
+    send_formatted_dt("HH:mm") ; 16:11
+}
+
+; Triggers time-aware, polite email greeting
+::/dear:: {
+    greeting := get_greeting(get_random_item(get_well_wishes(config_path)))
+    SendText(greeting)
+}

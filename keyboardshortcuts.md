@@ -1,101 +1,101 @@
-# Keyboard Shortcuts for windows-ahk
+# Keyboard shortcuts for WINDOWS-AHK
 
 <table style="border-collapse: collapse; width: 100%;">
   <tr>
-      <td style="padding: 1; vertical-align: middle; text-align: center;">
+    <td style="padding: 1; vertical-align: middle; text-align: center;">
       <img src="https://raw.githubusercontent.com/arlbibek/windows-ahk/master/assets/windows-ahk.png" width="250" alt="Windows-AHK Logo" />
     </td>
     <td style="vertical-align: top;">
-      <p>This document lists the keyboard shortcuts for the <a href="https://github.com/arlbibek/windows-ahk">windows-ahk</a>, a simple and intuitive AutoHotKey script for improving your workflow.</p>
-      <p>For setup instructions, please refer to the <a href="https://github.com/arlbibek/windows-ahk#readme">README.md</a> on GitHub.</p>
+      <p>This document lists keyboard shortcuts for <a href="https://github.com/arlbibek/windows-ahk">arlbibek/windows-ahk</a>, a simple and intuitive AutoHotKey script to enhance your Windows workflow.</p>
+      <p>For setup instructions, refer to the <a href="https://github.com/arlbibek/windows-ahk#readme">README.md</a> on GitHub.</p>
       <p>Made with ❤️ by <a href="https://bibeka.com.np/">Bibek Aryal</a>.</p>
     </td>
   </tr>
 </table>
 
+---
+
 ## Tray menu options
 
-| Option                       | Action                                                                                            | Hotkey                                                              |
-| ---------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Run at startup               | Enable/disable script to run automatically as startup (when you log on to your computer)          |                                                                     |
-| Start menu shortcut          | Show/hide script from the start menu entry                                                        |                                                                     |
-| Presentation mode            | Toggle windows default presentation mode on/off                                                   | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>                    |
-| Keyboard shortcut            | View keyboard shortcuts, opens a pdf file containing the keyboard shortcuts and respective action | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>\\</kbd> |
-| Open file location           | Navigate to script's current directory                                                            |                                                                     |
-| View in GitHub               | View source code in GitHub                                                                        |                                                                     |
-| See AutoHotKey documentation | Visit official AutoHotKey v2 documentation                                                        |                                                                     |
-| Suspend Hotkeys              | Disables or enables all hotkeys and hotstrings                                                    | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>S</kbd>  |
+Right-click the windows-ahk tray icon to access the following options:
+
+| Option                   | Action                                                                                              | Hotkey                                                              |
+| ------------------------ | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| Run at startup           | Enable or disable script to run automatically at login                                              |                                                                     |
+| Start menu shortcut      | Show or hide the script from the Start menu                                                         |                                                                     |
+| Presentation mode        | Toggle Windows Presentation Mode on/off                                                             | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>                    |
+| Keyboard shortcuts       | View keyboard shortcuts, opens (this) shortcut documentation as a PDF                               | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>\\</kbd> |
+| Open file location       | Opens the script directory                                                                          |                                                                     |
+| View in GitHub           | View source code in GitHub repository                                                               |                                                                     |
+| AutoHotKey documentation | Opens the official AutoHotKey v2 documentation                                                      |                                                                     |
+| Suspend hotkeys          | Disables (suspends) hotkeys and hotstrings, while the script itself keeps running in the background | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>S</kbd>  |
+| Reload script            | Reloads the script (use after changes)                                                              | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>R</kbd>  |
+| Exit                     | Exits the script                                                                                    | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>E</kbd>  |
+
+---
 
 ## Hotkeys
 
-aka **shortcut keys** - easily trigger an action (such as launching a program or keyboard macro).
+Also known as **shortcut keys** - easily trigger an action (such as launching a program or keyboard macro).
+
+### Function keys actions
+
+> **Note:** You can customize these actions by editing the configuration file at `%appdata%/windows-ahk/config.ini`, under the `[FUNCTION_KEYS]` section.
+>
+> > To do so, right-click the tray icon → **Launch configuration window**, Click **Open configuration file**, then edit as needed, Save changes and reload the script
+
+| Function Key                      | Value                                                       | Action                                        |
+| --------------------------------- | ----------------------------------------------------------- | --------------------------------------------- |
+| <kbd>F1</kbd>                     | `default_browser`                                           | Launch or switch to the default browser       |
+| <kbd>F2</kbd>                     | _(Unassigned — customize as needed)_                        |                                               |
+| <kbd>F3</kbd>                     | `switch_tabs`                                               | Switch between two most recent active windows |
+| <kbd>F4</kbd>                     | `notepad.exe`                                               | Launch or cycle through Notepad windows       |
+| <kbd>F5</kbd> ... <kbd>F9</kbd>   | _(Unassigned — customize as needed)_                        |                                               |
+| <kbd>F10</kbd>                    | `C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe` | Launch or switch to PowerShell window(s)      |
+| <kbd>F11</kbd> ... <kbd>F12</kbd> | _(Unassigned — customize as needed)_                        |                                               |
+
+> 🔧 You can use either one of the **available options** below or an **app path** _- must be a full path or accessible via the system_ [_PATH_](<https://en.wikipedia.org/wiki/PATH_(variable)>).
+>
+> #### Available options
+>
+> | Option            | Description                                                                                                                                               |
+> | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+> | `default_browser` | Launch the default browser or cycle through its windows                                                                                                   |
+> | `all_browsers`    | Launch default browser of cycle through all active browser windows <br/>(includes: firefox, duckduckgo, chrome, arc, brave, msedge, opera, iexplore, zen) |
+> | `browser_tabs`    | Launch the default browser or cycle through active browser tabs                                                                                           |
+> | `switch_window`   | Switch between two most recent active windows (sends {Alt} + {Tab})                                                                                       |
+> | `switch_tabs`     | Switch between two most recent active tab in a active window (sends {Ctrl} + {Tab})                                                                       |
+>
+> 🔍 See screenshot of example configuration [here](https://raw.githubusercontent.com/arlbibek/windows-ahk/master/assets/config_example.png).
 
 ### Global hotkeys
 
-> **Note:** You can customize the hotkeys (for function keys only) by editing the configuration file.
->
-> > To do this:
->
-> 1. Right-click on the window-ahk logo icon in the system tray.
-> 2. Select **Launch configuration window**.
-> 3. A new window will open. In this window, click **Open configuration file** or **Open configuration file location**.
-> 4. Edit the configuration file as needed, ensuring that you follow the required formatting.
+| Hotkey                             | Action                                                                                                               |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| <kbd>Win</kbd> + <kbd>E</kbd>      | Open or switch to File Explorer (Use <kbd>Shift</kbd> to open new window)                                            |
+| <kbd>Win</kbd> + <kbd>N</kbd>      | Open or switch to Notepad (Use <kbd>Shift</kbd> for new window)                                                      |
+| <kbd>Win</kbd> + <kbd>S</kbd>      | Search selected text using the active or default browser                                                             |
+| <kbd>CapsLock</kbd> + <kbd>7</kbd> | Transform selected text to lower case (e.g., `Hello, Word!` to `hello, word!`)                                       |
+| <kbd>CapsLock</kbd> + <kbd>8</kbd> | Transform selected text to title case (e.g., `hello, word!` to `Hello, Word!`)                                       |
+| <kbd>CapsLock</kbd> + <kbd>9</kbd> | Transform selected text to upper case (e.g., `Hello, Word!` to `HELLO, WORD!`)                                       |
+| <kbd>Esc</kbd> ×3                  | Press <kbd>Esc</kbd> three times to close the active window (if the active window is a browser close the active tab) |
 
-| Key Combination                                                     | Action                                                                                                                                                      |
-| ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <kbd>F1</kbd>                                                       | Open or switch to default browser (e.g., [Firefox](https://www.mozilla.org/en-US/firefox/new/)) (Use <kbd>Shift</kbd> + <kbd>F1</kbd> to open a new window) |
-| <kbd>F2</kbd>                                                       | _...is rename_                                                                                                                                              |
-| <kbd>F3</kbd>                                                       | Open or switch to [Spotify](https://www.spotify.com/)                                                                                                       |
-| <kbd>F4</kbd>                                                       | Open or switch to [VS Code](https://code.visualstudio.com/)                                                                                                 |
-| <kbd>F5</kbd>                                                       | _...is refresh_                                                                                                                                             |
-| <kbd>F6</kbd>                                                       | Open or switch to [SumatraPDF](https://www.sumatrapdfreader.org/)                                                                                           |
-| <kbd>F7</kbd>                                                       | Open or switch to Microsoft Word (Additionally, use <kbd>Shift</kbd> to open a new window)                                                                  |
-| <kbd>F8</kbd>                                                       | Open or switch to Microsoft Excel (use <kbd>Shift</kbd> for new window)                                                                                     |
-| <kbd>F9</kbd>                                                       | Open or switch to [Obsidian](https://obsidian.md/)                                                                                                          |
-| <kbd>F10</kbd>                                                      | Open or switch to PowerShell (use <kbd>Shift</kbd> for new window)                                                                                          |
-| <kbd>F11</kbd>                                                      | _...is full screen_                                                                                                                                         |
-| <kbd>F12</kbd>                                                      | Switch back and forth between most recent two window (sends <kbd>Alt</kbd> + <kbd>Tab</kbd>)                                                                |
-|                                                                     |                                                                                                                                                             |
-| <kbd>Win</kbd> + <kbd>E</kbd>                                       | Open or switch to File Explorer (Use <kbd>Shift</kbd> to open a new window)                                                                                 |
-| <kbd>Win</kbd> + <kbd>N</kbd>                                       | Open or switch to [Notepad](https://apps.microsoft.com/store/detail/windows-notepad/9MSMLRH6LZF3) (Use <kbd>Shift</kbd> to open a new window)               |
-| <kbd>Win</kbd> + <kbd>S</kbd>                                       | Search selected text using the active or default browser                                                                                                    |
-| <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>                    | Search the contents of clipboard using the active or default browser                                                                                        |
-| <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>                    | Toggle presentation mode on or off                                                                                                                          |
-|                                                                     |                                                                                                                                                             |
-| <kbd>CapsLock</kbd> & <kbd>7</kbd>                                  | Transform selected text to lower case (e.g., `Hello, Word!` to `hello, word!`)                                                                              |
-| <kbd>CapsLock</kbd> & <kbd>8</kbd>                                  | Transform selected text to title case (e.g., `hello, word!` to `Hello, Word!`)                                                                              |
-| <kbd>CapsLock</kbd> & <kbd>9</kbd>                                  | Transform selected text to upper case (e.g., `Hello, Word!` to `HELLO, WORD!`)                                                                              |
-|                                                                     |                                                                                                                                                             |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd>                   | Paste as plaintext in Microsoft 365 apps (i.e. word, powerpoint, onenote, outlook, excel)                                                                   |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd>                   | Copy text without new lines (useful for copying text from a PDF file)                                                                                       |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>\`</kbd>                  | Open or switch to [Synctrayzor (Syncthing)](https://syncthing.net/)                                                                                         |
-|                                                                     |                                                                                                                                                             |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>\\</kbd> | View keyboard shortcuts                                                                                                                                     |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>S</kbd>  | Disables or enables all hotkeys and hotstrings                                                                                                              |
-|                                                                     |                                                                                                                                                             |
-| <kbd>Shift</kbd> + <kbd>Space</kbd>                                 | Replace space(s) with underscore(s) in the selected text (e.g., `hello world!` to `hello_world!`)                                                           |
+### File explorer hotkeys
 
-<!-- | <kbd>~Esc</kbd> | ❌ Close the active window | -->
+| Hotkey                                             | Action                               |
+| -------------------------------------------------- | ------------------------------------ |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>U</kbd>  | Go to **User** folder 👤             |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd>  | Go to **This PC** 💻                 |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>H</kbd>  | Go to **Desktop** 🏠                 |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd>  | Go to **Documents** 📄               |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd>  | Go to **Downloads** 📥               |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd>  | Go to **Music** 🎵                   |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>  | Go to **Pictures** 🖼                 |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd>  | Go to **Videos** 📼                  |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>T</kbd>  | Open PowerShell in current directory |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>\\</kbd> | Open current directory in VS Code    |
 
-#### File Explorer hotkeys
-
-> This works for all the explorer-based "save" and "load" boxes as well.
-
-| Key                                               | Action                                             |
-| ------------------------------------------------- | -------------------------------------------------- |
-| <kbd>Win</kbd> + <kbd>E</kbd>                     | Run/Switch through all the active File Explorers   |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>U</kbd> | Navigate to Current user directory                 |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd> | Navigate to This Pc 💻                             |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>H</kbd> | Navigate to the Desktop 🏠                         |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd> | Navigate to the Documents 📄                       |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd> | Navigate to the Downloads directory 📥             |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> | Navigate to the Music directory 🎵                 |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> | Navigate to the Pictures directory 🖼               |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd> | Navigate to the Videos directory 📼                |
-|                                                   |                                                    |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>T</kbd> | Open Windows Terminal in current working directory |
-
-<!-- | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>\\</kbd> | ❌ Open VS Code in current working directory       | -->
+---
 
 ### Hotstring
 
@@ -106,37 +106,39 @@ Hotstrings are mainly used to expand abbreviations as you type them (auto-replac
 ::wtf::Wow that's fantastic
 ```
 
-#### Date and time
+| Abbreviation         | Expands To                                         |
+| -------------------- | -------------------------------------------------- |
+| `/paste`             | _(Pastes clipboard content)_                       |
+| `/datetime` or `/dt` | Tuesday, May 13, 2025, 17:38                       |
+| `/date`              | May 13, 2025                                       |
+| `/time`              | 17:38                                              |
+| `/dear`              | (_Time-based email greeting with polite template_) |
 
-Assuming today's date and time is `Sunday, September 24, 2023 04:31 PM`
+#### Customizable hotstrings
 
-| Abbreviation | Phrase                            |
-| ------------ | --------------------------------- |
-| `/datetime`  | Sunday, September 24, 2023, 16:31 |
-| `/time`      | 16:31                             |
-| `/date`      | September 24, 2023                |
-| `/week`      | Sunday                            |
-| `/day`       | 24                                |
-| `/month`     | September                         |
-| `/mth`       | 09                                |
-| `/year`      | 2023                              |
+> **Note**: You can edit or add custom Hotstrings under the `[HOTSTRINGS]` section in the config file, using the format: `shortcut=your text here`
+>
+> > To do so, right-click tray icon → **Launch configuration window**, Click **Edit configuration file**, Save and **reload** the script
 
-#### Others
+| Abbreviation | Phrase                                      |
+| ------------ | ------------------------------------------- |
+| `wtf`        | Wow that's fantastic                        |
+| `gm`         | Good morning                                |
+| `ge`         | Good evening                                |
+| `gn`         | Good night                                  |
+| `ty`         | Thank you very much                         |
+| `wc`         | Welcome                                     |
+| `mp`         | My pleasure                                 |
+| `omg`        | Oh my god                                   |
+| `pfa`        | Please find the attachment.                 |
+| `/lorem`     | _(Lorem Ipsum text)_                        |
+| `/plankton`  | _(Plankton description)_                    |
+| `/mail`      | <you@example.com> (update your email here)  |
+| `/ph`        | 98XXXXXXXX (update your phone number here)  |
+| `/addr`      | Kathmandu, Nepal (update your address here) |
 
-| Abbreviation | Phrase                                                                                                                                                                                                                                                                         |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `/paste`     | _Paste contents of clipboard_                                                                                                                                                                                                                                                  |
-| `/cud`       | _Full path of current user directory (eg. `/mnt/c/Users/bibek/`)_                                                                                                                                                                                                              |
-| `/gm`        | Good morning                                                                                                                                                                                                                                                                   |
-| `/ge`        | Good evening                                                                                                                                                                                                                                                                   |
-| `/gn`        | Good night                                                                                                                                                                                                                                                                     |
-| `/ty`        | Thank you very much                                                                                                                                                                                                                                                            |
-| `/wc`        | Welcome                                                                                                                                                                                                                                                                        |
-| `/mp`        | My pleasure                                                                                                                                                                                                                                                                    |
-| `/lorem`     | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod...                                                                                                                                                                                                     |
-| `/plankton`  | Plankton are the diverse collection of organisms found in water that are unable...                                                                                                                                                                                             |
-| `/dear`      | Writes a email template with delight ful end greetings based on the time of the day <br /> e.g., <br />Dear Mr/Ms. <br /> Good evening, I hope that this email finds you well. <br /> <br /> ...<br /> <br /> Hope today is the start of something amazing for you. Thank you. |
+💡To restore default configuration, right-click the tray icon → **Launch configuration window** → **Restore default configuration**
 
 ---
 
-Made with ❤️ by [Bibek Aryal](https://bibeka.com.np/).
+> Last updated: May 14, 2025
