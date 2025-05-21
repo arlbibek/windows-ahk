@@ -2,7 +2,7 @@ name: Sync README.md to index.md
 
 on:
   push:
-    branches: [main]
+    branches: [master]
 
 jobs:
   sync:
