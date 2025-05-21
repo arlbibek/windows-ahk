@@ -41,7 +41,7 @@ AutoHotkey is a free and open-source scripting language for Windows, originally 
 ## 📖 Usage
 
 ```plaintext
-CAUTION! ⚠️
+CAUTION!
 THESE SCRIPTS TEND TO BE VERY ADDICTIVE.
 ```
 
