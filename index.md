@@ -21,7 +21,7 @@ Here are some of the features WINDOWS-AHK offers:
 
 - 🔄 Application switcher: Launch or toggle between apps using function keys (customizable).
 - 📁 File Explorer power-shortcuts: Instantly Open file explorer or navigate to folders like Downloads, Music, or open VS Code in the current directory.
-- 🧠 Hotstrings & snippets: Type /date, /addr, etc., to expand text dynamically.
+- 🧠 Hotstrings & snippets: Type /date, /addr, etc., to expand text dynamically (customizable).
 - 🔤 Text case transformers: Change selected text to uppercase, lowercase, or title case instantly.
 - 🔍 Quick search: Search any selected text directly in your browser.
 - 🖥️ Presentation mode: Toggle Windows Presentation Mode on/off.
@@ -31,11 +31,12 @@ Here are some of the features WINDOWS-AHK offers:
   <summary style="font-weight: bold; cursor: pointer; outline: none;">
     Learn more about AutoHotKey
   </summary>
-AutoHotkey is a free and open-source scripting language for Windows, originally designed to create custom keyboard shortcuts, automate tasks, and perform fast macro-creation. It empowers users of all skill levels to automate repetitive tasks in Windows applications.
+  <p>AutoHotkey is a free and open-source scripting language for Windows, originally designed to create custom keyboard shortcuts, automate tasks, and perform fast macro-creation. It empowers users of all skill levels to automate repetitive tasks in Windows applications.</p>
 
-- Official Website: [autohotkey.com](https://www.autohotkey.com)
-- Download AutoHotkey: [autohotkey.com/download](https://www.autohotkey.com/download)
-
+  <ul>
+    <li>Official Website: <a href="https://www.autohotkey.com">autohotkey.com</a></li>
+    <li>Download AutoHotkey: <a href="https://www.autohotkey.com/download">autohotkey.com/download</a></li>
+  </ul>
 </details>
 
 ## 📖 Usage
@@ -52,7 +53,7 @@ THESE SCRIPTS TEND TO BE VERY ADDICTIVE.
 1. Download the `WINDOWS_AHK.exe` from the latest [releases](https://github.com/arlbibek/windows-ahk/releases).
 2. Run the `WINDOWS_AHK.exe` file. Done!
 
-> **Please note:** You are likely to encounter a **Windows SmartScreen warning** when launching `windows_ahk.exe` for the first time.
+> **Please note:** You are likely to encounter a [Windows SmartScreen warning](https://sockettools.com/kb/smartscreen-installation-warnings/) when launching `windows_ahk.exe` for the first time.
 > This is a common behavior for executables that aren't digitally signed or widely downloaded.
 >
 > To proceed: Click **"More info"** on the warning screen. Then click **"Run anyway"**.
