@@ -1,2 +1,11 @@
-title: windows-ahk
-theme: minima
+title: WINDOWS-AHK
+description: >- 
+  A simple and intuitive AutoHotKey script designed to enhance Windows shortcuts and improve your workflow.
+theme: just-the-docs
+url: "https://windows-ahk.bibeka.com.np"
+
+# Optional: GitHub repo link in top-right corner
+github_repo_url: "https://github.com/arlbibek/windows-ahk"
+
+# Optional: Set baseurl if deploying in a subdirectory (not needed for custom domains)
+# baseurl: "/windows-ahk"
