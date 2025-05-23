@@ -1,0 +1,30 @@
+name: Convert Markdown to PDF
+
+on:
+  push:
+    branches: [master] 
+
+jobs:
+  convert-md-to-pdf:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install md2pdf
+        run: npm install -g @realdennis/md2pdf
+
+      - name: Convert README.md to PDF
+        run: md2pdf README.md -o assets/keyboardshortcuts.pdf
+
+      - name: Upload PDF as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: markdown-pdf
+          path: assets/keyboardshortcuts.pdf
