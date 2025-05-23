@@ -42,7 +42,7 @@ tray.Add()
 
 tray.Add(txt_locate_file, open_script_location)
 tray.SetIcon(txt_locate_file, "shell32.dll", 4)
-tray.Add(txt_launch_config, launch_config_ui)
+tray.Add(txt_launch_config, tray_config_menu)
 tray.SetIcon(txt_launch_config, "shell32.dll", 70)
 tray.Add()
 
@@ -60,3 +60,8 @@ tray.Add(txt_exit, exit_script)
 tray.SetIcon(txt_exit, "imageres.dll", 94)
 tray.Add()
 tray.Add(txt_author, visit_author_website)
+
+tray_config_menu.Add("Edit configuration file", open_config_file)
+tray_config_menu.Add("Open configuration file location", open_config_file_dir)
+tray_config_menu.Add("Restore default configuration", restore_default_config)
+tray_config_menu.Add("Launch configuration window", launch_config_ui)

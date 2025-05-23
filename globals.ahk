@@ -68,7 +68,7 @@ global txt_keyboard_shortcut := "Keyboard shortcuts {Ctrl+Shift+Alt+\}"
 global txt_start_menu := "Start menu entry"
 global txt_presentation_mode := "Presentation mode {Win+Shift+P}"
 global txt_locate_file := "Open file location"
-global txt_launch_config := "Launch configuration window"
+global txt_launch_config := "Preferences"
 global txt_github := "View in GitHub ↗️"
 global txt_ahk_doc := "AutoHotKey documentation ↗️"
 global txt_windows_ahk := A_ScriptName
@@ -77,6 +77,7 @@ global txt_suspend := "Suspend hotkeys {Ctrl+Shift+Alt+S}"
 global txt_exit := "Exit {Ctrl+Shift+Alt+E}"
 
 global tray := A_TrayMenu
+global tray_config_menu := Menu()
 
 global splash_ui := Gui("MinimizeBox", "Welcome! - " . A_ScriptName)
 global config_ui := Gui("MinimizeBox", A_ScriptName . " - Preferences")
