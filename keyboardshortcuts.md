@@ -141,4 +141,4 @@ Hotstrings are mainly used to expand abbreviations as you type them (auto-replac
 
 ---
 
-> Last updated: May 14, 2025
+Made with ❤️ by [Bibek Aryal](https://bibeka.com.np/).
