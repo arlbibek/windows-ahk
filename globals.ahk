@@ -47,19 +47,19 @@ global c_drive := "C:\"
 global startup_shortcut := A_Startup "\" A_ScriptName ".lnk"
 global start_menu_shortcut := A_StartMenu "\Programs\" A_ScriptName ".lnk"
 
-; Keyboard shortcut PDF paths
-keyboard_shortcut_filename := "keyboardshortcuts.pdf"
-global keyboard_shortcut_url := "https://raw.githubusercontent.com/arlbibek/windows-ahk/master/" . keyboard_shortcut_filename
-global keyboard_shortcut_path := A_ScriptDir . keyboard_shortcut_filename
-
 ; Script configuration file paths
-global config_dir := A_AppData . "\windows-ahk"
 global config_file := "config.ini"
+global config_dir := A_AppData . "\windows-ahk"
 global config_path := config_dir . "\" . config_file
 global windows_ahk_section := "WINDOWS_AHK"
 global function_keys_section := "FUNCTION_KEYS"
 global hotstrings_section := "HOTSTRINGS"
 global well_wishes_section := "WELL_WISHES"
+
+; Keyboard shortcut PDF paths
+keyboard_shortcut_filename := "keyboardshortcuts.pdf"
+global keyboard_shortcut_url := "https://raw.githubusercontent.com/arlbibek/windows-ahk/master/" . keyboard_shortcut_filename
+global keyboard_shortcut_path := config_dir . "\" . keyboard_shortcut_filename
 
 ; Tray menu text definitions
 global txt_author := "Made with ❤️ by Bibek Aryal."
