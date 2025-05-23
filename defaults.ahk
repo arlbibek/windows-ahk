@@ -8,7 +8,7 @@ load_default_config(filepath) {
 
     ; Backup existing file if it exists
     if FileExist(filepath) {
-        backup_path := filedir . "\" . A_Now . " - " filename
+        backup_path := filedir . "\backup_" . A_Now . "_" filename
         msg := MsgBox("The configuration file already exists. A backup will be created before overwriting it.", "Configuration File Exists", 0x1)
         if (msg == "OK") {
             FileCopy(filepath, backup_path, true)
