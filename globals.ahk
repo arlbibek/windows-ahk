@@ -58,7 +58,7 @@ global well_wishes_section := "WELL_WISHES"
 
 ; Keyboard shortcut PDF paths
 keyboard_shortcut_filename := "keyboardshortcuts.pdf"
-global keyboard_shortcut_url := "https://raw.githubusercontent.com/arlbibek/windows-ahk/master/assets" . keyboard_shortcut_filename
+global keyboard_shortcut_url := "https://raw.githubusercontent.com/arlbibek/windows-ahk/master/assets/" . keyboard_shortcut_filename
 global keyboard_shortcut_path := config_dir . "\" . keyboard_shortcut_filename
 
 ; Tray menu text definitions
