@@ -1,5 +1,7 @@
 #Include globals.ahk
 #Include functions.ahk
+#Include function_keys_ui.ahk
+
 
 tray.Delete()
 A_IconTip := A_ScriptName . "`nRight click for more options. "
@@ -40,6 +42,7 @@ if FileExist(keyboard_shortcut_path) {
 }
 tray.Add()
 
+tray.Add("Manage Function  keys", initialize_fkey_manager)
 tray.Add(txt_locate_file, open_script_location)
 tray.SetIcon(txt_locate_file, "shell32.dll", 4)
 tray.Add(txt_launch_config, tray_config_menu)
