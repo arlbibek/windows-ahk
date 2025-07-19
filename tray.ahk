@@ -40,9 +40,9 @@ if FileExist(keyboard_shortcut_path) {
 } else {
     tray.unCheck(txt_keyboard_shortcut)
 }
+tray.Add(txt_manage_function_keys, initialize_fkey_manager)
 tray.Add()
 
-tray.Add("Manage Function  keys", initialize_fkey_manager)
 tray.Add(txt_locate_file, open_script_location)
 tray.SetIcon(txt_locate_file, "shell32.dll", 4)
 tray.Add(txt_launch_config, tray_config_menu)

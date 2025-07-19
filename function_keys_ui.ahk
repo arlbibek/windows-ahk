@@ -126,7 +126,7 @@ class fkey_manager_gui {
         this.function_keys_details := get_ini_as_map(config_path, function_keys_section)
 
         ; Create main GUI
-        this.gui := Gui(, "Funciont Keys Manager - " . A_ScriptName)
+        this.gui := Gui(, "Function Keys Manager - " . A_ScriptName)
         this.gui.OnEvent("Close", (*) => this.gui.Hide())
         this.gui.OnEvent("Size", (*) => this.OnResize())
 
