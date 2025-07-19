@@ -2,6 +2,7 @@
 #Include globals.ahk
 
 #Include functions.ahk
+#Include function_keys_ui.ahk
 
 ; == HOTKEYS ==
 
@@ -104,3 +105,4 @@ CapsLock & 9:: change_case(get_selected_text(), "upper", true)
 ^+!s:: toggle_suspend_hotkey()
 ^+!r:: reload_script()
 ^+!e:: exit_script()
+!f1:: initialize_fkey_manager()

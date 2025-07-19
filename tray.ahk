@@ -1,5 +1,7 @@
 #Include globals.ahk
 #Include functions.ahk
+#Include function_keys_ui.ahk
+
 
 tray.Delete()
 A_IconTip := A_ScriptName . "`nRight click for more options. "
@@ -38,12 +40,18 @@ if FileExist(keyboard_shortcut_path) {
 } else {
     tray.unCheck(txt_keyboard_shortcut)
 }
+tray.Add(txt_manage_function_keys, initialize_fkey_manager)
 tray.Add()
 
 tray.Add(txt_locate_file, open_script_location)
 tray.SetIcon(txt_locate_file, "shell32.dll", 4)
 tray.Add(txt_launch_config, tray_config_menu)
 tray.SetIcon(txt_launch_config, "shell32.dll", 70)
+
+tray.Add(txt_win_util, tray_win_util_menu)
+tray.SetIcon(txt_win_util, "shell32.dll", 16)
+tray_win_util_menu.Add(txt_win_util_mas, (*) => run_wait_one('powershell -ExecutionPolicy Bypass -Command "irm https://get.activated.win/ | iex"'))
+tray_win_util_menu.Add(txt_win_util_chris_titus, (*) => run_wait_one('powershell -ExecutionPolicy Bypass -Command "irm https://christitus.com/win | iex"'))
 tray.Add()
 
 tray.Add(txt_github, view_github_source)

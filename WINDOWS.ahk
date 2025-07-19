@@ -33,6 +33,7 @@ try {
 #Include functions.ahk
 #Include hotkeys.ahk
 #Include hotstrings.ahk
+#Include function_keys_ui.ahk
 
 ; splash screen
 if FileExist(app_logo) {

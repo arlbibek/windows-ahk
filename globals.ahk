@@ -67,6 +67,7 @@ global txt_startup := "Run at startup"
 global txt_keyboard_shortcut := "Keyboard shortcuts {Ctrl+Shift+Alt+\}"
 global txt_start_menu := "Start menu entry"
 global txt_presentation_mode := "Presentation mode {Win+Shift+P}"
+global txt_manage_function_keys := "Manage Function Keys {Alt+F1}"
 global txt_locate_file := "Open file location"
 global txt_launch_config := "Preferences"
 global txt_github := "View in GitHub ↗️"
@@ -75,9 +76,14 @@ global txt_windows_ahk := A_ScriptName
 global txt_reload := "Reload script {Ctrl+Shift+Alt+R}"
 global txt_suspend := "Suspend hotkeys {Ctrl+Shift+Alt+S}"
 global txt_exit := "Exit {Ctrl+Shift+Alt+E}"
+global txt_win_util := "Windows Utilities"
+global txt_win_util_chris_titus := "Launch Chris Titus Tech's Windows Utility" ; irm "https://christitus.com/win" | iex
+global txt_win_util_mas := "Launch Microsoft Activation Scripts" ; irm https://get.activated.win/ | iex
+
 
 global tray := A_TrayMenu
 global tray_config_menu := Menu()
+global tray_win_util_menu := Menu()
 
 global splash_ui := Gui("MinimizeBox", "Welcome! - " . A_ScriptName)
 global config_ui := Gui("MinimizeBox", A_ScriptName . " - Preferences")
