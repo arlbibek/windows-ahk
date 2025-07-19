@@ -416,3 +416,18 @@ send_ctrl_tab(*) {
     ; sends Ctrl + tab to switch window
     Send("{Ctrl Down}{Tab}{Ctrl UP}")
 }
+
+run_wait_one(command, *) {
+    ; command execution
+    try {
+        shell := ComObject("WScript.Shell")
+        exec := shell.Exec(command)
+        ; Wait for completion without timeout
+        while exec.Status = 0 {
+            Sleep(50)
+        }
+        return exec.StdOut.ReadAll()
+    } catch Error as e {
+        throw Error("Command execution failed: " e.Message)
+    }
+}
