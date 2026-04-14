@@ -101,7 +101,9 @@ CapsLock & 9:: change_case(get_selected_text(), "upper", true)
 
 ; == Ctrl + Shift + Alt + {Keys} ==
 
-^+!k:: view_keyboard_shortcuts() ; open keyboard shortcuts
+; Keyboard shortcuts PDF — docs use the \ key (OEM5 / vkDC on US ANSI). ^+!k kept as alias.
+^+!vkDC:: view_keyboard_shortcuts()
+^+!k:: view_keyboard_shortcuts()
 ^+!s:: toggle_suspend_hotkey()
 ^+!r:: reload_script()
 ^+!e:: exit_script()
