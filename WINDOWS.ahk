@@ -43,18 +43,21 @@ splash_ui.Add("Text", "w250 h50 y5 x115", A_ScriptName).SetFont("s12")
 splash_ui.Add("Text", "w350 h50 y30 x115 Wrap", "A simple and intuitive AutoHotKey script designed to enhance Windows shortcuts and improve your workflow. ")
 splash_ui.Add("Button", "w100 y65 x115", "View on GitHub ↗️").OnEvent("Click", view_github_source)
 splash_ui.Add("Button", "w125 y65 x215", "Keyboard Shortcuts 📄").OnEvent("Click", view_keyboard_shortcuts)
-splash_ui.Add("Button", "w150 y65 x340 Default", "Launch config window ⚙️").OnEvent("Click", launch_config_ui)
+splash_ui.Add("Button", "w170 y65 x340 Default", "Launch preferences ⚙️").OnEvent("Click", launch_config_ui)
 
 ; config window
+config_ui.OnEvent("Close", (*) => config_ui.Hide())
+config_ui.OnEvent("Escape", (*) => config_ui.Hide())
 if FileExist(app_logo) {
     config_ui.AddPicture("w70 h-1 y5 x5", app_logo)
 }
-config_ui.Add("Text", "w200 h50 y5 x100 ", "Manage/edit configurations").SetFont("s11")
-config_ui.Add("Button", "w200 y25 x100 ", "&Edit configuration file").OnEvent("Click", open_config_file)
-config_ui.Add("Button", "w200 y50 x100", "&Open configuration file location").OnEvent("Click", open_config_file_dir)
-config_ui.Add("Button", "w145 y75 x100", "&Restore default configuration").OnEvent("Click", restore_default_config)
-config_ui.Add("Button", "w90 y75 x5", "&Learn more ↗️").OnEvent("Click", view_github_source)
-config_ui.Add("Button", "w50 y75 x250 Default", "Reload").OnEvent("Click", reload_script)
+config_ui.Add("Text", "w220 h40 y8 x85", "Launch configuration dashboard").SetFont("s10 Bold")
+config_ui.Add("Button", "w205 y32 x85", "&Manage Function Keys").OnEvent("Click", initialize_fkey_manager)
+config_ui.Add("Button", "w205 y58 x85", "&Edit configuration file").OnEvent("Click", open_config_file)
+config_ui.Add("Button", "w205 y84 x85", "&Open configuration file location").OnEvent("Click", open_config_file_dir)
+config_ui.Add("Button", "w150 y110 x85", "&Restore default configuration").OnEvent("Click", restore_default_config)
+config_ui.Add("Button", "w55 y110 x240 Default", "Reload").OnEvent("Click", reload_script)
+config_ui.Add("Button", "w70 y110 x5", "&Learn ↗️").OnEvent("Click", view_github_source)
 
 ; start app
 TrayTip("Open keyboard shortcuts with {Ctrl + Shift + Alt + \}`n`n" . txt_author, A_ScriptName " started", "0x1 0x10")

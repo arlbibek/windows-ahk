@@ -67,9 +67,9 @@ global txt_startup := "Run at startup"
 global txt_keyboard_shortcut := "Keyboard shortcuts {Ctrl+Shift+Alt+\}"
 global txt_start_menu := "Start menu entry"
 global txt_presentation_mode := "Presentation mode {Win+Shift+P}"
-global txt_manage_function_keys := "Manage Function Keys {Alt+F1}"
+global txt_manage_function_keys := "Manage Function Keys"
 global txt_locate_file := "Open file location"
-global txt_launch_config := "Preferences"
+global txt_launch_config := "Preferences {Alt+F1}"
 global txt_github := "View in GitHub ↗️"
 global txt_ahk_doc := "AutoHotKey documentation ↗️"
 global txt_windows_ahk := A_ScriptName
@@ -82,7 +82,6 @@ global txt_win_util_mas := "Launch Microsoft Activation Scripts" ; irm https://g
 
 
 global tray := A_TrayMenu
-global tray_config_menu := Menu()
 global tray_win_util_menu := Menu()
 
 global splash_ui := Gui("MinimizeBox", "Welcome! - " . A_ScriptName)

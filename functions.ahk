@@ -143,7 +143,8 @@ open_script_location(*) {
 }
 
 launch_config_ui(*) {
-    config_ui.show()
+    config_ui.Show()
+    try WinActivate("ahk_id " . config_ui.Hwnd)
 }
 
 open_config_file(*) {
