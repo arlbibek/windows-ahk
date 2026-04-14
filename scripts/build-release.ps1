@@ -87,9 +87,44 @@ $outputExe = "$distDir\WINDOWS_AHK.exe"
 $iconPath = "$repoRoot\assets\windows-ahk.ico"
 
 & $ahk2Exe /in $sourceScript /out $outputExe /icon $iconPath /base $ahkBaseExe
+
+# Some runner environments briefly delay/move output; retry before failing.
+$maxWaitSeconds = 12
+$elapsed = 0
+while (-not (Test-Path $outputExe) -and $elapsed -lt $maxWaitSeconds) {
+    Start-Sleep -Seconds 1
+    $elapsed++
+}
+
 if (-not (Test-Path $outputExe)) {
+    # Fallback: locate any recently produced exe and normalize to expected output name.
+    $candidate = Get-ChildItem -Path $repoRoot -Filter "*.exe" -Recurse -ErrorAction SilentlyContinue |
+        Sort-Object LastWriteTime -Descending |
+        Select-Object -First 1
+
+    if ($candidate) {
+        Write-Warning "Expected output missing. Found recent EXE candidate: $($candidate.FullName)"
+        if ($candidate.FullName -ne $outputExe) {
+            Copy-Item -Path $candidate.FullName -Destination $outputExe -Force
+        }
+    }
+}
+
+if (-not (Test-Path $outputExe)) {
+    Write-Host "Diagnostics: dist directory contents"
+    if (Test-Path $distDir) {
+        Get-ChildItem -Path $distDir -Force | Format-Table Name, Length, LastWriteTime -AutoSize
+    } else {
+        Write-Host "dist directory not found: $distDir"
+    }
+    Write-Host "Diagnostics: repo exe search (top 10 by modified time)"
+    Get-ChildItem -Path $repoRoot -Filter "*.exe" -Recurse -ErrorAction SilentlyContinue |
+        Sort-Object LastWriteTime -Descending |
+        Select-Object -First 10 FullName, Length, LastWriteTime |
+        Format-Table -AutoSize
     throw "Ahk2Exe failed to produce output executable."
 }
+
 if ($LASTEXITCODE -ne 0) {
     Write-Warning "Ahk2Exe returned exit code $LASTEXITCODE but output executable was created successfully."
 }
