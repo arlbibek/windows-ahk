@@ -29,6 +29,8 @@ if (-not $ahk2Exe) {
     $ahkCandidates = @(
         "C:\Program Files\AutoHotkey\v2\Compiler\Ahk2Exe.exe",
         "C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe",
+        "C:\Program Files (x86)\AutoHotkey\Compiler\Ahk2Exe.exe",
+        "C:\Program Files (x86)\AutoHotkey\v2\Compiler\Ahk2Exe.exe",
         "${env:ChocolateyInstall}\lib\autohotkey\tools\Ahk2Exe.exe",
         "${env:ChocolateyInstall}\lib\autohotkey.install\tools\Ahk2Exe.exe"
     )

@@ -45,6 +45,14 @@ jobs:
           "AHK2EXE_PATH=$($exe.FullName)" | Out-File -FilePath $env:GITHUB_ENV -Append
           Write-Host "Resolved Ahk2Exe: $($exe.FullName)"
 
+      - name: Verify Ahk2Exe discovery
+        shell: pwsh
+        run: |
+          Write-Host "AHK2EXE_PATH from env: $env:AHK2EXE_PATH"
+          if ([string]::IsNullOrWhiteSpace($env:AHK2EXE_PATH)) { throw "AHK2EXE_PATH is empty." }
+          if (-not (Test-Path $env:AHK2EXE_PATH)) { throw "AHK2EXE_PATH does not exist: $env:AHK2EXE_PATH" }
+          & "$env:AHK2EXE_PATH" /?
+
       - name: Install Inno Setup
         shell: pwsh
         run: choco install innosetup -y
