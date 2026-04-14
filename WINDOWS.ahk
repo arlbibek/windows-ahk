@@ -53,8 +53,11 @@ config_ui.MarginY := 8
 if FileExist(app_logo) {
     config_ui.AddPicture("w86 h-1 x8 y8", app_logo)
 }
-config_ui.Add("Text", "x102 y10 w190 h20", "Preferences").SetFont("s10 Bold")
-config_ui.Add("Text", "x102 y28 w190 h14", "Quick launch and config actions").SetFont("s8 c0x666666")
+config_ui.Add("Text", "x102 y10 w190 h20", "windows-ahk").SetFont("s10 Bold")
+config_version_text := config_ui.Add("Text", "x102 y28 w190 h14", "")
+config_version_text.SetFont("s8 c0x666666")
+config_update_status_text := config_ui.Add("Text", "x102 y42 w190 h28", "You are up to date.")
+config_update_status_text.SetFont("s8 c0x666666")
 
 ; Keep buttons below logo so controls never overlap.
 config_ui.Add("Button", "x8 y102 w138 h26 Default", "&Manage Function Keys").OnEvent("Click", initialize_fkey_manager)
@@ -62,21 +65,20 @@ config_ui.Add("Button", "x154 y102 w138 h26", "&Edit config file").OnEvent("Clic
 config_ui.Add("Button", "x8 y134 w138 h26", "&Open config folder").OnEvent("Click", open_config_file_dir)
 config_ui.Add("Button", "x154 y134 w138 h26", "&Restore defaults").OnEvent("Click", restore_default_config)
 
-config_ui.Add("Button", "x8 y166 w138 h26", "&View source code").OnEvent("Click", view_github_source)
-config_ui.Add("Button", "x154 y166 w138 h26", "Reload script").OnEvent("Click", reload_script)
-config_ui.Add("Button", "x8 y198 w138 h26", "Check for updates").OnEvent("Click", (*) => check_for_updates(true))
-config_install_update_btn := config_ui.Add("Button", "x154 y198 w138 h26", "Install update")
+config_ui.Add("Button", "x8 y166 w138 h26", "Keyboard shortcuts").OnEvent("Click", view_keyboard_shortcuts)
+config_ui.Add("Button", "x154 y166 w138 h26", "&View source code").OnEvent("Click", view_github_source)
+config_ui.Add("Button", "x8 y198 w138 h26", "Reload script").OnEvent("Click", reload_script)
+config_ui.Add("Button", "x154 y198 w138 h26", "Check for updates").OnEvent("Click", (*) => check_for_updates(true))
+config_install_update_btn := config_ui.Add("Button", "x154 y230 w138 h26", "Install update")
 config_install_update_btn.OnEvent("Click", install_available_update)
 config_install_update_btn.Enabled := false
-
-config_version_text := config_ui.Add("Text", "x8 y228 w284 h16", "")
-config_version_text.SetFont("s8 c0x666666")
-config_update_status_text := config_ui.Add("Text", "x8 y246 w284 h28", "Update status: Not checked yet.")
-config_update_status_text.SetFont("s8 c0x666666")
 update_preferences_version_text()
 
 ; start app
-TrayTip("Open keyboard shortcuts with {Ctrl + Shift + Alt + \}`n`n" . txt_author, A_ScriptName " started", "0x1 0x10")
+show_launch_notification := IniRead(config_path, windows_ahk_section, "show_launch_notification", "true")
+if (StrLower(show_launch_notification) = "true") {
+    TrayTip("Open keyboard shortcuts with {Ctrl + Shift + Alt + \}`n`n" . txt_author, A_ScriptName " started", "0x1 0x10")
+}
 
 first_launch := IniRead(config_path, windows_ahk_section, "first_launch")
 if StrLower(first_launch) == "true" {

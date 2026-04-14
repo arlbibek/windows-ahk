@@ -33,6 +33,7 @@ load_default_config(filepath) {
         
         [WINDOWS_AHK]
         first_launch=true
+        show_launch_notification=true
 
         ; FUNCTION KEYS CONFIGURATION >>
         ; Configure actions for function keys (e.g., F1, F2, ...)

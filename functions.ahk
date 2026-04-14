@@ -71,6 +71,21 @@ toggle_start_menu_shortcut(*) {
     }
 }
 
+toggle_launch_notification(*) {
+    current_value := IniRead(config_path, windows_ahk_section, "show_launch_notification", "true")
+    is_enabled := (StrLower(current_value) = "true")
+
+    if is_enabled {
+        IniWrite("false", config_path, windows_ahk_section, "show_launch_notification")
+        tray.unCheck(txt_launch_notification)
+        TrayTip("Launch notification disabled.", A_ScriptName, "Iconi")
+    } else {
+        IniWrite("true", config_path, windows_ahk_section, "show_launch_notification")
+        tray.check(txt_launch_notification)
+        TrayTip("Launch notification enabled.", A_ScriptName, "Iconi")
+    }
+}
+
 
 toggle_presentation_mode(*) {
     ; Function: togglePresentationMode
@@ -108,7 +123,29 @@ toggle_presentation_mode(*) {
 
 view_keyboard_shortcuts(*) {
     ; Function: viewKeyboardShortcuts
-    ; Description: Opens a PDF file containing keyboard shortcuts, or offers to download it if not found.
+    ; Description: Opens keyboard shortcuts PDF and keeps cached copy in sync with bundled asset.
+
+    ; Keep cached shortcuts file updated with the installed app asset.
+    if FileExist(keyboard_shortcut_asset_path) {
+        try {
+            if !DirExist(config_dir)
+                DirCreate(config_dir)
+
+            should_copy := !FileExist(keyboard_shortcut_path)
+            if !should_copy {
+                asset_time := FileGetTime(keyboard_shortcut_asset_path, "M")
+                cached_time := FileGetTime(keyboard_shortcut_path, "M")
+                asset_size := FileGetSize(keyboard_shortcut_asset_path)
+                cached_size := FileGetSize(keyboard_shortcut_path)
+                should_copy := (asset_time > cached_time) || (asset_size != cached_size)
+            }
+
+            if (should_copy)
+                FileCopy(keyboard_shortcut_asset_path, keyboard_shortcut_path, 1)
+        } catch {
+            ; Non-fatal: fall back to existing cached/download flow below.
+        }
+    }
 
     ; Check if the PDF file exists locally
     While True {
@@ -237,7 +274,7 @@ configure_update_controls_for_runtime() {
     if !is_exe_runtime() {
         if IsObject(config_install_update_btn)
             config_install_update_btn.Enabled := false
-        set_update_status("Auto-update is available only in the compiled EXE build.", "0x666666")
+        set_update_status("Auto-update is EXE-only.", "0x666666")
     }
 }
 

@@ -46,6 +46,7 @@ THESE SCRIPTS TEND TO BE VERY ADDICTIVE.
 1. Download `windows-ahk-setup-<version>.exe` from the latest [releases](https://github.com/arlbibek/windows-ahk/releases).
 2. Run the installer (no admin required).
 3. The app is installed per-user to `%LocalAppData%\windows-ahk`.
+4. Prefer the installer over `WINDOWS_AHK.exe` (portable/advanced use only).
 
 > **Please note:** You are likely to encounter a [Windows SmartScreen warning](https://sockettools.com/kb/smartscreen-installation-warnings/) when launching `windows_ahk.exe` for the first time.
 > This is a common behavior for executables that aren't digitally signed or widely downloaded.
@@ -72,6 +73,10 @@ You can personalize the script by editing `config.ini` (for function key behavio
 2. Click **Open config folder** or **Edit config file**
 3. Edit as needed, guidelines can be found on the config file itself or in [keyboardshortcuts.md](https://github.com/arlbibek/windows-ahk/blob/master/keyboardshortcuts.md)
 4. Save changes and reload the script
+
+Other preferences:
+- Use **Keyboard shortcuts** button in Preferences to open the latest shortcuts PDF.
+- Use tray **Show launch notification** to enable or disable startup tray notification.
 
 ## 🔄 Updates
 

@@ -13,6 +13,11 @@
   - `checksums.txt`
 - Unified and improved Preferences dashboard (`Alt + F1`).
 
+### Download Guidance
+
+- Recommended for most users: `windows-ahk-setup-v3.0.exe`
+- Advanced/portable only: `WINDOWS_AHK.exe`
+
 ### What Changed (Detailed)
 
 #### Update and Release System

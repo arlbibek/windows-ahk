@@ -40,7 +40,13 @@ if FileExist(keyboard_shortcut_path) {
 } else {
     tray.unCheck(txt_keyboard_shortcut)
 }
-tray.Add(txt_manage_function_keys, initialize_fkey_manager)
+tray.Add(txt_launch_notification, toggle_launch_notification)
+launch_notification_enabled := IniRead(config_path, windows_ahk_section, "show_launch_notification", "true")
+if (StrLower(launch_notification_enabled) = "true") {
+    tray.check(txt_launch_notification)
+} else {
+    tray.unCheck(txt_launch_notification)
+}
 tray.Add()
 
 tray.Add(txt_locate_file, open_script_location)

@@ -62,11 +62,13 @@ global github_repo := "arlbibek/windows-ahk"
 keyboard_shortcut_filename := "keyboardshortcuts.pdf"
 global keyboard_shortcut_url := "https://raw.githubusercontent.com/arlbibek/windows-ahk/master/assets/" . keyboard_shortcut_filename
 global keyboard_shortcut_path := config_dir . "\" . keyboard_shortcut_filename
+global keyboard_shortcut_asset_path := A_ScriptDir . "\assets\" . keyboard_shortcut_filename
 
 ; Tray menu text definitions
 global txt_author := "Made with ❤️ by Bibek Aryal."
 global txt_startup := "Run at startup"
 global txt_keyboard_shortcut := "Keyboard shortcuts {Ctrl+Shift+Alt+\}"
+global txt_launch_notification := "Show launch notification"
 global txt_start_menu := "Start menu entry"
 global txt_presentation_mode := "Presentation mode {Win+Shift+P}"
 global txt_manage_function_keys := "Manage Function Keys"
@@ -87,7 +89,7 @@ global tray := A_TrayMenu
 global tray_win_util_menu := Menu()
 
 global splash_ui := Gui("MinimizeBox", "Welcome! - " . A_ScriptName)
-global config_ui := Gui("MinimizeBox", A_ScriptName . " - Preferences")
+global config_ui := Gui("MinimizeBox", "Preferences - windows-ahk")
 global config_version_text := ""
 global config_update_status_text := ""
 global config_install_update_btn := ""
