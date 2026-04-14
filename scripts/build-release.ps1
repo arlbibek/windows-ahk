@@ -22,7 +22,8 @@ if (-not (Test-Path $distDir)) {
 $ahkCandidates = @(
     "C:\Program Files\AutoHotkey\v2\Compiler\Ahk2Exe.exe",
     "C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe",
-    "${env:ChocolateyInstall}\lib\autohotkey\tools\Ahk2Exe.exe"
+    "${env:ChocolateyInstall}\lib\autohotkey\tools\Ahk2Exe.exe",
+    "${env:ChocolateyInstall}\lib\autohotkey.install\tools\Ahk2Exe.exe"
 )
 $ahk2Exe = $ahkCandidates | Where-Object { Test-Path $_ } | Select-Object -First 1
 if (-not $ahk2Exe) {
@@ -32,8 +33,21 @@ if (-not $ahk2Exe) {
     }
 }
 if (-not $ahk2Exe) {
+    $pfCandidates = @("$env:ProgramFiles\AutoHotkey", "${env:ProgramFiles(x86)}\AutoHotkey")
+    foreach ($root in $pfCandidates) {
+        if (Test-Path $root) {
+            $found = Get-ChildItem -Path $root -Filter Ahk2Exe.exe -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
+            if ($found) {
+                $ahk2Exe = $found.FullName
+                break
+            }
+        }
+    }
+}
+if (-not $ahk2Exe) {
     throw "Ahk2Exe not found in expected locations. Install AutoHotkey v2 first."
 }
+Write-Host "Using Ahk2Exe: $ahk2Exe"
 
 $sourceScript = "$repoRoot\WINDOWS.ahk"
 $outputExe = "$distDir\WINDOWS_AHK.exe"
