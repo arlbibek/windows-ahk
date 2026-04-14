@@ -48,16 +48,22 @@ splash_ui.Add("Button", "w170 y65 x340 Default", "Launch preferences ⚙️").On
 ; config window
 config_ui.OnEvent("Close", (*) => config_ui.Hide())
 config_ui.OnEvent("Escape", (*) => config_ui.Hide())
+config_ui.MarginX := 8
+config_ui.MarginY := 8
 if FileExist(app_logo) {
-    config_ui.AddPicture("w70 h-1 y5 x5", app_logo)
+    config_ui.AddPicture("w86 h-1 x8 y8", app_logo)
 }
-config_ui.Add("Text", "w220 h40 y8 x85", "Launch configuration dashboard").SetFont("s10 Bold")
-config_ui.Add("Button", "w205 y32 x85", "&Manage Function Keys").OnEvent("Click", initialize_fkey_manager)
-config_ui.Add("Button", "w205 y58 x85", "&Edit configuration file").OnEvent("Click", open_config_file)
-config_ui.Add("Button", "w205 y84 x85", "&Open configuration file location").OnEvent("Click", open_config_file_dir)
-config_ui.Add("Button", "w150 y110 x85", "&Restore default configuration").OnEvent("Click", restore_default_config)
-config_ui.Add("Button", "w55 y110 x240 Default", "Reload").OnEvent("Click", reload_script)
-config_ui.Add("Button", "w70 y110 x5", "&Learn ↗️").OnEvent("Click", view_github_source)
+config_ui.Add("Text", "x102 y10 w190 h20", "Preferences").SetFont("s10 Bold")
+config_ui.Add("Text", "x102 y28 w190 h14", "Quick launch and config actions").SetFont("s8 c0x666666")
+
+; Keep buttons below logo so controls never overlap.
+config_ui.Add("Button", "x8 y102 w138 h26 Default", "&Manage Function Keys").OnEvent("Click", initialize_fkey_manager)
+config_ui.Add("Button", "x154 y102 w138 h26", "&Edit config file").OnEvent("Click", open_config_file)
+config_ui.Add("Button", "x8 y134 w138 h26", "&Open config folder").OnEvent("Click", open_config_file_dir)
+config_ui.Add("Button", "x154 y134 w138 h26", "&Restore defaults").OnEvent("Click", restore_default_config)
+
+config_ui.Add("Button", "x8 y166 w138 h26", "&View source code").OnEvent("Click", view_github_source)
+config_ui.Add("Button", "x154 y166 w138 h26", "Reload script").OnEvent("Click", reload_script)
 
 ; start app
 TrayTip("Open keyboard shortcuts with {Ctrl + Shift + Alt + \}`n`n" . txt_author, A_ScriptName " started", "0x1 0x10")

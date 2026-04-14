@@ -160,7 +160,7 @@ class fkey_manager_gui {
 
         ; Add header
         this.gui.Add("Text", "w450 h20 x10 y8", "Function Key Assignment Manager").SetFont("s10 Bold")
-        this.gui.Add("Text", "w450 h16 x10 y28", "Set what each F-key should do").SetFont("s8")
+        this.gui.Add("Text", "w450 h16 x10 y28", "Set what each function key should do, leave it blank for original behaviour").SetFont("s8")
 
         ; Create controls for each F-key
         this.CreateFKeyControls()
@@ -232,27 +232,27 @@ class fkey_manager_gui {
         y_pos := 50 + (this.text_labels.Length * 33) + 8
 
         ; Save button
-        save_btn := this.gui.Add("Button", "w85 h30 x10 y" . y_pos, "Save")
+        save_btn := this.gui.Add("Button", "w85 h26 x10 y" . y_pos, "Save")
         save_btn.OnEvent("Click", (*) => save_configuration())
 
         ; Save and reload button
-        save_reload_btn := this.gui.Add("Button", "w110 h30 x105 y" . y_pos, "Save && Reload")
+        save_reload_btn := this.gui.Add("Button", "w110 h26 x105 y" . y_pos, "Save && Reload")
         save_reload_btn.OnEvent("Click", (*) => save_configuration(true))
 
         ; Restore button
-        restore_btn := this.gui.Add("Button", "w70 h30 x225 y" . y_pos, "Restore")
+        restore_btn := this.gui.Add("Button", "w70 h26 x225 y" . y_pos, "Restore")
         restore_btn.OnEvent("Click", (*) => this.RestoreConfig())
 
         ; Clear button
-        clear_btn := this.gui.Add("Button", "w70 h30 x300 y" . y_pos, "Clear All")
+        clear_btn := this.gui.Add("Button", "w70 h26 x300 y" . y_pos, "Clear All")
         clear_btn.OnEvent("Click", (*) => this.ClearAll())
 
         ; Close button
-        close_btn := this.gui.Add("Button", "w70 h30 x385 y" . y_pos, "Close")
+        close_btn := this.gui.Add("Button", "w70 h26 x385 y" . y_pos, "Close")
         close_btn.OnEvent("Click", (*) => this.gui.Hide())
 
         ; Status message (for save/no-change feedback without popups)
-        this.status_text := this.gui.Add("Text", "x10 y" . (y_pos + 34) . " w445 h18", "")
+        this.status_text := this.gui.Add("Text", "x10 y" . (y_pos + 29) . " w445 h16", "")
         this.status_text.SetFont("s8 c0x666666")
     }
 
@@ -397,7 +397,7 @@ class fkey_manager_gui {
     }
 
     Show() {
-        this.gui.Show()
+        this.gui.Show("AutoSize")
     }
 
     Hide() {
