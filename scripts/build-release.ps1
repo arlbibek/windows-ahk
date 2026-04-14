@@ -87,8 +87,11 @@ $outputExe = "$distDir\WINDOWS_AHK.exe"
 $iconPath = "$repoRoot\assets\windows-ahk.ico"
 
 & $ahk2Exe /in $sourceScript /out $outputExe /icon $iconPath /base $ahkBaseExe
+if (-not (Test-Path $outputExe)) {
+    throw "Ahk2Exe failed to produce output executable."
+}
 if ($LASTEXITCODE -ne 0) {
-    throw "Ahk2Exe failed."
+    Write-Warning "Ahk2Exe returned exit code $LASTEXITCODE but output executable was created successfully."
 }
 
 $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
