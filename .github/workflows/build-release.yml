@@ -102,18 +102,9 @@ jobs:
           Write-Host " - $installerOutDir"
           Write-Host " - process $env:AHK2EXE_PATH"
 
-      - name: Setup Node.js (for keyboard shortcuts PDF)
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
       - name: Install Inno Setup
         shell: pwsh
         run: choco install innosetup -y
-
-      - name: Generate latest keyboard shortcuts PDF
-        shell: pwsh
-        run: .\scripts\generate-shortcuts-pdf.ps1
 
       - name: Build exe and installer
         shell: pwsh
@@ -142,7 +133,6 @@ jobs:
             dist/WINDOWS_AHK.exe
             dist/checksums.txt
             installer/Output/windows-ahk-setup-*.exe
-            assets/keyboardshortcuts.pdf
 
       - name: Attach assets to release
         if: github.event_name == 'release'
@@ -152,4 +142,3 @@ jobs:
             dist/WINDOWS_AHK.exe
             dist/checksums.txt
             installer/Output/windows-ahk-setup-*.exe
-            assets/keyboardshortcuts.pdf

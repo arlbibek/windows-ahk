@@ -95,11 +95,9 @@ You can personalize the script by editing `config.ini` (for function key behavio
 - The app downloads the latest installer, launches it, and closes the current process so upgrade can complete.
 - Your config stays in `%AppData%\windows-ahk\config.ini`, so settings are preserved.
 
-### Keyboard shortcuts PDF generation
+### Keyboard shortcuts PDF
 
-- The release workflow now regenerates `assets/keyboardshortcuts.pdf` automatically from `keyboardshortcuts.md`.
-- You can regenerate locally anytime with:
-  - `powershell -ExecutionPolicy Bypass -File .\scripts\generate-shortcuts-pdf.ps1`
+- `assets/keyboardshortcuts.pdf` is **not** generated in CI. When you change `keyboardshortcuts.md`, update the PDF yourself (any Markdown→PDF workflow you prefer) and commit `assets/keyboardshortcuts.pdf` so installs and release builds include it.
 
 ## 📂 Project Structure
 
