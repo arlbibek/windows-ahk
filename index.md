@@ -46,6 +46,7 @@ THESE SCRIPTS TEND TO BE VERY ADDICTIVE.
 1. Download `windows-ahk-setup-<version>.exe` from the latest [releases](https://github.com/arlbibek/windows-ahk/releases).
 2. Run the installer (no admin required).
 3. The app is installed per-user to `%LocalAppData%\windows-ahk`.
+4. Prefer the installer over `WINDOWS_AHK.exe` (portable/advanced use only).
 
 > **Please note:** You are likely to encounter a [Windows SmartScreen warning](https://sockettools.com/kb/smartscreen-installation-warnings/) when launching `windows_ahk.exe` for the first time.
 > This is a common behavior for executables that aren't digitally signed or widely downloaded.
@@ -73,6 +74,10 @@ You can personalize the script by editing `config.ini` (for function key behavio
 3. Edit as needed, guidelines can be found on the config file itself or in [keyboardshortcuts.md](https://github.com/arlbibek/windows-ahk/blob/master/keyboardshortcuts.md)
 4. Save changes and reload the script
 
+Other preferences:
+- Use **Keyboard shortcuts** button in Preferences to open the latest shortcuts PDF.
+- Use tray **Show launch notification** to enable or disable startup tray notification.
+
 ## 🔄 Updates
 
 - In-app auto-update is for the **compiled EXE build** only (not `WINDOWS.ahk` source mode).
@@ -80,6 +85,12 @@ You can personalize the script by editing `config.ini` (for function key behavio
 - If a newer release is found, click **Install update**.
 - The app downloads the latest installer, launches it, and closes the current process so upgrade can complete.
 - Your config stays in `%AppData%\windows-ahk\config.ini`, so settings are preserved.
+
+### Keyboard shortcuts PDF generation
+
+- The release workflow now regenerates `assets/keyboardshortcuts.pdf` automatically from `keyboardshortcuts.md`.
+- You can regenerate locally anytime with:
+  - `powershell -ExecutionPolicy Bypass -File .\scripts\generate-shortcuts-pdf.ps1`
 
 ## 📂 Project Structure
 
