@@ -30,7 +30,7 @@ jobs:
 
       - name: Install AutoHotkey
         shell: pwsh
-        run: choco install autohotkey -y
+        run: winget install --id AutoHotkey.AutoHotkey -e --silent --accept-package-agreements --accept-source-agreements
 
       - name: Download Ahk2Exe compiler (deterministic)
         shell: pwsh
