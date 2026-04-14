@@ -1,17 +1,8 @@
 # Keyboard shortcuts for WINDOWS-AHK
 
-<table style="border-collapse: collapse; width: 100%;">
-  <tr>
-    <td style="padding: 1; vertical-align: middle; text-align: center;">
-      <img src="https://raw.githubusercontent.com/arlbibek/windows-ahk/master/assets/windows-ahk.png" width="250" alt="Windows-AHK Logo" />
-    </td>
-    <td style="vertical-align: top;">
-      <p>This document lists keyboard shortcuts for <a href="https://github.com/arlbibek/windows-ahk">arlbibek/windows-ahk</a>, a simple and intuitive AutoHotKey script to enhance your Windows workflow.</p>
-      <p>For setup instructions, refer to the <a href="https://github.com/arlbibek/windows-ahk#readme">README.md</a> on GitHub.</p>
-      <p>Made with ❤️ by <a href="https://bibeka.com.np/">Bibek Aryal</a>.</p>
-    </td>
-  </tr>
-</table>
+|     |                                                                                                                                                                                                                                                                                                                                                         |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|     | This document lists keyboard shortcuts for [arlbibek/windows-ahk](https://github.com/arlbibek/windows-ahk), a simple and intuitive AutoHotKey script to enhance your Windows workflow.For setup instructions, refer to the [README.md](https://github.com/arlbibek/windows-ahk#readme) on GitHub.Made with ❤️ by [Bibek Aryal](https://bibeka.com.np/). |
 
 ---
 
@@ -19,21 +10,21 @@
 
 Right-click the windows-ahk tray icon to access the following options:
 
-| Option                   | Action                                                                                                                                                                                                                                                                                                                             | Hotkey                                                              |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Run at startup           | Enable or disable script to run automatically at login                                                                                                                                                                                                                                                                             |                                                                     |
-| Start menu shortcut      | Show or hide the script from the Start menu                                                                                                                                                                                                                                                                                        |                                                                     |
-| Presentation mode        | Toggle Windows Presentation Mode on/off                                                                                                                                                                                                                                                                                            | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>                    |
-| Keyboard shortcuts       | View keyboard shortcuts, opens (this) shortcut documentation as a PDF                                                                                                                                                                                                                                                              | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>\\</kbd> |
-| Manage function keys     | Configure what each function key (F1 - F2) should do when pressed                                                                                                                                                                                                                                                                  | <kbd>Alt</kbd> + <kbd>F1</kbd>                                      |
-| Open file location       | Opens the script directory                                                                                                                                                                                                                                                                                                         |                                                                     |
-| Preferences              | Edit, Open, Restore & Launch configuration file/window                                                                                                                                                                                                                                                                             |                                                                     |
-| Windows Utilities        | Launch [Microsoft Activation Scripts](https://github.com/massgravel/massgrave.dev)<br/>Launch [Chris Titus Tech Windows Utility](https://github.com/ChrisTitusTech/winutil) <br/><small>_These tools are provided as-is for convenience. We do not accept any liability for how these scripts are used or their outcomes._</small> |                                                                     |
-| View in GitHub           | View source code in GitHub repository                                                                                                                                                                                                                                                                                              |                                                                     |
-| AutoHotKey documentation | Opens the official AutoHotKey v2 documentation                                                                                                                                                                                                                                                                                     |                                                                     |
-| Suspend hotkeys          | Disables (suspends) hotkeys and hotstrings, while the script itself keeps running in the background                                                                                                                                                                                                                                | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>S</kbd>  |
-| Reload script            | Reloads the script (use after changes)                                                                                                                                                                                                                                                                                             | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>R</kbd>  |
-| Exit                     | Exits the script                                                                                                                                                                                                                                                                                                                   | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>E</kbd>  |
+| Option                   | Action                                                                                                                                                                                                                                                                                                     | Hotkey                  |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
+| Run at startup           | Enable or disable script to run automatically at login                                                                                                                                                                                                                                                     |                         |
+| Start menu shortcut      | Show or hide the script from the Start menu                                                                                                                                                                                                                                                                |                         |
+| Presentation mode        | Toggle Windows Presentation Mode on/off                                                                                                                                                                                                                                                                    | Win + Shift + P         |
+| Keyboard shortcuts       | View keyboard shortcuts, opens (this) shortcut documentation as a PDF                                                                                                                                                                                                                                      | Ctrl + Shift + Alt + \\ |
+| Manage function keys     | Opens the function key manager window from Preferences                                                                                                                                                                                                                                                     |                         |
+| Open file location       | Opens the script directory                                                                                                                                                                                                                                                                                 |                         |
+| Preferences              | Open the launch configuration dashboard                                                                                                                                                                                                                                                                    | Alt + F1                |
+| Windows Utilities        | Launch [Microsoft Activation Scripts](https://github.com/massgravel/massgrave.dev) Launch [Chris Titus Tech Windows Utility](https://github.com/ChrisTitusTech/winutil) _These tools are provided as-is for convenience. We do not accept any liability for how these scripts are used or their outcomes._ |                         |
+| View in GitHub           | View source code in GitHub repository                                                                                                                                                                                                                                                                      |                         |
+| AutoHotKey documentation | Opens the official AutoHotKey v2 documentation                                                                                                                                                                                                                                                             |                         |
+| Suspend hotkeys          | Disables (suspends) hotkeys and hotstrings, while the script itself keeps running in the background                                                                                                                                                                                                        | Ctrl + Shift + Alt + S  |
+| Reload script            | Reloads the script (use after changes)                                                                                                                                                                                                                                                                     | Ctrl + Shift + Alt + R  |
+| Exit                     | Exits the script                                                                                                                                                                                                                                                                                           | Ctrl + Shift + Alt + E  |
 
 ---
 
@@ -43,60 +34,60 @@ Also known as **shortcut keys** - easily trigger an action (such as launching a 
 
 ### Function keys actions
 
-> > **Note:** You can customize these actions by launching the manage function keys windows (<kbd>Alt</kbd> + <kbd>F1</kbd>).
+> > **Note:** You can customize these actions from **Preferences** (Alt + F1) → **Manage Function Keys**.
 >
-> Or by manually editing the configuration file at `%appdata%/windows-ahk/config.ini`, under the `[FUNCTION_KEYS]` section. To do so, right-click the tray icon → **Launch configuration window**, Click **Open configuration file**, then edit as needed, Save changes and reload the script
+> Or by manually editing the configuration file at `%appdata%/windows-ahk/config.ini`, under the `[FUNCTION_KEYS]` section. To do so, right-click the tray icon → **Preferences**, click **Edit config file** (or **Open config folder**), then edit as needed, save changes, and reload the script.
 
-| Function Key                      | Value                                                       | Action                                        |
-| --------------------------------- | ----------------------------------------------------------- | --------------------------------------------- |
-| <kbd>F1</kbd>                     | `default_browser`                                           | Launch or switch to the default browser       |
-| <kbd>F2</kbd>                     | _(Unassigned — customize as needed)_                        |                                               |
-| <kbd>F3</kbd>                     | `switch_tabs`                                               | Switch between two most recent active windows |
-| <kbd>F4</kbd>                     | `notepad.exe`                                               | Launch or cycle through Notepad windows       |
-| <kbd>F5</kbd> ... <kbd>F9</kbd>   | _(Unassigned — customize as needed)_                        |                                               |
-| <kbd>F10</kbd>                    | `C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe` | Launch or switch to PowerShell window(s)      |
-| <kbd>F11</kbd> ... <kbd>F12</kbd> | _(Unassigned — customize as needed)_                        |                                               |
+| Function Key | Value                                                       | Action                                        |
+| ------------ | ----------------------------------------------------------- | --------------------------------------------- |
+| F1           | `default_browser`                                           | Launch or switch to the default browser       |
+| F2           | _(Unassigned — customize as needed)_                        |                                               |
+| F3           | `switch_tabs`                                               | Switch between two most recent active windows |
+| F4           | `notepad.exe`                                               | Launch or cycle through Notepad windows       |
+| F5 ... F9    | _(Unassigned — customize as needed)_                        |                                               |
+| F10          | `C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe` | Launch or switch to PowerShell window(s)      |
+| F11 ... F12  | _(Unassigned — customize as needed)_                        |                                               |
 
-> 🔧 You can use either one of the **available options** below or an **app path** _- must be a full path or accessible via the system_ [_PATH_](<https://en.wikipedia.org/wiki/PATH_(variable)>).
+> 🔧 You can use either one of the **available options** below or an **app path** _- must be a full path or accessible via the system_ _[PATH](<https://en.wikipedia.org/wiki/PATH_(variable)>)_.
 >
 > #### Available options
 >
-> | Option            | Description                                                                                                                                               |
-> | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-> | `default_browser` | Launch the default browser or cycle through its windows                                                                                                   |
-> | `all_browsers`    | Launch default browser of cycle through all active browser windows <br/>(includes: firefox, duckduckgo, chrome, arc, brave, msedge, opera, iexplore, zen) |
-> | `browser_tabs`    | Launch the default browser or cycle through active browser tabs                                                                                           |
-> | `switch_window`   | Switch between two most recent active windows (sends <kbd>Alt</kbd> + <kbd>Tab</kbd>)                                                                     |
-> | `switch_tabs`     | Switch between two most recent active tab in a active window (sends <kbd>Ctrl</kbd> + <kbd>Tab</kbd>)                                                     |
+> | Option            | Description                                                                                                                                          |
+> | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+> | `default_browser` | Launch the default browser or cycle through its windows                                                                                              |
+> | `all_browsers`    | Launch default browser of cycle through all active browser windows (includes: firefox, duckduckgo, chrome, arc, brave, msedge, opera, iexplore, zen) |
+> | `browser_tabs`    | Launch the default browser or cycle through active browser tabs                                                                                      |
+> | `switch_window`   | Switch between two most recent active windows (sends Alt + Tab)                                                                                      |
+> | `switch_tabs`     | Switch between two most recent active tab in a active window (sends Ctrl + Tab)                                                                      |
 >
 > 🔍 See screenshot of example configuration [here](https://raw.githubusercontent.com/arlbibek/windows-ahk/master/assets/config_example.png).
 
 ### Global hotkeys
 
-| Hotkey                             | Action                                                                                                               |
-| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| <kbd>Win</kbd> + <kbd>E</kbd>      | Open or switch to File Explorer (Use <kbd>Shift</kbd> to open new window)                                            |
-| <kbd>Win</kbd> + <kbd>N</kbd>      | Open or switch to Notepad (Use <kbd>Shift</kbd> for new window)                                                      |
-| <kbd>Win</kbd> + <kbd>S</kbd>      | Search selected text using the active or default browser                                                             |
-| <kbd>CapsLock</kbd> + <kbd>7</kbd> | Transform selected text to lower case (e.g., `Hello, Word!` to `hello, word!`)                                       |
-| <kbd>CapsLock</kbd> + <kbd>8</kbd> | Transform selected text to title case (e.g., `hello, word!` to `Hello, Word!`)                                       |
-| <kbd>CapsLock</kbd> + <kbd>9</kbd> | Transform selected text to upper case (e.g., `Hello, Word!` to `HELLO, WORD!`)                                       |
-| <kbd>Esc</kbd> ×3                  | Press <kbd>Esc</kbd> three times to close the active window (if the active window is a browser close the active tab) |
+| Hotkey       | Action                                                                                                    |
+| ------------ | --------------------------------------------------------------------------------------------------------- |
+| Win + E      | Open or switch to File Explorer (Use Shift to open new window)                                            |
+| Win + N      | Open or switch to Notepad (Use Shift for new window)                                                      |
+| Win + S      | Search selected text using the active or default browser                                                  |
+| CapsLock + 7 | Transform selected text to lower case (e.g., `Hello, Word!` to `hello, word!`)                            |
+| CapsLock + 8 | Transform selected text to title case (e.g., `hello, word!` to `Hello, Word!`)                            |
+| CapsLock + 9 | Transform selected text to upper case (e.g., `Hello, Word!` to `HELLO, WORD!`)                            |
+| Esc ×3       | Press Esc three times to close the active window (if the active window is a browser close the active tab) |
 
 ### File explorer hotkeys
 
-| Hotkey                                             | Action                               |
-| -------------------------------------------------- | ------------------------------------ |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>U</kbd>  | Go to **User** folder 👤             |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd>  | Go to **This PC** 💻                 |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>H</kbd>  | Go to **Desktop** 🏠                 |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd>  | Go to **Documents** 📄               |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd>  | Go to **Downloads** 📥               |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd>  | Go to **Music** 🎵                   |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>  | Go to **Pictures** 🖼                 |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd>  | Go to **Videos** 📼                  |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>T</kbd>  | Open PowerShell in current directory |
-| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>\\</kbd> | Open current directory in VS Code    |
+| Hotkey            | Action                               |
+| ----------------- | ------------------------------------ |
+| Ctrl + Shift + U  | Go to **User** folder 👤             |
+| Ctrl + Shift + E  | Go to **This PC** 💻                 |
+| Ctrl + Shift + H  | Go to **Desktop** 🏠                 |
+| Ctrl + Shift + D  | Go to **Documents** 📄               |
+| Ctrl + Shift + J  | Go to **Downloads** 📥               |
+| Ctrl + Shift + M  | Go to **Music** 🎵                   |
+| Ctrl + Shift + P  | Go to **Pictures** 🖼                |
+| Ctrl + Shift + V  | Go to **Videos** 📼                  |
+| Ctrl + Shift + T  | Open PowerShell in current directory |
+| Ctrl + Shift + \\ | Open current directory in VS Code    |
 
 ---
 
@@ -121,26 +112,26 @@ Hotstrings are mainly used to expand abbreviations as you type them (auto-replac
 
 > **Note**: You can edit or add custom Hotstrings under the `[HOTSTRINGS]` section in the config file, using the format: `shortcut=your text here`
 >
-> > To do so, right-click tray icon → **Launch configuration window**, Click **Edit configuration file**, Save and **reload** the script
+> > To do so, right-click tray icon → **Preferences**, click **Edit config file**, save and **reload** the script.
 
-| Abbreviation | Phrase                                      |
-| ------------ | ------------------------------------------- |
-| `wtf`        | Wow that's fantastic                        |
-| `gm`         | Good morning                                |
-| `ge`         | Good evening                                |
-| `gn`         | Good night                                  |
-| `ty`         | Thank you very much                         |
-| `wc`         | Welcome                                     |
-| `mp`         | My pleasure                                 |
-| `omg`        | Oh my god                                   |
-| `pfa`        | Please find the attachment.                 |
-| `/lorem`     | _(Lorem Ipsum text)_                        |
-| `/plankton`  | _(Plankton description)_                    |
-| `/mail`      | <you@example.com> (update your email here)  |
-| `/ph`        | 98XXXXXXXX (update your phone number here)  |
-| `/addr`      | Kathmandu, Nepal (update your address here) |
+| Abbreviation | Phrase                                                             |
+| ------------ | ------------------------------------------------------------------ |
+| `wtf`        | Wow that's fantastic                                               |
+| `gm`         | Good morning                                                       |
+| `ge`         | Good evening                                                       |
+| `gn`         | Good night                                                         |
+| `ty`         | Thank you very much                                                |
+| `wc`         | Welcome                                                            |
+| `mp`         | My pleasure                                                        |
+| `omg`        | Oh my god                                                          |
+| `pfa`        | Please find the attachment.                                        |
+| `/lorem`     | _(Lorem Ipsum text)_                                               |
+| `/plankton`  | _(Plankton description)_                                           |
+| `/mail`      | [you@example.com](mailto:you@example.com) (update your email here) |
+| `/ph`        | 98XXXXXXXX (update your phone number here)                         |
+| `/addr`      | Kathmandu, Nepal (update your address here)                        |
 
-💡To restore default configuration, right-click the tray icon → **Launch configuration window** → **Restore default configuration**
+💡To restore default configuration, right-click the tray icon → **Preferences** → **Restore defaults**.
 
 ---
 

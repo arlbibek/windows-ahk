@@ -2,16 +2,14 @@
 
 A simple and intuitive AutoHotKey script designed to enhance Windows shortcuts and improve your workflow.
 
-[![GitHub License](https://img.shields.io/github/license/arlbibek/windows-ahk)](https://github.com/arlbibek/windows-ahk/blob/master/LICENSE)
-[![GitHub release](https://img.shields.io/github/v/release/arlbibek/windows-ahk)](https://github.com/arlbibek/windows-ahk/releases/latest)
-[![GitHub all releases](https://img.shields.io/github/downloads/arlbibek/windows-ahk/total)](https://github.com/arlbibek/windows-ahk/releases/latest)
-[![GitHub Stars](https://img.shields.io/github/stars/arlbibek/windows-ahk?style=social)](https://github.com/arlbibek/windows-ahk/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/arlbibek/windows-ahk?style=social)](https://github.com/arlbibek/windows-ahk/network/members)
-[![GitHub Issues](https://img.shields.io/github/issues/arlbibek/windows-ahk)](https://github.com/arlbibek/windows-ahk/issues)
-[![Last Commit](https://img.shields.io/github/last-commit/arlbibek/windows-ahk)](https://github.com/arlbibek/windows-ahk/commits/main)
-[![Repo Size](https://img.shields.io/github/repo-size/arlbibek/windows-ahk)](https://github.com/arlbibek/windows-ahk)
-
-<img src="https://raw.githubusercontent.com/arlbibek/windows-ahk/master/assets/windows-ahk.png" width="200" />
+[GitHub License](https://github.com/arlbibek/windows-ahk/blob/master/LICENSE)
+[GitHub release](https://github.com/arlbibek/windows-ahk/releases/latest)
+[GitHub all releases](https://github.com/arlbibek/windows-ahk/releases/latest)
+[GitHub Stars](https://github.com/arlbibek/windows-ahk/stargazers)
+[GitHub Forks](https://github.com/arlbibek/windows-ahk/network/members)
+[GitHub Issues](https://github.com/arlbibek/windows-ahk/issues)
+[Last Commit](https://github.com/arlbibek/windows-ahk/commits/main)
+[Repo Size](https://github.com/arlbibek/windows-ahk)
 
 Do you often find yourself repeating small, tedious tasks — like switching between apps, copying text, pasting it into a browser to search, checking the calendar just to type today’s date, changing text cases, or typing the same responses over and over? This script attempts to eliminate those micro-frustrations by automating repetitive actions.
 
@@ -27,17 +25,12 @@ Here are some of the features WINDOWS-AHK offers:
 - 🖥️ Presentation mode: Toggle Windows Presentation Mode on/off.
 - 🧩 Customizable: Change actions, hotkeys, and text expansions via configuration file — no code needed!
 
-<details style="border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin-bottom: 10px;">
-  <summary style="font-weight: bold; cursor: pointer; outline: none;">
-    Learn more about AutoHotKey
-  </summary>
-  <p>AutoHotkey is a free and open-source scripting language for Windows, originally designed to create custom keyboard shortcuts, automate tasks, and perform fast macro-creation. It empowers users of all skill levels to automate repetitive tasks in Windows applications.</p>
+**Learn more about AutoHotKey**
 
-  <ul>
-    <li>Official Website: <a href="https://www.autohotkey.com">autohotkey.com</a></li>
-    <li>Download AutoHotkey: <a href="https://www.autohotkey.com/download">autohotkey.com/download</a></li>
-  </ul>
-</details>
+AutoHotkey is a free and open-source scripting language for Windows, originally designed to create custom keyboard shortcuts, automate tasks, and perform fast macro-creation. It empowers users of all skill levels to automate repetitive tasks in Windows applications.
+
+- Official Website: [autohotkey.com](https://www.autohotkey.com)
+- Download AutoHotkey: [autohotkey.com/download](https://www.autohotkey.com/download)
 
 ## 📖 Usage
 
@@ -74,8 +67,8 @@ Explore the available keyboard shortcuts in [keyboardshortcuts.md](https://githu
 
 You can personalize the script by editing `config.ini` (for function key behaviors and hotstrings). To do so after launching the script:
 
-1. Right-click the tray icon → **Launch configuration window**
-2. Click **Open configuration file**,
+1. Right-click the tray icon → **Preferences** (or press Alt + F1)
+2. Click **Open config folder** or **Edit config file**
 3. Edit as needed, guidelines can be found on the config file itself or in [keyboardshortcuts.md](https://github.com/arlbibek/windows-ahk/blob/master/keyboardshortcuts.md)
 4. Save changes and reload the script
 
@@ -98,7 +91,7 @@ You can personalize the script by editing `config.ini` (for function key behavio
 
 at [discord.gg/a2NyrV6PBY](http://discord.gg/a2NyrV6PBY) to connect with other Windows AHK users and get support.
 
-[![Join our Discord server!](https://invidget.switchblade.xyz/a2NyrV6PBY)](http://discord.gg/a2NyrV6PBY)
+[Join our Discord server!](http://discord.gg/a2NyrV6PBY)
 
 ## 📜 License
 
