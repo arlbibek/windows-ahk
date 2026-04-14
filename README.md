@@ -11,7 +11,18 @@ A simple and intuitive AutoHotKey script designed to enhance Windows shortcuts a
 [![Last Commit](https://img.shields.io/github/last-commit/arlbibek/windows-ahk)](https://github.com/arlbibek/windows-ahk/commits/main)
 [![Repo Size](https://img.shields.io/github/repo-size/arlbibek/windows-ahk)](https://github.com/arlbibek/windows-ahk)
 
-Do you often find yourself repeating small, tedious tasks — like switching between apps, copying text, pasting it into a browser to search, checking the calendar just to type today’s date, changing text cases, or typing the same responses over and over? This script attempts to eliminate those micro-frustrations by automating repetitive actions.
+> [!NOTE]
+> **Why WINDOWS-AHK?**
+>
+> Do you often find yourself repeating small, tedious tasks—like:
+>
+> - switching between apps (quite frequently),
+> - copying text, pasting it into a browser, just to search,
+> - checking the calendar just to type today's date,
+> - changing text case (lowercase, **UPPER**, or Title Case),
+> - or typing the same responses over and over?
+>
+> This project helps **eliminate those micro-frustrations** by automating repetitive actions—so you spend less time on busywork and more time on what matters.
 
 ## 🚀 Features
 
@@ -44,14 +55,16 @@ THESE SCRIPTS TEND TO BE VERY ADDICTIVE.
 ✅ _Recommended_
 
 1. Download `windows-ahk-setup-v3.x.exe` from the latest [releases](https://github.com/arlbibek/windows-ahk/releases).
-2. Run the installer (no admin required).
-3. The app is installed per-user to `%LocalAppData%\windows-ahk`.
-4. Prefer the installer over `WINDOWS_AHK.exe` (portable/advanced use only).
+2. Run the installer
+3. Done!
 
-> **Please note:** You are likely to encounter a [Windows SmartScreen warning](https://sockettools.com/kb/smartscreen-installation-warnings/) when launching `windows_ahk.exe` for the first time.
-> This is a common behavior for executables that aren't digitally signed or widely downloaded.
+_Prefer the installer over `WINDOWS_AHK.exe` (portable/advanced use only)._
+
+> [!Note]
+> _**Please note:**_ _You are likely to encounter a [Windows SmartScreen warning](https://sockettools.com/kb/smartscreen-installation-warnings/) when launching `windows_ahk.exe` for the first time._
+> _This is a common behavior for executables that aren't digitally signed or widely downloaded._
 >
-> To proceed: Click **"More info"** on the warning screen. Then click **"Run anyway"**.
+> _To proceed: Click **"More info"** on the warning screen. Then click **"Run anyway"**._
 
 ### Option 2
 
@@ -74,14 +87,9 @@ You can personalize the script by editing `config.ini` (for function key behavio
 3. Edit as needed, guidelines can be found on the config file itself or in [keyboardshortcuts.md](https://github.com/arlbibek/windows-ahk/blob/master/keyboardshortcuts.md)
 4. Save changes and reload the script
 
-Other preferences:
-
-- Use **Keyboard shortcuts** button in Preferences to open the latest shortcuts PDF.
-- Use tray **Show launch notification** to enable or disable startup tray notification.
-
 ## 🔄 Updates
 
-- In-app auto-update is for the **compiled EXE build** only (not `WINDOWS.ahk` source mode).
+- In-app auto-update is for the **compiled `exe` build** only (not `WINDOWS.ahk` source mode).
 - Open **Preferences** and click **Check for updates**.
 - If a newer release is found, click **Install update**.
 - The app downloads the latest installer, launches it, and closes the current process so upgrade can complete.
