@@ -27,6 +27,11 @@ send_formatted_dt(format, datetime := "") {
     return
 }
 
+send_unix_epoch_seconds() {
+    ; UTC seconds since 1970-01-01 00:00:00 (Unix/POSIX time).
+    SendText(DateDiff(A_NowUTC, "19700101000000", "Seconds"))
+}
+
 get_well_wishes(filename, section := well_wishes_section) {
     ; Reads greeting values from an INI section and returns them as a list
     greetings := []  ; Initialize empty array
@@ -113,6 +118,16 @@ get_hotstrings(config_path)
 
 ::/time:: {
     send_formatted_dt("HH:mm") ; 16:11
+}
+
+::/epoch:: {
+    send_unix_epoch_seconds()
+}
+::/unix:: {
+    send_unix_epoch_seconds()
+}
+::/unixtime:: {
+    send_unix_epoch_seconds()
 }
 
 ; Triggers time-aware, polite email greeting

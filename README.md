@@ -33,7 +33,7 @@ Here are some of the features WINDOWS-AHK offers:
 - 🧠 Hotstrings & snippets: Type /date, /addr, etc., to expand text dynamically (customizable).
 - 🔤 Text case transformers: Change selected text to uppercase, lowercase, or title case instantly.
 - 🔍 Quick search: Search any selected text directly in your browser.
-- 🖥️ Presentation mode: Toggle Windows Presentation Mode on/off.
+- 🖥️ Presentation / stay awake: Toggle Windows Presentation Mode where available; on Home and similar editions, a **stay-awake** fallback keeps the system from idling to sleep while the script runs.
 - 🧩 Customizable: Change actions, hotkeys, and text expansions via configuration file — no code needed!
 
 **Learn more about AutoHotKey**

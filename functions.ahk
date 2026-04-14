@@ -87,37 +87,70 @@ toggle_launch_notification(*) {
 }
 
 
+; Windows Home and some SKUs lack working Presentation Settings; use SetThreadExecutionState as fallback.
+toggle_keep_awake_mode(*) {
+    global keep_awake_fallback_active
+    static awake := false
+    ES_CONTINUOUS := 0x80000000
+    ES_SYSTEM_REQUIRED := 0x00000001
+    ES_DISPLAY_REQUIRED := 0x00000002
+
+    if awake {
+        DllCall("SetThreadExecutionState", "UInt", ES_CONTINUOUS)
+        awake := false
+        keep_awake_fallback_active := false
+        tray.UnCheck(txt_presentation_mode)
+        TrayTip("Stay awake is off (idle sleep allowed).", "Presentation / stay awake", "Iconi Mute")
+    } else {
+        DllCall("SetThreadExecutionState", "UInt", ES_CONTINUOUS | ES_SYSTEM_REQUIRED | ES_DISPLAY_REQUIRED)
+        awake := true
+        keep_awake_fallback_active := true
+        tray.check(txt_presentation_mode)
+        TrayTip("Stay awake is on. Sleep is blocked while this script is running.", "Presentation / stay awake", "Iconi")
+    }
+}
+
+presentation_cleanup_on_exit(*) {
+    global keep_awake_fallback_active
+    if keep_awake_fallback_active
+        DllCall("SetThreadExecutionState", "UInt", 0x80000000)
+}
+
 toggle_presentation_mode(*) {
     ; Function: togglePresentationMode
-    ; Description: Toggles presentation mode on or off.
+    ; Description: Toggles Windows Presentation Mode, or stay-awake (API) when Presentation Settings is unavailable.
 
-    ; Define the program name and AHK executable specifier
+    static prefer_keep_awake := false
+    if prefer_keep_awake {
+        toggle_keep_awake_mode()
+        return
+    }
+
     program := "presentationsettings.exe"
     ahk_program := "ahk_exe " . program
 
-    ; Run the presentation settings program
-    Run(program)
+    try {
+        Run(program)
+        WinWait(ahk_program,, 10)
+        presentationStatus := ControlGetChecked("Button1", ahk_program)
 
-    ; Wait for the program to open
-    WinWait(ahk_program)
-
-    ; Get the current presentation mode status
-    presentationStatus := ControlGetChecked("Button1", ahk_program)
-
-    ; Toggle presentation mode based on the current status
-    if (presentationStatus == 1) {
-        ; Presentation mode is on, turning it off
-        ControlSetChecked(0, "Button1", ahk_program)
-        ControlSetChecked(1, "Button7", ahk_program) ; check OK
-        tray.UnCheck(txt_presentation_mode)
-        TrayTip("Presentation mode has been toggled off.", "Presentation mode: Off", "Iconi Mute")
-    } else {
-        ; Presentation mode is off, turning it on
-        ControlSetChecked(1, "Button1", ahk_program)
-        ControlSetChecked(1, "Button3", ahk_program) ; check "Turn off screen saver" if not checked
-        ControlSetChecked(1, "Button7", ahk_program) ; check OK
-        tray.check(txt_presentation_mode)
-        TrayTip("Presentation mode has been toggled on. Your computer will stay awake indefinitely.", "Presentation mode: On", "Iconi")
+        if (presentationStatus == 1) {
+            ControlSetChecked(0, "Button1", ahk_program)
+            ControlSetChecked(1, "Button7", ahk_program)
+            tray.UnCheck(txt_presentation_mode)
+            TrayTip("Presentation mode has been toggled off.", "Presentation mode: Off", "Iconi Mute")
+        } else {
+            ControlSetChecked(1, "Button1", ahk_program)
+            ControlSetChecked(1, "Button3", ahk_program)
+            ControlSetChecked(1, "Button7", ahk_program)
+            tray.check(txt_presentation_mode)
+            TrayTip("Presentation mode has been toggled on. Your computer will stay awake indefinitely.", "Presentation mode: On", "Iconi")
+        }
+    } catch Error {
+        try WinClose(ahk_program)
+        prefer_keep_awake := true
+        TrayTip("Presentation Settings is not available here. Using stay-awake mode instead (same hotkey).", "windows-ahk", "Iconi")
+        toggle_keep_awake_mode()
     }
 }
 

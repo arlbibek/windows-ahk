@@ -53,6 +53,7 @@ tray.Add(txt_locate_file, open_script_location)
 tray.SetIcon(txt_locate_file, "shell32.dll", 4)
 tray.Add(txt_launch_config, launch_config_ui)
 tray.SetIcon(txt_launch_config, "shell32.dll", 70)
+tray.Default := txt_launch_config
 
 tray.Add(txt_win_util, tray_win_util_menu)
 tray.SetIcon(txt_win_util, "shell32.dll", 16)

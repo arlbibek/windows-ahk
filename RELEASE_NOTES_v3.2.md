@@ -2,6 +2,7 @@
 
 ## Updates
 
+- **Network adapter switch** — Under **Tray → Windows Utilities**, a new item runs [nadap-switch](https://github.com/arlbibek/nadap-switch) so you can toggle network adapters from the tray (same remote-invoke pattern as the other utilities there).
 - **Automatic update check on launch** — The compiled app checks GitHub for a newer release every time it starts. If an update is available, you get a tray notification and can install from **Preferences** as before.
 - **Keyboard shortcuts PDF stays current after upgrades** — After you install a new version, the cached PDF in your profile is refreshed from the copy shipped with that build (tracked by app version), so shortcuts match the release you installed.
 - **More reliable PDF download** — If the shortcuts file is missing, download tries the **latest release asset** first, then falls back to the **raw file on `master`** if needed.

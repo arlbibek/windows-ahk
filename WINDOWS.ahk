@@ -98,3 +98,5 @@ if StrLower(first_launch) == "true" {
 if FileExist(tray_icon) {
     TraySetIcon(tray_icon)
 }
+
+OnExit(presentation_cleanup_on_exit)

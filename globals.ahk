@@ -98,6 +98,7 @@ global config_update_status_text := ""
 global config_install_update_btn := ""
 global update_latest_version := ""
 global update_installer_url := ""
+global keep_awake_fallback_active := false
 
 ; Script assets directory and tray icon path
 global tray_icon := A_ScriptDir . "\assets\windows-ahk.ico"
