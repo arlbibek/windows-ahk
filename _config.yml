@@ -8,3 +8,7 @@ url: "https://windows-ahk.bibeka.com.np"
 theme: minima
 
 github_repo_url: "https://github.com/arlbibek/windows-ahk"
+
+# Minima: show Documentation in site header next to Home
+header_pages:
+  - documentation.md

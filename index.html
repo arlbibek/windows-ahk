@@ -1,0 +1,362 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{ site.description | strip_newlines | escape }}">
+  <title>{{ site.title }} — Windows productivity with AutoHotkey v2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c0f14;
+      --bg-elevated: #121820;
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #e8ecf1;
+      --muted: #8b96a8;
+      --accent: #3dd6c3;
+      --accent-dim: rgba(61, 214, 195, 0.15);
+      --accent-glow: rgba(61, 214, 195, 0.35);
+      --radius: 14px;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "DM Sans", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+    /* Nav */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      background: rgba(12, 15, 20, 0.75);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 64px;
+      gap: 16px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .brand:hover { text-decoration: none; opacity: 0.92; }
+    .brand img { width: 36px; height: 36px; border-radius: 10px; }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      align-items: center;
+      font-size: 0.92rem;
+    }
+    .nav-links a { color: var(--muted); }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      padding: 72px 0 88px;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -40% -20% auto -20%;
+      height: 120%;
+      background: radial-gradient(ellipse 70% 50% at 50% 0%, var(--accent-glow), transparent 55%);
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 48px;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .eyebrow span {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+    h1 {
+      font-size: clamp(2.25rem, 5vw, 3.25rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.12;
+      margin: 0 0 16px;
+    }
+    .lead {
+      font-size: 1.125rem;
+      color: var(--muted);
+      max-width: 34em;
+      margin: 0 0 28px;
+    }
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #2ebfae, #3dd6c3);
+      color: #0a0d11;
+      box-shadow: 0 8px 32px var(--accent-glow);
+    }
+    .btn-primary:hover { transform: translateY(-1px); text-decoration: none; }
+    .btn-secondary {
+      background: var(--bg-elevated);
+      color: var(--text);
+      border-color: var(--border);
+    }
+    .btn-secondary:hover { color: var(--text); border-color: rgba(255,255,255,0.15); text-decoration: none; }
+    .meta-row {
+      font-size: 0.875rem;
+      color: var(--muted);
+      font-family: "JetBrains Mono", monospace;
+    }
+
+    .hero-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+    .hero-card h2 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin: 0 0 16px;
+      font-weight: 600;
+    }
+    .feature-list { list-style: none; padding: 0; margin: 0; }
+    .feature-list li {
+      display: flex;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+    .feature-list li:last-child { border-bottom: 0; }
+    .feature-list .icon {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    /* Sections */
+    section { padding: 56px 0; }
+    .section-head {
+      max-width: 560px;
+      margin-bottom: 36px;
+    }
+    .section-head h2 {
+      font-size: 1.75rem;
+      letter-spacing: -0.02em;
+      margin: 0 0 10px;
+    }
+    .section-head p { color: var(--muted); margin: 0; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: border-color 0.2s ease;
+    }
+    .card:hover { border-color: rgba(61, 214, 195, 0.25); }
+    .card h3 { font-size: 1.05rem; margin: 0 0 8px; letter-spacing: -0.02em; }
+    .card p { margin: 0; font-size: 0.92rem; color: var(--muted); }
+
+    .download-panel {
+      background: linear-gradient(145deg, var(--bg-elevated), #0e141c);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .download-panel h2 { margin: 0 0 8px; font-size: 1.35rem; }
+    .download-panel p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 48px 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    footer .footer-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    footer strong { color: var(--text); }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="{{ '/' | relative_url }}">
+        <img src="{{ '/assets/windows-ahk.png' | relative_url }}" width="36" height="36" alt="">
+        {{ site.title }}
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#features">Features</a>
+        <a href="#download">Download</a>
+        <a href="{{ '/documentation/' | relative_url }}">Docs</a>
+        <a href="{{ site.github_repo_url }}">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow"><span>AutoHotkey v2</span> · Windows</p>
+          <h1>Smarter shortcuts, less friction.</h1>
+          <p class="lead">{{ site.description | strip_newlines }}</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="{{ site.github_repo_url }}/releases/latest">Download latest release</a>
+            <a class="btn btn-secondary" href="{{ '/documentation/' | relative_url }}">Full documentation</a>
+          </div>
+          <p class="meta-row">Installer · no admin · per-user · open source (GPLv3)</p>
+        </div>
+        <aside class="hero-card" aria-label="Quick facts">
+          <h2>What you get</h2>
+          <ul class="feature-list">
+            <li><span class="icon">✓</span> Function keys as app switchers &amp; actions</li>
+            <li><span class="icon">✓</span> Explorer shortcuts &amp; folder jumps</li>
+            <li><span class="icon">✓</span> Hotstrings &amp; snippets</li>
+            <li><span class="icon">✓</span> Preferences UI + in-app updates (EXE)</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Built for daily Windows work</h2>
+          <p>Customize behavior without editing code—then go deeper when you want.</p>
+        </div>
+        <div class="cards">
+          <div class="card">
+            <h3>Function keys</h3>
+            <p>Map F1–F12 to apps, browsers, Alt+Tab, and more from a dedicated manager.</p>
+          </div>
+          <div class="card">
+            <h3>File Explorer</h3>
+            <p>Jump to Desktop, Downloads, Documents, and open PowerShell or VS Code in place.</p>
+          </div>
+          <div class="card">
+            <h3>Hotstrings</h3>
+            <p>Expand /date, /addr, greetings, and your own snippets from config.</p>
+          </div>
+          <div class="card">
+            <h3>Presentation mode</h3>
+            <p>Toggle Windows Presentation Mode from the tray when you need to stay awake.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="download">
+      <div class="wrap">
+        <div class="download-panel">
+          <div>
+            <h2>Get WINDOWS-AHK</h2>
+            <p>Use the <strong>setup installer</strong> from Releases for the smoothest install and updates. Portable EXE is available for advanced users.</p>
+          </div>
+          <div class="cta-row" style="margin-bottom:0;">
+            <a class="btn btn-primary" href="{{ site.github_repo_url }}/releases/latest">Download on GitHub</a>
+            <a class="btn btn-secondary" href="{{ site.github_repo_url }}">View source</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div>
+        <strong>{{ site.title }}</strong><br>
+        Made with care by <a href="https://bibeka.com.np/">Bibek Aryal</a>
+      </div>
+      <div>
+        <a href="{{ '/documentation/' | relative_url }}">Documentation</a>
+        ·
+        <a href="{{ site.github_repo_url }}/blob/master/LICENSE">License</a>
+        ·
+        <a href="{{ site.github_repo_url }}/issues">Issues</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

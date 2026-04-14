@@ -2,14 +2,14 @@
 
 A simple and intuitive AutoHotKey script designed to enhance Windows shortcuts and improve your workflow.
 
-[GitHub License](https://github.com/arlbibek/windows-ahk/blob/master/LICENSE)
-[GitHub release](https://github.com/arlbibek/windows-ahk/releases/latest)
-[GitHub all releases](https://github.com/arlbibek/windows-ahk/releases/latest)
-[GitHub Stars](https://github.com/arlbibek/windows-ahk/stargazers)
-[GitHub Forks](https://github.com/arlbibek/windows-ahk/network/members)
-[GitHub Issues](https://github.com/arlbibek/windows-ahk/issues)
-[Last Commit](https://github.com/arlbibek/windows-ahk/commits/main)
-[Repo Size](https://github.com/arlbibek/windows-ahk)
+[![GitHub License](https://img.shields.io/github/license/arlbibek/windows-ahk)](https://github.com/arlbibek/windows-ahk/blob/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/v/release/arlbibek/windows-ahk)](https://github.com/arlbibek/windows-ahk/releases/latest)
+[![GitHub all releases](https://img.shields.io/github/downloads/arlbibek/windows-ahk/total)](https://github.com/arlbibek/windows-ahk/releases/latest)
+[![GitHub Stars](https://img.shields.io/github/stars/arlbibek/windows-ahk?style=social)](https://github.com/arlbibek/windows-ahk/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/arlbibek/windows-ahk?style=social)](https://github.com/arlbibek/windows-ahk/network/members)
+[![GitHub Issues](https://img.shields.io/github/issues/arlbibek/windows-ahk)](https://github.com/arlbibek/windows-ahk/issues)
+[![Last Commit](https://img.shields.io/github/last-commit/arlbibek/windows-ahk)](https://github.com/arlbibek/windows-ahk/commits/main)
+[![Repo Size](https://img.shields.io/github/repo-size/arlbibek/windows-ahk)](https://github.com/arlbibek/windows-ahk)
 
 Do you often find yourself repeating small, tedious tasks — like switching between apps, copying text, pasting it into a browser to search, checking the calendar just to type today’s date, changing text cases, or typing the same responses over and over? This script attempts to eliminate those micro-frustrations by automating repetitive actions.
 
@@ -41,9 +41,9 @@ THESE SCRIPTS TEND TO BE VERY ADDICTIVE.
 
 ### Option 1
 
-✅ *Recommended*
+✅ _Recommended_
 
-1. Download `windows-ahk-setup-<version>.exe` from the latest [releases](https://github.com/arlbibek/windows-ahk/releases).
+1. Download `windows-ahk-setup-v3.x.exe` from the latest [releases](https://github.com/arlbibek/windows-ahk/releases).
 2. Run the installer (no admin required).
 3. The app is installed per-user to `%LocalAppData%\windows-ahk`.
 4. Prefer the installer over `WINDOWS_AHK.exe` (portable/advanced use only).
@@ -55,7 +55,7 @@ THESE SCRIPTS TEND TO BE VERY ADDICTIVE.
 
 ### Option 2
 
-☑️ *Ideal for users who prefer not to run `.exe` files or want to tweak the script*
+☑️ _Ideal for users who prefer not to run `.exe` files or want to tweak the script_
 
 1. Download and install AutoHotKey v2 from [autohotkey.com/download](https://www.autohotkey.com/download).
 2. Clone this repository and navigate to the `windows-ahk/` directory.
@@ -75,6 +75,7 @@ You can personalize the script by editing `config.ini` (for function key behavio
 4. Save changes and reload the script
 
 Other preferences:
+
 - Use **Keyboard shortcuts** button in Preferences to open the latest shortcuts PDF.
 - Use tray **Show launch notification** to enable or disable startup tray notification.
 
