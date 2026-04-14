@@ -34,6 +34,7 @@ Name: "startupshortcut"; Description: "Run at startup for current user"; GroupDe
 Source: "..\dist\WINDOWS_AHK.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\assets\windows-ahk.ico"; DestDir: "{app}\assets"; Flags: ignoreversion
 Source: "..\assets\windows-ahk.png"; DestDir: "{app}\assets"; Flags: ignoreversion
+Source: "..\assets\keyboardshortcuts.pdf"; DestDir: "{app}\assets"; Flags: ignoreversion
 Source: "..\version.txt"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]

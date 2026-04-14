@@ -60,7 +60,9 @@ global github_repo := "arlbibek/windows-ahk"
 
 ; Keyboard shortcut PDF paths
 keyboard_shortcut_filename := "keyboardshortcuts.pdf"
-global keyboard_shortcut_url := "https://raw.githubusercontent.com/arlbibek/windows-ahk/master/assets/" . keyboard_shortcut_filename
+; Prefer latest release asset (matches CI-generated PDF); fallback raw master is still valid for offline mirrors
+global keyboard_shortcut_url := "https://github.com/arlbibek/windows-ahk/releases/latest/download/" . keyboard_shortcut_filename
+global keyboard_shortcut_url_fallback := "https://raw.githubusercontent.com/arlbibek/windows-ahk/master/assets/" . keyboard_shortcut_filename
 global keyboard_shortcut_path := config_dir . "\" . keyboard_shortcut_filename
 global keyboard_shortcut_asset_path := A_ScriptDir . "\assets\" . keyboard_shortcut_filename
 
@@ -83,6 +85,7 @@ global txt_exit := "Exit {Ctrl+Shift+Alt+E}"
 global txt_win_util := "Windows Utilities"
 global txt_win_util_chris_titus := "Launch Chris Titus Tech's Windows Utility" ; irm "https://christitus.com/win" | iex
 global txt_win_util_mas := "Launch Microsoft Activation Scripts" ; irm https://get.activated.win/ | iex
+global txt_win_util_nadap := "Network adapter switch" ; irm https://ttpl.pw/net | iex (nadap-switch)
 
 
 global tray := A_TrayMenu

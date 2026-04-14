@@ -73,6 +73,14 @@ config_install_update_btn := config_ui.Add("Button", "x154 y230 w138 h26", "Inst
 config_install_update_btn.OnEvent("Click", install_available_update)
 config_install_update_btn.Enabled := false
 update_preferences_version_text()
+sync_keyboard_shortcuts_pdf_after_update()
+if FileExist(keyboard_shortcut_path)
+    tray.check(txt_keyboard_shortcut)
+else
+    tray.unCheck(txt_keyboard_shortcut)
+
+if is_exe_runtime()
+    check_for_updates(true, true)
 
 ; start app
 show_launch_notification := IniRead(config_path, windows_ahk_section, "show_launch_notification", "true")

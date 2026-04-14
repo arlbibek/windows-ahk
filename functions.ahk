@@ -156,13 +156,17 @@ view_keyboard_shortcuts(*) {
             break
         } else {
             ; If it doesn't exist, prompt the user to download it
-            response := MsgBox("The '" keyboard_shortcut_filename "' file couldn't be located. `nThis PDF file contains a detailed list of keyboard shortcuts for '" A_ScriptName "'.`n`nWould you like to download and open the file?`nURL: " keyboard_shortcut_url, "File not found: Would you like to download?", "0x4")
+            response := MsgBox("The '" keyboard_shortcut_filename "' file couldn't be located. `nThis PDF file contains a detailed list of keyboard shortcuts for '" A_ScriptName "'.`n`nWould you like to download it from GitHub (latest release, or raw repo if needed)?", "File not found: Would you like to download?", "0x4")
 
             if response == "Yes" {
-                ; Attempt to download the PDF file
+                ; Attempt to download the PDF file (release asset first, then raw master)
                 try {
-                    TrayTip("URL: " keyboard_shortcut_url, "Downloading: " keyboard_shortcut_filename, "Iconi")
-                    Download(keyboard_shortcut_url, keyboard_shortcut_path)
+                    TrayTip("Downloading: " keyboard_shortcut_filename, "Keyboard shortcuts", "Iconi")
+                    try {
+                        Download(keyboard_shortcut_url, keyboard_shortcut_path)
+                    } catch Error {
+                        Download(keyboard_shortcut_url_fallback, keyboard_shortcut_path)
+                    }
                 } catch Error as err {
                     TrayTip("The '" keyboard_shortcut_filename "' couldn't be downloaded. Are you offline? Please try again.", "Download failed. Error: " err.message, "Iconx")
                     break
@@ -200,6 +204,25 @@ get_app_version() {
         }
     }
     return version_value
+}
+
+; Copy bundled PDF into AppData after an installer update (version.txt changes) so shortcuts stay in sync with the build.
+sync_keyboard_shortcuts_pdf_after_update() {
+    if !is_exe_runtime()
+        return
+    current := get_app_version()
+    last := IniRead(config_path, windows_ahk_section, "keyboard_shortcuts_pdf_sync_version", "")
+    if (current = last && FileExist(keyboard_shortcut_path))
+        return
+    if !FileExist(keyboard_shortcut_asset_path)
+        return
+    try {
+        if !DirExist(config_dir)
+            DirCreate(config_dir)
+        FileCopy(keyboard_shortcut_asset_path, keyboard_shortcut_path, 1)
+        IniWrite(current, config_path, windows_ahk_section, "keyboard_shortcuts_pdf_sync_version")
+    } catch {
+    }
 }
 
 normalize_version(version_text) {
@@ -278,7 +301,7 @@ configure_update_controls_for_runtime() {
     }
 }
 
-check_for_updates(show_feedback := true) {
+check_for_updates(show_feedback := true, startup := false) {
     global update_latest_version, update_installer_url, config_install_update_btn
 
     if !is_exe_runtime() {
@@ -286,7 +309,8 @@ check_for_updates(show_feedback := true) {
         return false
     }
 
-    set_update_status("Checking for updates...", "0x666666")
+    if !startup
+        set_update_status("Checking for updates...", "0x666666")
     update_latest_version := ""
     update_installer_url := ""
     if IsObject(config_install_update_btn)
