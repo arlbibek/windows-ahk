@@ -106,6 +106,10 @@ jobs:
         shell: pwsh
         run: choco install innosetup -y
 
+      - name: Generate latest keyboard shortcuts PDF
+        shell: pwsh
+        run: .\scripts\generate-shortcuts-pdf.ps1
+
       - name: Build exe and installer
         shell: pwsh
         run: .\scripts\build-release.ps1 -Version "${{ steps.version.outputs.value }}"

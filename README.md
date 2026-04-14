@@ -86,6 +86,12 @@ Other preferences:
 - The app downloads the latest installer, launches it, and closes the current process so upgrade can complete.
 - Your config stays in `%AppData%\windows-ahk\config.ini`, so settings are preserved.
 
+### Keyboard shortcuts PDF generation
+
+- The release workflow now regenerates `assets/keyboardshortcuts.pdf` automatically from `keyboardshortcuts.md`.
+- You can regenerate locally anytime with:
+  - `powershell -ExecutionPolicy Bypass -File .\scripts\generate-shortcuts-pdf.ps1`
+
 ## 📂 Project Structure
 
 - `WINDOWS.ahk` – Main script
