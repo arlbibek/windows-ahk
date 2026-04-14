@@ -20,9 +20,14 @@ if (-not (Test-Path $distDir)) {
 }
 
 $ahk2Exe = ""
+$ahkBaseExe = ""
 
 if (-not [string]::IsNullOrWhiteSpace($env:AHK2EXE_PATH) -and (Test-Path $env:AHK2EXE_PATH)) {
     $ahk2Exe = $env:AHK2EXE_PATH
+}
+
+if (-not [string]::IsNullOrWhiteSpace($env:AHK_BASE_EXE_PATH) -and (Test-Path $env:AHK_BASE_EXE_PATH)) {
+    $ahkBaseExe = $env:AHK_BASE_EXE_PATH
 }
 
 if (-not $ahk2Exe) {
@@ -61,11 +66,27 @@ if (-not $ahk2Exe) {
 }
 Write-Host "Using Ahk2Exe: $ahk2Exe"
 
+if (-not $ahkBaseExe) {
+    $baseCandidates = @(
+        "$env:LocalAppData\Programs\AutoHotkey\v2\AutoHotkey64.exe",
+        "$env:LocalAppData\Programs\AutoHotkey\AutoHotkey64.exe",
+        "C:\Program Files\AutoHotkey\v2\AutoHotkey64.exe",
+        "C:\Program Files\AutoHotkey\AutoHotkey64.exe",
+        "C:\Program Files (x86)\AutoHotkey\v2\AutoHotkey64.exe",
+        "C:\Program Files (x86)\AutoHotkey\AutoHotkey64.exe"
+    )
+    $ahkBaseExe = $baseCandidates | Where-Object { Test-Path $_ } | Select-Object -First 1
+}
+if (-not $ahkBaseExe) {
+    throw "AutoHotkey64.exe base executable not found."
+}
+Write-Host "Using base executable: $ahkBaseExe"
+
 $sourceScript = "$repoRoot\WINDOWS.ahk"
 $outputExe = "$distDir\WINDOWS_AHK.exe"
 $iconPath = "$repoRoot\assets\windows-ahk.ico"
 
-& $ahk2Exe /in $sourceScript /out $outputExe /icon $iconPath
+& $ahk2Exe /in $sourceScript /out $outputExe /icon $iconPath /base $ahkBaseExe
 if ($LASTEXITCODE -ne 0) {
     throw "Ahk2Exe failed."
 }

@@ -32,25 +32,59 @@ jobs:
         shell: pwsh
         run: winget install --id AutoHotkey.AutoHotkey -e --silent --accept-package-agreements --accept-source-agreements
 
-      - name: Download Ahk2Exe compiler (deterministic)
+      - name: Resolve AutoHotkey base executable
+        shell: pwsh
+        run: |
+          $candidates = @(
+            "$env:LocalAppData\Programs\AutoHotkey\v2\AutoHotkey64.exe",
+            "$env:LocalAppData\Programs\AutoHotkey\AutoHotkey64.exe",
+            "C:\Program Files\AutoHotkey\v2\AutoHotkey64.exe",
+            "C:\Program Files\AutoHotkey\AutoHotkey64.exe",
+            "C:\Program Files (x86)\AutoHotkey\v2\AutoHotkey64.exe",
+            "C:\Program Files (x86)\AutoHotkey\AutoHotkey64.exe"
+          )
+          $baseExe = $candidates | Where-Object { Test-Path $_ } | Select-Object -First 1
+          if (-not $baseExe) {
+            $roots = @("$env:LocalAppData\Programs\AutoHotkey", "C:\Program Files\AutoHotkey", "C:\Program Files (x86)\AutoHotkey")
+            foreach ($root in $roots) {
+              if (Test-Path $root) {
+                $found = Get-ChildItem -Path $root -Filter "AutoHotkey64.exe" -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
+                if ($found) {
+                  $baseExe = $found.FullName
+                  break
+                }
+              }
+            }
+          }
+          if (-not $baseExe) { throw "AutoHotkey64.exe base executable not found after winget install." }
+          "AHK_BASE_EXE_PATH=$baseExe" | Out-File -FilePath $env:GITHUB_ENV -Append
+          Write-Host "Resolved base executable: $baseExe"
+
+      - name: Download official Ahk2Exe compiler
         shell: pwsh
         run: |
           $toolsDir = "$env:RUNNER_TEMP\ahk-tools"
           New-Item -Path $toolsDir -ItemType Directory -Force | Out-Null
           $zipPath = "$toolsDir\Ahk2Exe.zip"
-          Invoke-WebRequest -Uri "https://github.com/AutoHotkey/Ahk2Exe/releases/latest/download/Ahk2Exe.zip" -OutFile $zipPath
+          $release = Invoke-RestMethod -Uri "https://api.github.com/repos/AutoHotkey/Ahk2Exe/releases/latest" -Headers @{ "User-Agent" = "windows-ahk-build" }
+          $asset = $release.assets | Where-Object { $_.name -like "*.zip" } | Select-Object -First 1
+          if (-not $asset) { throw "No Ahk2Exe zip asset found in latest release." }
+          Invoke-WebRequest -Uri $asset.browser_download_url -OutFile $zipPath
           Expand-Archive -Path $zipPath -DestinationPath $toolsDir -Force
           $exe = Get-ChildItem -Path $toolsDir -Filter "Ahk2Exe.exe" -Recurse | Select-Object -First 1
           if (-not $exe) { throw "Ahk2Exe.exe not found in downloaded tools." }
           "AHK2EXE_PATH=$($exe.FullName)" | Out-File -FilePath $env:GITHUB_ENV -Append
           Write-Host "Resolved Ahk2Exe: $($exe.FullName)"
 
-      - name: Verify Ahk2Exe discovery
+      - name: Verify compiler discovery
         shell: pwsh
         run: |
           Write-Host "AHK2EXE_PATH from env: $env:AHK2EXE_PATH"
+          Write-Host "AHK_BASE_EXE_PATH from env: $env:AHK_BASE_EXE_PATH"
           if ([string]::IsNullOrWhiteSpace($env:AHK2EXE_PATH)) { throw "AHK2EXE_PATH is empty." }
           if (-not (Test-Path $env:AHK2EXE_PATH)) { throw "AHK2EXE_PATH does not exist: $env:AHK2EXE_PATH" }
+          if ([string]::IsNullOrWhiteSpace($env:AHK_BASE_EXE_PATH)) { throw "AHK_BASE_EXE_PATH is empty." }
+          if (-not (Test-Path $env:AHK_BASE_EXE_PATH)) { throw "AHK_BASE_EXE_PATH does not exist: $env:AHK_BASE_EXE_PATH" }
           & "$env:AHK2EXE_PATH" /?
 
       - name: Install Inno Setup
