@@ -19,19 +19,29 @@ if (-not (Test-Path $distDir)) {
     New-Item -Path $distDir -ItemType Directory | Out-Null
 }
 
-$ahkCandidates = @(
-    "C:\Program Files\AutoHotkey\v2\Compiler\Ahk2Exe.exe",
-    "C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe",
-    "${env:ChocolateyInstall}\lib\autohotkey\tools\Ahk2Exe.exe",
-    "${env:ChocolateyInstall}\lib\autohotkey.install\tools\Ahk2Exe.exe"
-)
-$ahk2Exe = $ahkCandidates | Where-Object { Test-Path $_ } | Select-Object -First 1
+$ahk2Exe = ""
+
+if (-not [string]::IsNullOrWhiteSpace($env:AHK2EXE_PATH) -and (Test-Path $env:AHK2EXE_PATH)) {
+    $ahk2Exe = $env:AHK2EXE_PATH
+}
+
+if (-not $ahk2Exe) {
+    $ahkCandidates = @(
+        "C:\Program Files\AutoHotkey\v2\Compiler\Ahk2Exe.exe",
+        "C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe",
+        "${env:ChocolateyInstall}\lib\autohotkey\tools\Ahk2Exe.exe",
+        "${env:ChocolateyInstall}\lib\autohotkey.install\tools\Ahk2Exe.exe"
+    )
+    $ahk2Exe = $ahkCandidates | Where-Object { Test-Path $_ } | Select-Object -First 1
+}
+
 if (-not $ahk2Exe) {
     $commandCandidate = Get-Command Ahk2Exe.exe -ErrorAction SilentlyContinue
     if ($commandCandidate) {
         $ahk2Exe = $commandCandidate.Source
     }
 }
+
 if (-not $ahk2Exe) {
     $pfCandidates = @("$env:ProgramFiles\AutoHotkey", "${env:ProgramFiles(x86)}\AutoHotkey")
     foreach ($root in $pfCandidates) {

@@ -32,6 +32,19 @@ jobs:
         shell: pwsh
         run: choco install autohotkey -y
 
+      - name: Download Ahk2Exe compiler (deterministic)
+        shell: pwsh
+        run: |
+          $toolsDir = "$env:RUNNER_TEMP\ahk-tools"
+          New-Item -Path $toolsDir -ItemType Directory -Force | Out-Null
+          $zipPath = "$toolsDir\Ahk2Exe.zip"
+          Invoke-WebRequest -Uri "https://github.com/AutoHotkey/Ahk2Exe/releases/latest/download/Ahk2Exe.zip" -OutFile $zipPath
+          Expand-Archive -Path $zipPath -DestinationPath $toolsDir -Force
+          $exe = Get-ChildItem -Path $toolsDir -Filter "Ahk2Exe.exe" -Recurse | Select-Object -First 1
+          if (-not $exe) { throw "Ahk2Exe.exe not found in downloaded tools." }
+          "AHK2EXE_PATH=$($exe.FullName)" | Out-File -FilePath $env:GITHUB_ENV -Append
+          Write-Host "Resolved Ahk2Exe: $($exe.FullName)"
+
       - name: Install Inno Setup
         shell: pwsh
         run: choco install innosetup -y
