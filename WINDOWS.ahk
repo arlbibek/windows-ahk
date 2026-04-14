@@ -64,6 +64,16 @@ config_ui.Add("Button", "x154 y134 w138 h26", "&Restore defaults").OnEvent("Clic
 
 config_ui.Add("Button", "x8 y166 w138 h26", "&View source code").OnEvent("Click", view_github_source)
 config_ui.Add("Button", "x154 y166 w138 h26", "Reload script").OnEvent("Click", reload_script)
+config_ui.Add("Button", "x8 y198 w138 h26", "Check for updates").OnEvent("Click", (*) => check_for_updates(true))
+config_install_update_btn := config_ui.Add("Button", "x154 y198 w138 h26", "Install update")
+config_install_update_btn.OnEvent("Click", install_available_update)
+config_install_update_btn.Enabled := false
+
+config_version_text := config_ui.Add("Text", "x8 y228 w284 h16", "")
+config_version_text.SetFont("s8 c0x666666")
+config_update_status_text := config_ui.Add("Text", "x8 y246 w284 h28", "Update status: Not checked yet.")
+config_update_status_text.SetFont("s8 c0x666666")
+update_preferences_version_text()
 
 ; start app
 TrayTip("Open keyboard shortcuts with {Ctrl + Shift + Alt + \}`n`n" . txt_author, A_ScriptName " started", "0x1 0x10")

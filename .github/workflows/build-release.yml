@@ -1,0 +1,66 @@
+name: Build and Publish Release
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve version
+        id: version
+        shell: pwsh
+        run: |
+          if ("${{ github.event_name }}" -eq "release") {
+            $version = "${{ github.event.release.tag_name }}"
+          } else {
+            $version = (Get-Content version.txt -Raw).Trim()
+          }
+          if ([string]::IsNullOrWhiteSpace($version)) {
+            throw "Version could not be resolved."
+          }
+          "value=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+
+      - name: Install AutoHotkey
+        shell: pwsh
+        run: choco install autohotkey -y
+
+      - name: Install Inno Setup
+        shell: pwsh
+        run: choco install innosetup -y
+
+      - name: Build exe and installer
+        shell: pwsh
+        run: .\scripts\build-release.ps1 -Version "${{ steps.version.outputs.value }}"
+
+      - name: Generate checksums
+        shell: pwsh
+        run: |
+          Get-FileHash ".\dist\WINDOWS_AHK.exe" -Algorithm SHA256 | ForEach-Object { "$($_.Hash)  WINDOWS_AHK.exe" } | Out-File ".\dist\checksums.txt"
+          $setupFile = Get-ChildItem ".\installer\Output\windows-ahk-setup-*.exe" | Select-Object -First 1
+          Get-FileHash $setupFile.FullName -Algorithm SHA256 | ForEach-Object { "$($_.Hash)  $($setupFile.Name)" } | Add-Content ".\dist\checksums.txt"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-ahk-release-assets
+          path: |
+            dist/WINDOWS_AHK.exe
+            dist/checksums.txt
+            installer/Output/windows-ahk-setup-*.exe
+
+      - name: Attach assets to release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/WINDOWS_AHK.exe
+            dist/checksums.txt
+            installer/Output/windows-ahk-setup-*.exe

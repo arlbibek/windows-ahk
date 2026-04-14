@@ -51,10 +51,12 @@ global start_menu_shortcut := A_StartMenu "\Programs\" A_ScriptName ".lnk"
 global config_file := "config.ini"
 global config_dir := A_AppData . "\windows-ahk"
 global config_path := config_dir . "\" . config_file
+global app_version_file := A_ScriptDir . "\version.txt"
 global windows_ahk_section := "WINDOWS_AHK"
 global function_keys_section := "FUNCTION_KEYS"
 global hotstrings_section := "HOTSTRINGS"
 global well_wishes_section := "WELL_WISHES"
+global github_repo := "arlbibek/windows-ahk"
 
 ; Keyboard shortcut PDF paths
 keyboard_shortcut_filename := "keyboardshortcuts.pdf"
@@ -86,6 +88,11 @@ global tray_win_util_menu := Menu()
 
 global splash_ui := Gui("MinimizeBox", "Welcome! - " . A_ScriptName)
 global config_ui := Gui("MinimizeBox", A_ScriptName . " - Preferences")
+global config_version_text := ""
+global config_update_status_text := ""
+global config_install_update_btn := ""
+global update_latest_version := ""
+global update_installer_url := ""
 
 ; Script assets directory and tray icon path
 global tray_icon := A_ScriptDir . "\assets\windows-ahk.ico"
