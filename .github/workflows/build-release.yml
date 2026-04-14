@@ -87,6 +87,21 @@ jobs:
           if (-not (Test-Path $env:AHK_BASE_EXE_PATH)) { throw "AHK_BASE_EXE_PATH does not exist: $env:AHK_BASE_EXE_PATH" }
           & "$env:AHK2EXE_PATH" /?
 
+      - name: Add Defender exclusions for build outputs
+        shell: pwsh
+        run: |
+          $distDir = Join-Path $env:GITHUB_WORKSPACE "dist"
+          $installerOutDir = Join-Path $env:GITHUB_WORKSPACE "installer\Output"
+          New-Item -Path $distDir -ItemType Directory -Force | Out-Null
+          New-Item -Path $installerOutDir -ItemType Directory -Force | Out-Null
+          Add-MpPreference -ExclusionPath $distDir
+          Add-MpPreference -ExclusionPath $installerOutDir
+          Add-MpPreference -ExclusionProcess $env:AHK2EXE_PATH
+          Write-Host "Added Defender exclusions for:"
+          Write-Host " - $distDir"
+          Write-Host " - $installerOutDir"
+          Write-Host " - process $env:AHK2EXE_PATH"
+
       - name: Install Inno Setup
         shell: pwsh
         run: choco install innosetup -y
@@ -94,6 +109,14 @@ jobs:
       - name: Build exe and installer
         shell: pwsh
         run: .\scripts\build-release.ps1 -Version "${{ steps.version.outputs.value }}"
+
+      - name: List build outputs
+        shell: pwsh
+        run: |
+          Write-Host "dist contents:"
+          Get-ChildItem ".\dist" -Force | Format-Table Name, Length, LastWriteTime -AutoSize
+          Write-Host "installer output contents:"
+          Get-ChildItem ".\installer\Output" -Force | Format-Table Name, Length, LastWriteTime -AutoSize
 
       - name: Generate checksums
         shell: pwsh
