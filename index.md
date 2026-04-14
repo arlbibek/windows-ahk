@@ -41,10 +41,11 @@ THESE SCRIPTS TEND TO BE VERY ADDICTIVE.
 
 ### Option 1
 
-✅ _Recommended_
+✅ *Recommended*
 
-1. Download the `WINDOWS_AHK.exe` from the latest [releases](https://github.com/arlbibek/windows-ahk/releases).
-2. Run the `WINDOWS_AHK.exe` file. Done!
+1. Download `windows-ahk-setup-<version>.exe` from the latest [releases](https://github.com/arlbibek/windows-ahk/releases).
+2. Run the installer (no admin required).
+3. The app is installed per-user to `%LocalAppData%\windows-ahk`.
 
 > **Please note:** You are likely to encounter a [Windows SmartScreen warning](https://sockettools.com/kb/smartscreen-installation-warnings/) when launching `windows_ahk.exe` for the first time.
 > This is a common behavior for executables that aren't digitally signed or widely downloaded.
@@ -53,7 +54,7 @@ THESE SCRIPTS TEND TO BE VERY ADDICTIVE.
 
 ### Option 2
 
-☑️ _Ideal for users who prefer not to run `.exe` files or want to tweak the script_
+☑️ *Ideal for users who prefer not to run `.exe` files or want to tweak the script*
 
 1. Download and install AutoHotKey v2 from [autohotkey.com/download](https://www.autohotkey.com/download).
 2. Clone this repository and navigate to the `windows-ahk/` directory.
@@ -67,10 +68,18 @@ Explore the available keyboard shortcuts in [keyboardshortcuts.md](https://githu
 
 You can personalize the script by editing `config.ini` (for function key behaviors and hotstrings). To do so after launching the script:
 
-1. Right-click the tray icon → **Preferences** (or press Alt + F1)
+1. Right-click the tray icon → **Preferences** (or press <kbd>Alt</kbd> + <kbd>F1</kbd>)
 2. Click **Open config folder** or **Edit config file**
 3. Edit as needed, guidelines can be found on the config file itself or in [keyboardshortcuts.md](https://github.com/arlbibek/windows-ahk/blob/master/keyboardshortcuts.md)
 4. Save changes and reload the script
+
+## 🔄 Updates
+
+- In-app auto-update is for the **compiled EXE build** only (not `WINDOWS.ahk` source mode).
+- Open **Preferences** and click **Check for updates**.
+- If a newer release is found, click **Install update**.
+- The app downloads the latest installer, launches it, and closes the current process so upgrade can complete.
+- Your config stays in `%AppData%\windows-ahk\config.ini`, so settings are preserved.
 
 ## 📂 Project Structure
 
@@ -79,6 +88,9 @@ You can personalize the script by editing `config.ini` (for function key behavio
 - `keyboardshortcuts.md` – Keyboard shortcuts documentation
 - `keyboardshortcuts.pdf` – PDF version of shortcuts
 - `config.ini` – User configuration (generated after first run)
+- `version.txt` – App version source used by updater/build
+- `installer/` – Inno Setup script for no-admin per-user install
+- `scripts/build-release.ps1` – Local release build script (exe + installer)
 
 ## 🔗 Additional Resources
 
